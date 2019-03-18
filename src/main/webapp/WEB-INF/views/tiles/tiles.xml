@@ -46,8 +46,9 @@
 	<!-- 영화 예매 페이지 -->	
 	<!-- movie_main -->
 	<definition name="movie_main" extends="bdefinition">
+		<put-attribute name="header" value="/WEB-INF/views/tiles/template/movie/Header.jsp" />
 		<put-attribute name="title" value="movie" />
-		<put-attribute name="menu" value=""/>
+		<put-attribute name="menu" value="/WEB-INF/views/tiles/template/movie/Menu.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/views/pages/movie/main.jsp" />
 	</definition>
 	
