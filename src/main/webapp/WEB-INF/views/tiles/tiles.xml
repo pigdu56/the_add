@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<!-- Base Definition -->
+	<definition name="bdefinition"
+		template="/WEB-INF/views/tiles/layouts/defaultLayout.jsp">
+		<put-attribute name="title" value="THE ADD" />
+		<put-attribute name="header"
+			value="/WEB-INF/views/tiles/template/defaultHeader.jsp" />
+		<put-attribute name="menu"
+			value="/WEB-INF/views/tiles/template/defaultMenu.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer"
+			value="/WEB-INF/views/tiles/template/defaultFooter.jsp" />
+	</definition>
+
+
+	<!-- 공용 페이지 -->
+	<!-- Home Page -->
+	<definition name="home" extends="bdefinition">
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="/WEB-INF/views/pages/home.jsp" />
+	</definition>
+	
+	<!-- login Page -->
+	<definition name="login" extends="bdefinition">
+		<put-attribute name="body" value="/WEB-INF/views/pages/login.jsp" />
+	</definition>
+
+	<!-- member_join -->
+	<definition name="member_join" extends="bdefinition">
+		<put-attribute name="body" value="/WEB-INF/views/pages/member_join.jsp" />
+	</definition>
+	
+	<!-- about -->
+	<definition name="about" extends="bdefinition">
+		<put-attribute name="body" value="/WEB-INF/views/pages/about.jsp" />
+	</definition>
+	
+	<!-- member_list -->
+	<definition name="member_list" extends="bdefinition">
+		<put-attribute name="body" value="/WEB-INF/views/pages/member_list.jsp" />
+	</definition>
+	
+	<!-- 영화 예매 페이지 -->	
+	<!-- movie_main -->
+	<definition name="movie_main" extends="bdefinition">
+		<put-attribute name="title" value="movie" />
+		<put-attribute name="menu" value=""/>
+		<put-attribute name="body" value="/WEB-INF/views/pages/movie/main.jsp" />
+	</definition>
+	
+	<!-- detail_view -->
+	<definition name="detail_view" extends="bdefinition">
+		<put-attribute name="title" value="movie" />
+		<put-attribute name="menu" value=""/>
+		<put-attribute name="body" value="/WEB-INF/views/pages/movie/detail_view.jsp" />
+	</definition>
+	
+	
+
+</tiles-definitions>
