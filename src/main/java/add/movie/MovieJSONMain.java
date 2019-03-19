@@ -29,7 +29,7 @@ public class MovieJSONMain {
 		// 하루 전 날짜
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
-		cal.add(cal.DATE, -1);
+		cal.add(cal.DATE, -5);
 		String yesterday = date.format(cal.getTime());
 		System.out.println(yesterday);
 		

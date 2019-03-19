@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-img {width: 185px; height: 260px; }
+#poster {width: 185px; height: 260px; }
 .box-image {margin-right: 30px; width: 185px; height: 260px; float: left;}
 .box-contents {float: left; width: 765px; height: 260px; }
 #title{font-size: 25px; vertical-align: middle; float: left; width: 765px; }
@@ -24,7 +24,7 @@ dt, dd { float: left; }
 		<h2>영화 상세</h2>
 		<hr style="border: 3px solid #252424;">
 		<div class="box-image">
-			<img src="${img}">
+			<img src="${img}" id="poster">
 		</div>
 		
 		<div class="box-contents">

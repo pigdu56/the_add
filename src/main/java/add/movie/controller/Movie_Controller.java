@@ -43,6 +43,7 @@ public class Movie_Controller {
 		String movieNm = (String) mj.MV(movieCd).get("movieNm");
 		String img = na.NaverApi(movieNm).get("image");
 		String userRating = na.NaverApi(movieNm).get("userRating");
+		
 		mv.addObject("img", img);
 		mv.addObject("rating", userRating);
 		mv.addObject("movie", mj.MV(movieCd).get("movie_view"));
