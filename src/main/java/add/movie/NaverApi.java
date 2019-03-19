@@ -48,8 +48,7 @@ public class NaverApi {
 			Object obj = parser.parse( json );
 			JSONObject jsonObj = (JSONObject) obj;
 			ArrayList<HashMap<String, String>> list = (ArrayList<HashMap<String, String>>) jsonObj.get("items");
-			for(HashMap<String, String> m : list) {
-				
+			for(HashMap<String, String> m : list) {				
 				return m;
 			}		
 		} catch (Exception e) {

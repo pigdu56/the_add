@@ -71,8 +71,8 @@ public class MovieJSONMain {
 	}
 	
 	// 주간정보 호출 메서드
-	public ArrayList<JSONObject> Mm() {
-		ArrayList<JSONObject> list = new ArrayList<JSONObject>(); 
+	public ArrayList<HashMap<String, String>> Mm() {
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>(); 
 		JSONParser jsonparser = new JSONParser();
 		JSONObject jsonobject;
 		try {
@@ -83,12 +83,15 @@ public class MovieJSONMain {
 				JSONObject entity = (JSONObject) array.get(i);				
 				list.add(entity);
 			}
+			System.out.println(list);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
-
+		for(int j=0;j<list.size();j++) {
+			list.get(j).putAll(na.NaverApi(list.get(j).get("movieNm")));
+		}		
 		return list;
 	}
 	
