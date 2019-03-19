@@ -25,7 +25,7 @@ import add.ic.Ic;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "add.controller", "add.movie.controller", "add.bus.controller", "add.food.controller", "add.trip.controller", "add.real.controller", "add.ship.controller", "add.tour.controller", "add.config", "add.movie", "add.ic" })
+@ComponentScan(basePackages = { "add.controller", "add.movie.controller", "add.bus.controller", "add.food.controller", "add.trip.controller", "add.real.controller", "add.ship.controller", "add.tour.controller", "add.config", "add.movie", "add.trip", "add.ic" })
 @MapperScan(basePackages = { "add.maps" })
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
