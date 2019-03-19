@@ -47,6 +47,7 @@ dt, dd { float: left; }
 							</c:choose>
 						</c:forEach>
 					</dd>
+					
 					<dt><strong>배우 :&nbsp;</strong></dt>
 					<dd class="on"><c:forEach var="a" items="${movie['actors']}" varStatus="status">
 						${a.peopleNm}
@@ -56,6 +57,7 @@ dt, dd { float: left; }
 							</c:choose>
 						</c:forEach>
 					</dd>
+					
 					<dt><strong>장르 :&nbsp;</strong></dt>
 					<dd><c:forEach var="g" items="${movie['genres']}" varStatus="status">
 							${g.genreNm}
@@ -65,6 +67,7 @@ dt, dd { float: left; }
 								</c:choose>
 						</c:forEach>
 					</dd>
+					
 					<dt><strong>기본 :&nbsp;</strong>
 					<dd class="on">
 						<c:forEach var="ad" items="${movie['audits']}" end="0">
@@ -75,6 +78,7 @@ dt, dd { float: left; }
 							${nt.nationNm}
 						</c:forEach>
 					</dd>
+					
 					<dt><strong>개봉일 :&nbsp;</strong></dt>
 					<dd>
 						<fmt:parseDate value="${movie['openDt']}" var="mm" pattern="yyyyMMdd"/>
@@ -82,10 +86,13 @@ dt, dd { float: left; }
 					</dd>
 				</dl>
 			</div>
+			<br/>
+			
+			<span>
+				<a href=""><img src="${pageContext.request.contextPath}/static/img/movie/ticket.PNG" style="width: 40px; height: 40px;"></a>
+			</span>
 		</div>
-		<span>
-			<a href=""><img src="${pageContext.request.contextPath}/static/img/movie/ticket.PNG"></a>
-		</span>
+		
 	</div>
 </body>
 </html>

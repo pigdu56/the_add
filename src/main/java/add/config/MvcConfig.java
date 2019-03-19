@@ -86,12 +86,15 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 	 * Configure ResourceHandlers to serve static resources like CSS/ Javascript
 	 * etc...
 	 */
-
+	
+	
+	// CSS/ JS/ IMG 경로 지정
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/static/**").addResourceLocations("/static/");
 	}
-
+	
+	// Interceptor 경로 지정
 	 @Override
     public void addInterceptors(InterceptorRegistry registry) {
 		 registry.addInterceptor(new Ic()).addPathPatterns("/movie/**").addPathPatterns("/bus/**").addPathPatterns("/food/**").addPathPatterns("/ship/**").addPathPatterns("/real/**").addPathPatterns("/tour/**").addPathPatterns("/trip/**");
