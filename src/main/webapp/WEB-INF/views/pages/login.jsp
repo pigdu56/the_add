@@ -6,10 +6,10 @@ body {background-color:black;}
 form { width:100%; height:100%;}
 .imgcontainer { text-align:center; margin-top:170px; }
 img.avatar { width:30%; }
-input[type=text], input[type=password] { width: 100%; padding: 12px 20px; margin: 8px 0;
+input[type=text], input[type=password] { width:360px; padding: 12px 20px; margin: 8px 0;
   display: inline-block; border: 1px solid #ccc; box-sizing: border-box; }
-button { background-color: #4CAF50; color: white; padding: 14px 20px; margin: 8px 0; border: none; cursor: pointer; width: 100%; }
-#login{width:35%; height:30%; position:relative; top:40%; left:2%; }
+button { background-color: #4CAF50; color: white; padding: 14px 20px; margin: 8px 0; border: none; cursor: pointer; width:360px; }
+#login{width:35.5%; height:30%; position:relative; top:40%; left:3%; }
 #form{width: 30%; height: 30%; color: #9933FF; position:relative; left:3%;}
 </style>
 
@@ -140,10 +140,22 @@ function flogout(){
 				<input type="hidden" id="USER_PW" name="USER_PW">
 				<br><br>
 				<button style="background-color: #9933FF; border-radius: 12px; font-size: 25px; color: white; font-family: Agency FB;">LOGIN</button>
-			</form>	
-			<button onclick="authGoogle()" style="background-color: black;">
-				<img src="${pageContext.request.contextPath}/static/img/google_login.png" style="width: 100%;">
+			</form>
+			<div style="position:relative; left:1%;">
+			<button onclick="authGoogle()" style="background-color: black; position:relative; left:-20px; width:150px;">
+				<img src="${pageContext.request.contextPath}/static/img/naver.PNG" style="position:relative; left:-13px; width:180px;height:40px;">
 			</button>
+			<button onclick="authGoogle()" style="background-color: black; position:relative; left:5px; width:150px;">
+				<img src="${pageContext.request.contextPath}/static/img/kakao.PNG" style="position:relative; left:-12px; width:170px; height:40px;">
+			</button>
+		
+			<button onclick="authGoogle()" style="background-color: black; position:relative; top:-10px; left:-20px; width:150px;">
+				<img src="${pageContext.request.contextPath}/static/img/facebook.PNG" style="position:relative;top:-10px; left:-12px; width:180px; height:40px;">
+			</button>
+			<button onclick="authGoogle()" style="background-color: black;  position:relative;top:-10px; left:6px; width:150px;">
+				<img src="${pageContext.request.contextPath}/static/img/google.PNG" style="position:relative;top:-10px; left:-12px; width:170px; height:40px;">
+			</button>
+		</div>
 <script type="text/javascript">
 	function login() {
 		var id = $("#USER_ID_TEXT");
