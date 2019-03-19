@@ -6,6 +6,7 @@
 	<definition name="bdefinition"
 		template="/WEB-INF/views/tiles/layouts/defaultLayout.jsp">
 		<put-attribute name="title" value="THE ADD" />
+		<put-attribute name="logo" value="/WEB-INF/views/tiles/template/defaultLogo.jsp"/>
 		<put-attribute name="header"
 			value="/WEB-INF/views/tiles/template/defaultHeader.jsp" />
 		<put-attribute name="menu"
