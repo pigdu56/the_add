@@ -26,7 +26,7 @@ button { background-color: #4CAF50; color: white; padding: 14px 20px; margin: 8p
 hello.init({
    google: '602467592765-5d3i1jad60fvt8hfk3u9k9t0es1drflq.apps.googleusercontent.com',
    facebook: '415398439209729'
-}, {redirect_uri: 'http://localhost:8090/the_add/login'});  // 구글 콘솔에서 승인된 리디렉션 URL의 부분을 입력.
+}, {redirect_uri: 'http://localhost:8080/the_add/login'});  // 구글 콘솔에서 승인된 리디렉션 URL의 부분을 입력.
 
 // 구글 로그인
 function authGoogle(){

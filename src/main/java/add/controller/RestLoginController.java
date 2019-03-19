@@ -1,6 +1,7 @@
 package add.controller;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,7 +28,14 @@ public class RestLoginController {
     	if(hm == null) {
     		testMappable.insertLogin(m);
     	}
+    	s.setAttribute("g_user", m.get("id"));
     	s.setAttribute("LoginUser", m.get("id"));
     	return "login";
+	}
+    
+    @RequestMapping(value = { "/logout" }, method = RequestMethod.GET)
+	public String logout(HttpSession s) {
+		s.invalidate();
+		return "logout";
 	}
 }

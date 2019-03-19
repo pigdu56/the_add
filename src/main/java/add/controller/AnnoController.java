@@ -46,12 +46,6 @@ public class AnnoController {
 		return "login";
 	}
 	
-	@RequestMapping(value = { "/logout" }, method = RequestMethod.GET)
-	public String logout(HttpSession s) {
-		s.invalidate();
-		return "redirect:/login";
-	}
-	
 	@RequestMapping(value = { "/member_list" }, method = RequestMethod.GET)
 	public ModelAndView member_list() {
 		ModelAndView mv = new ModelAndView();		
