@@ -83,7 +83,9 @@ dt, dd { float: left; }
 				</dl>
 			</div>
 		</div>
-		
+		<span>
+			<a href=""><img src="${pageContext.request.contextPath}/static/img/movie/ticket.PNG"></a>
+		</span>
 	</div>
 </body>
 </html>
