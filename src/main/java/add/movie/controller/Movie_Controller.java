@@ -47,7 +47,7 @@ public class Movie_Controller {
 		mv.addObject("rating", userRating);
 		mv.addObject("movie", mj.MV(movieCd).get("movie_view"));
 		mv.setViewName("detail_view");
-		System.out.println(mv);
+		
 		return mv;
 	}
 }

@@ -49,8 +49,6 @@ public class NaverApi {
 			JSONObject jsonObj = (JSONObject) obj;
 			ArrayList<HashMap<String, String>> list = (ArrayList<HashMap<String, String>>) jsonObj.get("items");
 			for(HashMap<String, String> m : list) {
-				String img = m.get("image");
-				String userRating = m.get("userRating");
 				
 				return m;
 			}		

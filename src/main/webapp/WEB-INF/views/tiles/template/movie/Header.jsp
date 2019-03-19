@@ -49,8 +49,10 @@
 		<div class="navbar-collapse justify-content-end"
 			id="collapsibleNavbar">
 			<ul class="nav" style="color: white; font-size: 14px;">
-				<li class="nav-item"><a class="nav-link" id="top_link"
-					href=""><i
+				<li class="nav-item">
+					<c:url var="home" value="/home" />				
+					<a class="nav-link" id="top_link"
+					href="${home}"><i
 						class="glyphicon glyphicon-home">HOME</i></a></li>
 				<c:choose>
 					<c:when test="${empty LoginUser}">
