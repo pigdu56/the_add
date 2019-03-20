@@ -43,7 +43,7 @@ font-family:Agency FB; color:#FFD966; font-size:21px; }
 					</div>
 					<div class="w3-rest">
 						&nbsp;NAME <input class="w3-input w3-border" name="f_name"
-							type="text" placeholder="Lee jun pyo" style="color: black;">
+							type="text" placeholder="Lee jun pyo" required="required" style="color: black;">
 					</div>
 				</div>
 				<!-- 아이디-->
@@ -53,7 +53,7 @@ font-family:Agency FB; color:#FFD966; font-size:21px; }
 					</div>
 					<div class="w3-rest">
 						&nbsp;ID<br><input class="w3-input w3-border" id="id" name="f_id" type="text"
-							placeholder="hello" style="color: black;">
+							placeholder="hello" required="required" style="color: black;">
 							
 							<button style="background-color:#DF01D7;">Check</button>
 							
@@ -72,7 +72,7 @@ font-family:Agency FB; color:#FFD966; font-size:21px; }
 					</div>
 					<div class="w3-rest">
 						&nbsp;PW <input class="w3-input w3-border" name="f_pw"
-							type="password" placeholder="passowrd" style="color: black;">
+							type="password" placeholder="passowrd" required="required" style="color: black;">
 					</div>
 				</div>
 
@@ -83,7 +83,7 @@ font-family:Agency FB; color:#FFD966; font-size:21px; }
 					</div>
 					<div class="w3-rest">
 						&nbsp;Birth <input class="w3-input w3-border" name="f_age"
-							type="text" placeholder="19990930" style="color: black;">
+							type="text" placeholder="19990930" required="required" style="color: black;">
 					</div>
 				</div>
 
@@ -106,7 +106,7 @@ font-family:Agency FB; color:#FFD966; font-size:21px; }
 					<!-- PH -->
 					<div class="w3-row w3-section">
 						<div class="w3-col">
-							<i class="w3-xxlarge fa fa-phone" style="color: #FFD966;"></i>
+							<i class="w3-xxlarge fa fa-phone"  style="color: #FFD966;"></i>
 						</div>
 						<div class="w3-rest">
 							&nbsp;Phone<input class="w3-input w3-border" name="f_ph"
@@ -120,7 +120,7 @@ font-family:Agency FB; color:#FFD966; font-size:21px; }
 						</div>
 						<div class="w3-rest">
 							&nbsp;email <input class="w3-input w3-border" name="f_email"
-								type="text" placeholder="hello@naver.com" style="color: black;">
+								type="text" placeholder="hello@naver.com" required="required" style="color: black;">
 						</div>
 					</div>
 				</div>

@@ -61,6 +61,28 @@
 		<put-attribute name="body" value="/WEB-INF/views/pages/movie/detail_view.jsp" />
 	</definition>
 	
+	<!-- 버스 홈페이지 -->
+	<definition name="bus"
+		template="/WEB-INF/views/tiles/template/bus/defaultLayout.jsp">
+		<put-attribute name="title" value="휴먼 버스" />
+		<put-attribute name="logo" value="/WEB-INF/views/tiles/template/bus/logo.jsp" />
+		<put-attribute name="menu"
+			value="/WEB-INF/views/tiles/template/bus/menu.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer"
+			value="/WEB-INF/views/tiles/template/bus/footer.jsp" />
+	</definition>
+	
+	
+	<!-- Bus Main -->
+	<definition name="bus_main" extends="bus">
+		<put-attribute name="body" value="/WEB-INF/views/pages/bus/bus_main.jsp" />
+	</definition>
+	
+	<!-- Bus_about -->
+	<definition name="bus_about" extends="bus">
+		<put-attribute name="body" value="/WEB-INF/views/pages/bus/bus_about.jsp" />
+	</definition>
 	<!-- trip -->
 	<!-- tripApi -->
 	<definition name="timg" extends="bdefinition">

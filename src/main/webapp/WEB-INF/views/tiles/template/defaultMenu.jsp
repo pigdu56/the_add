@@ -39,8 +39,8 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 				src="${pageContext.request.contextPath}/static/img/mteam.png"
 				style="width: 50px; height: 30%;"><br>
 			</a>
-			
-			<a href="#photos" class="w3-bar-item w3-button w3-middle w3-hover-black"
+			<c:url value="/bus/main" var="b_main" />
+			<a href="${b_main}" class="w3-bar-item w3-button w3-middle w3-hover-black"
 				style="font-size: 13px;">
 				<img src="${pageContext.request.contextPath}/static/img/mbus.png"
 				style="width: 50px; height: 30%;"><br>
