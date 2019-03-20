@@ -20,6 +20,9 @@ public interface TestMappable {
 	@Select("SELECT M_ID FROM MEMBER WHERE M_ID = #{id}")
 	public HashMap<String, Object> selectID(@Param("id") String id);
 	
+	@Select("SELECT COUNT(*) FROM MEMBER WHERE M_ID = #{id}")
+	public HashMap<String, String> id_Check(@Param("id") String id);
+	
 	// 아이디 중복확인
 	@Select("SELECT M_ID FROM MEMBER")
 	public ArrayList<HashMap<String, String>> idcheck();

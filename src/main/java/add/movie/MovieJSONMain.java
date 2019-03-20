@@ -109,7 +109,7 @@ public class MovieJSONMain {
 			m.put("movie_view", movieInfo);
 			m.put("movieNm", movieInfo.get("movieNm"));
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("영화 상세 정보 호출 에러 : " + e.getMessage());
 		}
 		
 		return m;
