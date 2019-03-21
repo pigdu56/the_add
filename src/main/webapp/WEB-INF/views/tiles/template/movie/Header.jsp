@@ -19,11 +19,11 @@
 #top_link{
 	padding-top:0;
 	padding-bottom:0;
-	color:#4F3397; 
+	color:#FEFADB; 
 }
 .ns{
-	background-color: #EDEEEA; 
-	color:#4F3397; 
+	background-color: #F40000; 
+	color:#FEFADB; 
 }
 </style>
 
@@ -32,9 +32,9 @@
 		<ul class="navbar-nav"
 			style="margin-left: 15px; font-size: 14px;">
 			<li class="nav-item"><a class="nav-link" id="top_link"
-				href=""><b>Movie</b></a></li>
+				href="${pageContext.request.contextPath}/movie/main"><b>Movie</b></a></li>
 			<li class="nav-item"><a class="nav-link" id="top_link"
-				href=""><b>Bus</b></a></li>
+				href="${pageContext.request.contextPath}/bus/main"><b>Bus</b></a></li>
 			<li class="nav-item"><a class="nav-link" id="top_link"
 				href=""><b>Food</b></a></li>
 			<li class="nav-item"><a class="nav-link" id="top_link"

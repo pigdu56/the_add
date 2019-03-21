@@ -5,44 +5,50 @@
 #top_link{
 	padding-top:0;
 	padding-bottom:0;
-	color:#4F3397; 
+	color:#FEFADB; 
 }
 .ns{
-	background-color: #EDEEEA; 
-	color:#4F3397; 
+	background-color: #F40000; 
+	color:#FEFADB; 
 }
 .se_li{
 	text-align:center;
 	min-width:100px;
-	color:#EDEEEA;
+	color:black;
 }
 .se_li:active {	
-	color:#EDEEEA;
+	color:black;
 }
 .se_li:visited {
-	color:#EDEEEA;
+	color:black;
 }
 .se_li:hover {
-	background-color:#EDEEEA;
-	color:#4F3397;
+	background-color:#F40000;
+	color:#FEFADB;
 }
 .d_menu{
 	min-width:100px;
 	text-align:center;
 }
 .minis{	
-	color:#4F3397;		
+	color:black;		
 }
 .minis:hover {
-	background-color:#4F3397;
-	color:#EDEEEA;
+	background-color:#F40000;
+	color:#FEFADB;
+}
+#logos{
+	width:64px;
+	height:50px;
+	padding-bottom:10px;
+	margin-left:10px;
 }
 </style>
-<nav class="navbar navbar-expand-sm" style="margin:0; padding:0; background-color:#4F3397; color:#EDEEEA;">
+<nav class="navbar navbar-expand-sm" style="margin:0; padding:0; background-color:#FEFADB; color:black;">
 		<ul class="navbar-nav">
 			<li class="nav-item" style="text-align:center;padding-top:12px;"><img
-				src="${pageContext.request.contextPath}/static/img/movies2.png" alt="logo"></li>
-			<li class="nav-item" style="margin-top:-5px;margin-left:5px;"><h3 style="text-shadow: 1px 1px 1px gray;">ADDMOVIE</h3></li>
+				src="${pageContext.request.contextPath}/static/img/movie/cgv.png" alt="logo" id="logos"></li>
+			<li class="nav-item" style="margin-left:5px;"><h3 style="text-shadow: 1px 1px 1px gray;">CHEONAN</h3></li>
 		</ul>
 		<ul class="navbar-nav" style="margin-left:15px; font-size:14px; padding-top:7px;">
 			<li class="nav-item dropdown">
