@@ -14,9 +14,13 @@ td{
 ul > li{
 	list-style:none;	
 }
+#b_title{
+	text-align:center;
+}
 </style>
 <div class="container">
 	<div id="black">
+		<h2 id="b_title">박스오피스</h2>
 		<table class="table table-bordered" style="width: 100%;">			
 			<tbody>
 				<tr>
