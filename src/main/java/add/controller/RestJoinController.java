@@ -30,13 +30,12 @@ public class RestJoinController {
 	@ResponseBody
 	@RequestMapping(value = {"/id_Check"}, method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	public int id_Check(@RequestParam("f_id") String f_id){
-		String id = f_id;
 		int result = 0;
-		System.out.println(tm.id_Check(id));
-		if(String.valueOf(tm.id_Check(id).get("COUNT(*)")).equals("1")) {
+
+		if(String.valueOf(tm.id_Check(f_id).get("COUNT(*)")).equals("1")) {
 			result = 1;
 		}
-		System.out.println(result);
+		
 		
 		return result;
 	}

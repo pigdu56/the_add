@@ -21,9 +21,6 @@ th, td {
 		<table class="table table-bordered" style="width: 100%;">			
 			<tbody>
 				<tr>
-					<ul>
-						<li></li>
-					</ul>
 				<c:forEach var="m" items="${movie}" begin="0" end="4">					
 						<td>${m.rnum}<c:url var="detail_view"
 								value="/movie/detail_view" />

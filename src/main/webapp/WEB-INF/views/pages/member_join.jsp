@@ -97,9 +97,10 @@ body {
 	left: 30%;
 }
 
-#id {
+#f_id {
 	width: 80%;
 }
+
 </style>
 
 <body class="w3-black">
@@ -134,7 +135,7 @@ body {
 								style="color: black;">
 
 							<button onclick="idCheck()" form=""
-								style="background-color: #DF01D7;">Check</button>
+								style="background-color: #DF01D7;" id="check">Check</button>
 
 							<div id="no" style="display: none;">
 								<h5 style="color: #DF0101;">중복된 아이디입니다.</h5>
