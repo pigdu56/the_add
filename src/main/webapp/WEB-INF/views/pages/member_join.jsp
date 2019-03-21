@@ -209,7 +209,7 @@ body {
 						</div>
 					</div>
 				</div>
-				<button id="join_button" form="form_sub">
+				<button id="join_button" form="form_sub" disabled="disabled">
 					<b>JOIN</b>
 				</button>
 			</form>
@@ -262,6 +262,7 @@ body {
 					} else {
 						con1.style.display = "none";
 						con2.style.display = "block";
+						$("#join_button").removeAttr("disabled"); 
 					}
 				},
 				error : function(request, status, error) { // 에러함수
