@@ -3,17 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style>
-th, td {
-	text-align: center;
-}
 
 .btn_movie {
 	border: 0;
 	background-color: white;
 }
-
-#black{
-	
+td{
+	width:350px;
+}
+ul > li{
+	list-style:none;	
 }
 </style>
 <div class="container">
@@ -22,32 +21,46 @@ th, td {
 			<tbody>
 				<tr>
 				<c:forEach var="m" items="${movie}" begin="0" end="4">					
-						<td>${m.rnum}<c:url var="detail_view"
-								value="/movie/detail_view" />
-							<form action="${detail_view}" method="get">
-								<input type="hidden" name="movieCd" value="${m.movieCd}" />
-								<button class="btn_movie">${m.movieNm}</button>
-							</form>
-						${m.openDt}
-						<fmt:formatNumber
-								pattern="###,###,###" value="${m.audiCnt}" />
-						<img src='${m.image}'>
-						${m.userRating}</td>					
+						<td>
+							<ul style="background-image:url('')">
+								<li>
+									<h4>
+									<b>${m.rnum}.</b>
+									<a href="${pageContext.request.contextPath}/movie/detail_view?movieCd=${m.movieCd}">${m.movieNm}</a>
+									</h4>
+								</li>
+								<li>
+									<img src='${m.image}'>
+								</li>
+								<li>개봉일자 : ${m.openDt}
+								</li>
+								<li>누적 관람객 :<fmt:formatNumber
+									pattern="###,###,###" value="${m.audiCnt}" />명</li>
+								<li>평점 : ${m.userRating}</li>
+							</ul>
+						</td>					
 				</c:forEach>
 				</tr>
 				<tr>
 				<c:forEach var="m" items="${movie}" begin="5" end="9">					
-						<td>${m.rnum}<c:url var="detail_view"
-								value="/movie/detail_view" />
-							<form action="${detail_view}" method="get">
-								<input type="hidden" name="movieCd" value="${m.movieCd}" />
-								<button class="btn_movie">${m.movieNm}</button>
-							</form>
-						${m.openDt}
-						<fmt:formatNumber
-								pattern="###,###,###" value="${m.audiCnt}" />
-						<img src='${m.image}'>
-						${m.userRating}</td>				
+						<td>
+							<ul>
+								<li>
+									<h4>
+									<b>${m.rnum}.</b>
+									<a href="${pageContext.request.contextPath}/movie/detail_view?movieCd=${m.movieCd}">${m.movieNm}</a>
+									</h4>
+								</li>
+								<li>
+									<img src='${m.image}'>
+								</li>
+								<li>개봉일자 : ${m.openDt}
+								</li>
+								<li>누적 관람객 :<fmt:formatNumber
+									pattern="###,###,###" value="${m.audiCnt}" />명</li>
+								<li>평점 : ${m.userRating}</li>
+							</ul>
+						</td>				
 				</c:forEach>
 				</tr>
 			</tbody>
