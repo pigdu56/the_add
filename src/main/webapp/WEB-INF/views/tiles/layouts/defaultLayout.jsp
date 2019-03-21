@@ -28,7 +28,6 @@ function logout(){
 	        type: "get",
 	        success:function(data){     	
 	    			alert("로그아웃 되셨습니다.");
-	    			window.alert("로그아웃 되셨습니다");
 	    			window.location.href="${pageContext.request.contextPath}/home";			
 	    	}	
 		});			
