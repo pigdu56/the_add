@@ -29,13 +29,17 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
                <img src="${pageContext.request.contextPath}/static/img/wlogin.png"
                   id="menu2" onclick="location.href='${login}'" />
                </c:when>
-               <c:otherwise>               
+               <c:when test="${'admin' eq LoginUser}">               
                <img src="${pageContext.request.contextPath}/static/img/wlogout.png"
                   id="menu1" onclick="logout()" />
                   
-                  <c:url value="/member_list" var="member_list" />
+               <c:url value="/member_list" var="member_list" />
                <img src="${pageContext.request.contextPath}/static/img/mlist.png"
                  id="menu3" onclick="location.href='${member_list}'" />
+               </c:when>
+               <c:otherwise>
+               <img src="${pageContext.request.contextPath}/static/img/wlogout.png"
+                  id="menu2" onclick="logout()" />
                </c:otherwise>
             </c:choose>
          </div>
