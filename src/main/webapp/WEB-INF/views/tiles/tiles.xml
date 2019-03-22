@@ -44,20 +44,21 @@
 		<put-attribute name="body" value="/WEB-INF/views/pages/member_list.jsp" />
 	</definition>
 	
-	<!-- 영화 예매 페이지 -->	
-	<!-- movie_main -->
-	<definition name="movie_main" extends="bdefinition">
+	<!-- 영화 예매 페이지 -->
+	<definition name="movies" template="/WEB-INF/views/tiles/layouts/movieLayout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/tiles/template/movie/Header.jsp" />
 		<put-attribute name="title" value="movie" />
 		<put-attribute name="menu" value="/WEB-INF/views/tiles/template/movie/Menu.jsp"/>
+		<put-attribute name="body" value="" />
+	</definition>
+		
+	<!-- movie_main -->
+	<definition name="movie_main" extends="movies">
 		<put-attribute name="body" value="/WEB-INF/views/pages/movie/main.jsp" />
 	</definition>
 	
 	<!-- detail_view -->
-	<definition name="detail_view" extends="bdefinition">
-		<put-attribute name="header" value="/WEB-INF/views/tiles/template/movie/Header.jsp" />
-		<put-attribute name="title" value="movie" />
-		<put-attribute name="menu" value="/WEB-INF/views/tiles/template/movie/Menu.jsp"/>
+	<definition name="detail_view" extends="movies">
 		<put-attribute name="body" value="/WEB-INF/views/pages/movie/detail_view.jsp" />
 	</definition>
 	
