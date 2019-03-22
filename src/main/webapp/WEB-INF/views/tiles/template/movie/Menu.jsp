@@ -56,7 +56,7 @@
 					<b>영화</b>
 				</a>
 			<div class="dropdown-menu d_menu">
-       			<a class="dropdown-item minis" href="">영화예매</a>
+       			<a class="dropdown-item minis" href="${pageContext.request.contextPath}/movie/reservation">영화예매</a>
        			<a class="dropdown-item minis" href="">상영시간표</a>
         		<a class="dropdown-item minis" href="">영화정보</a>
      		</div>
