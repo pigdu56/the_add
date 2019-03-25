@@ -17,7 +17,7 @@ import java.io.BufferedReader;
 @Configuration
 public class KmdbApi {
 	
-	public HashMap<String, Object> kmdb(Object movieNm, Object openDt) throws Exception{
+	public HashMap<String, String> kmdb(String movieNm, String openDt) throws Exception{
 		/*URL*/
 		StringBuilder urlBuilder = new StringBuilder("http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json.jsp?collection=kmdb_new"); 
 		
@@ -26,18 +26,15 @@ public class KmdbApi {
 		
 		/*상세정보*/
 		urlBuilder.append("&" + URLEncoder.encode("detail","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); 
-		String mNm = null; 
-		mNm = (String) movieNm;
+	
 		/*영화제목*/
-		urlBuilder.append("&" + URLEncoder.encode("title","UTF-8") + "=" + URLEncoder.encode(mNm, "UTF-8")); 
+		urlBuilder.append("&" + URLEncoder.encode("title","UTF-8") + "=" + URLEncoder.encode(movieNm, "UTF-8")); 
 		
-		/*개봉일자*/
-		String oDt = null; 
-		oDt =(String) openDt;
-		oDt	= oDt.replaceAll("[-]", "");
-		urlBuilder.append("&" + URLEncoder.encode("releaseDts","UTF-8") + "=" + URLEncoder.encode(oDt, "UTF-8")); 
+		/*개봉일자*/		
+		openDt	= openDt.replaceAll("[-]", "");		
+		urlBuilder.append("&" + URLEncoder.encode("releaseDts","UTF-8") + "=" + URLEncoder.encode(openDt, "UTF-8")); 
 		
-		URL url = new URL(urlBuilder.toString()); 
+		URL url = new URL(urlBuilder.toString()); 	
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection(); 
 		conn.setRequestMethod("GET"); conn.setRequestProperty("Content-type", "application/json"); 
 		BufferedReader rd; 
@@ -59,9 +56,9 @@ public class KmdbApi {
 		JSONObject jsonObj = (JSONObject) obj;
 		ArrayList<HashMap<String, Object>> list = null; 
 		list =(ArrayList<HashMap<String, Object>>) jsonObj.get("Data");
-		ArrayList<HashMap<String, Object>> result = null;
-		result = (ArrayList<HashMap<String, Object>>) list.get(0).get("Result");
-		for(HashMap<String, Object> m : result) {				
+		ArrayList<HashMap<String, String>> result = null;
+		result = (ArrayList<HashMap<String, String>>) list.get(0).get("Result");
+		for(HashMap<String, String> m : result) {				
 			return m;
 		}
 		return null; 

@@ -30,7 +30,7 @@ public class Movie_Controller {
 	MovieJSONMain mj;
 	
 	@RequestMapping(value= {"/main"}, method=RequestMethod.GET)
-	public ModelAndView Movie_main() {
+	public ModelAndView Movie_main() throws Exception {
 		ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String, String>>();
 		ModelAndView mv = new ModelAndView();
 

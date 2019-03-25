@@ -19,6 +19,8 @@ public class MovieJSONMain {
 	@Autowired
 	NaverApi na;
 	
+	@Autowired
+	KmdbApi ka;
 	public MovieJSONMain() {
 		
 	}
@@ -31,7 +33,7 @@ public class MovieJSONMain {
 		SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
 		cal.add(cal.DATE, -5);
 		String yesterday = date.format(cal.getTime());
-		System.out.println(yesterday);
+		
 		
 		try {
 			URL url = new URL(
@@ -63,6 +65,7 @@ public class MovieJSONMain {
 			while ((i = reader.read(b)) != -1) {
 				buffer.append(new String(b, 0, i));
 			}
+			System.out.println(buffer.toString());
 			return buffer.toString();
 		} finally {
 			if (reader != null)
@@ -71,7 +74,7 @@ public class MovieJSONMain {
 	}
 	
 	// 주간정보 호출 메서드
-	public ArrayList<HashMap<String, String>> Mm() {
+	public ArrayList<HashMap<String, String>> Mm() throws Exception {
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>(); 
 		JSONParser jsonparser = new JSONParser();
 		JSONObject jsonobject;
@@ -82,15 +85,15 @@ public class MovieJSONMain {
 			for (int i = 0; i < array.size(); i++) {
 				JSONObject entity = (JSONObject) array.get(i);				
 				list.add(entity);
-			}
-			System.out.println(list);
+			}			
 		} catch (ParseException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
-		for(int j=0;j<list.size();j++) {
+		for(int j=0;j<list.size();j++) {			
 			list.get(j).putAll(na.NaverApi(list.get(j).get("movieNm")));
+			list.get(j).putAll(ka.kmdb(list.get(j).get("movieNm"), list.get(j).get("openDt")));
 		}		
 		return list;
 	}

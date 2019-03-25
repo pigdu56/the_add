@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <style>
 
 .btn_movie {
@@ -17,6 +18,12 @@ ul > li{
 #b_title{
 	text-align:center;
 }
+.poster{
+	width:
+}
+.box_list{
+	padding:0;
+}
 </style>
 <div class="container">
 	<div id="black">
@@ -26,15 +33,22 @@ ul > li{
 				<tr>
 				<c:forEach var="m" items="${movie}" begin="0" end="4">					
 						<td>
-							<ul style="background-image:url('')">
+							<ul class="box_list">
 								<li>
 									<h4>
 									<b>${m.rnum}.</b>
 									<a href="${pageContext.request.contextPath}/movie/detail_view?movieCd=${m.movieCd}">${m.movieNm}</a>
 									</h4>
 								</li>
-								<li>
-									<img src='${m.image}'>
+								<li>								
+									<c:choose>
+										<c:when test="${fn:contains(m.posters, '|')}">
+											<img class="poster" src='${fn:substringBefore(m.posters,"|")}'>
+										</c:when>
+										<c:otherwise>
+											<img class="poster" src='${m.posters}'>
+										</c:otherwise>
+									</c:choose>											
 								</li>
 								<li>개봉일자 : ${m.openDt}
 								</li>
@@ -48,7 +62,7 @@ ul > li{
 				<tr>
 				<c:forEach var="m" items="${movie}" begin="5" end="9">					
 						<td>
-							<ul>
+							<ul class="box_list">
 								<li>
 									<h4>
 									<b>${m.rnum}.</b>
@@ -56,7 +70,14 @@ ul > li{
 									</h4>
 								</li>
 								<li>
-									<img src='${m.image}'>
+									<c:choose>
+										<c:when test="${fn:contains(m.posters, '|')}">
+											<img class="poster" src='${fn:substringBefore(m.posters,"|")}'>
+										</c:when>
+										<c:otherwise>
+											<img class="poster" src='${m.posters}'>
+										</c:otherwise>
+									</c:choose>
 								</li>
 								<li>개봉일자 : ${m.openDt}
 								</li>
@@ -68,6 +89,6 @@ ul > li{
 				</c:forEach>
 				</tr>
 			</tbody>
-		</table>
+		</table>		
 	</div>
 </div>

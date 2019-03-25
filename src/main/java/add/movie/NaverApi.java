@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import org.json.simple.JSONObject;
@@ -20,10 +21,11 @@ public class NaverApi {
 	public HashMap<String, String> NaverApi(String movieNm) {
 		String clientId = "8Zs2leAth5ub9RwZpaw8";// 애플리케이션 클라이언트 아이디값";
 		String clientSecret = "Rs9y6LyLHU";// 애플리케이션 클라이언트 시크릿값";
-		try {
+		try {			
 			String m_title = URLEncoder.encode(movieNm, "UTF-8");
 			String apiURL = "https://openapi.naver.com/v1/search/movie.json?query="+ m_title; // json 결과
 			// // xml 결과
+			
 			URL url = new URL(apiURL);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
@@ -47,7 +49,7 @@ public class NaverApi {
 			JSONParser parser = new JSONParser();
 			Object obj = parser.parse( json );
 			JSONObject jsonObj = (JSONObject) obj;
-			ArrayList<HashMap<String, String>> list = (ArrayList<HashMap<String, String>>) jsonObj.get("items");
+			ArrayList<HashMap<String, String>> list = (ArrayList<HashMap<String, String>>) jsonObj.get("items");			
 			for(HashMap<String, String> m : list) {				
 				return m;
 			}		
@@ -56,5 +58,5 @@ public class NaverApi {
 		}
 		return null;
 	}
-
+	
 }
