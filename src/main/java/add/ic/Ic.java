@@ -18,10 +18,9 @@ public class Ic implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest rq, HttpServletResponse res, Object h)
 			throws Exception {
 		HttpSession s = rq.getSession();
-		Object obj = s.getAttribute("LoginUser");
-		Object admins = s.getAttribute("admin");
+		Object obj = s.getAttribute("LoginUser");		
 		System.out.println(obj);
-		if(obj == null && admins == null) {
+		if(obj == null) {
 			res.sendRedirect("/the_add/login");		
 			return false;
 		} else {

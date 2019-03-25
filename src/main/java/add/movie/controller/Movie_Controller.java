@@ -55,7 +55,7 @@ public class Movie_Controller {
 		
 		return mv;
 	}
-	
+	//예약 페이지
 	@RequestMapping(value= {"/reservation"}, method=RequestMethod.GET)
 	public ModelAndView reservation() {
 		ModelAndView mv = new ModelAndView();
@@ -89,6 +89,15 @@ public class Movie_Controller {
 	      
 	      mv.addObject("daylist", daylist);
 		mv.setViewName("reservation");
+		return mv;
+	}
+	
+	//좌석선택
+	@RequestMapping(value= {"/reservation_seat"}, method=RequestMethod.GET)
+	public ModelAndView getSeat() {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("reservation_seat");
 		return mv;
 	}
 }

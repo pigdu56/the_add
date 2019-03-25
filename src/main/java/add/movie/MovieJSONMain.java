@@ -65,7 +65,7 @@ public class MovieJSONMain {
 			while ((i = reader.read(b)) != -1) {
 				buffer.append(new String(b, 0, i));
 			}
-			System.out.println(buffer.toString());
+			
 			return buffer.toString();
 		} finally {
 			if (reader != null)
@@ -108,7 +108,7 @@ public class MovieJSONMain {
 			jsonobject = (JSONObject) jsonparser.parse(movie(movieCd));
 			JSONObject movieInfoResult = (JSONObject) jsonobject.get("movieInfoResult");
 			JSONObject movieInfo = (JSONObject) movieInfoResult.get("movieInfo");
-			//System.out.println(movieInfo.get("movieNm"));
+			
 			m.put("movie_view", movieInfo);
 			m.put("movieNm", movieInfo.get("movieNm"));
 		} catch (Exception e) {
