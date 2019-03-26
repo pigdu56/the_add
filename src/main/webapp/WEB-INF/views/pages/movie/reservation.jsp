@@ -14,13 +14,14 @@ ul>li {
 
 #reser_table {
 	text-align: center;
-	height:300px;
+	min-height:502px;
 	margin:0;	
 }
 
 .re_title {
 	background-color: #1D1D1C;
 	color: #CBCBCB;
+	min-height:52px;
 }
 
 .re_title>td {
@@ -29,7 +30,7 @@ ul>li {
 
 .re_main {
 	background-color: #F2F0E5;
-	height:300px;
+	min-height:450px;
 }
 
 .re_main>td {
@@ -72,17 +73,18 @@ ul>li {
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-12">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-10">
 				<h1 style="text-align: center;">영화 예매</h1>
 				<table class="table" id="reser_table">
 					<tr class="row re_title">
-						<td class="col-sm-4">영화</td>
-						<td class="col-sm-3">극장</td>
-						<td class="col-sm-1">날짜</td>
-						<td class="col-sm-4">시간</td>
+						<td class="col-sm-4"><h4>영화</h4></td>
+						<td class="col-sm-3"><h4>극장</h4></td>
+						<td class="col-sm-1"><h4>날짜</h4></td>
+						<td class="col-sm-4"><h4>시간</h4></td>
 					</tr>
 					<tr class="row re_main">
-						<td class="col-sm-4"><a href=#>예매율순</a>,&nbsp;<a href=#>가나다순</a>
+						<td class="col-sm-4">
 							<ul class="re_select">
 
 							</ul></td>
@@ -97,11 +99,34 @@ ul>li {
 							<ul class="re_select">
 								<li style="font-size: 13px;"><c:set var="now"
 										value="<%=new java.util.Date()%>" /> <fmt:formatDate
-										value="${now}" type="date" pattern="YYYY" /></li>
-								<li style="font-size: 25px;"><fmt:formatDate value="${now}"
-										type="date" pattern="MM" /></li>
+										value="${now}" type="date" pattern="YYYY" var="years" />${years}</li>
+								<li style="font-size: 30px;"><fmt:formatDate value="${now}"
+										type="date" pattern="MM" var="dates" />${dates}</li>
 								<c:forEach var="i" items="${daylist}">
-									<li><b>${i.days}</b>&nbsp;<b>${i.dates}</b></li>
+									<c:choose>
+										<c:when test="${i.dates eq 01}">
+											<li>
+												<c:choose>
+													<c:when test="${dates eq 01}">
+														<fmt:parseDate value="${years+1}" pattern="YYYY" var="ye"/>
+														<fmt:formatDate value="${ye}" type="date" pattern="YYYY"/>
+													</c:when>
+													<c:otherwise>
+														${years}
+													</c:otherwise>
+												</c:choose>
+												
+											</li>
+											<li style="font-size: 30px;">
+												<fmt:parseDate value="${dates+1}" pattern="MM" var="months"/>
+												<fmt:formatDate value="${months}" type="date" pattern="MM"/>												
+											</li>
+											<li><b>${i.days}</b>&nbsp;<b>${i.dates}</b></li>
+										</c:when>
+										<c:otherwise>
+											<li><b>${i.days}</b>&nbsp;<b>${i.dates}</b></li>
+										</c:otherwise>
+									</c:choose>								
 								</c:forEach>
 
 							</ul>
@@ -110,9 +135,11 @@ ul>li {
 					</tr>
 				</table>
 			</div>
+			<div class="col-sm-1"></div>
 		</div>
 		<div class='row'>
-			<div class="col-sm-12" style="padding:0;">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-10" style="padding:0;">
 				<c:url var="go_seat" value="/movie/reservation_seat" />
 				<form method="get" action="${go_seat}">
 				<table id="select_box">
@@ -139,6 +166,7 @@ ul>li {
 				</table>
 				</form>
 			</div>
+			<div class="col-sm-1"></div>
 		</div>
 	</div>
 </body>

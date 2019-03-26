@@ -16,8 +16,11 @@
 		background-color:#1D1D1C;
 		color:#CBCBCB;
 	}
-	#seat_title{
+	.s_center{
 		text-align:center;		
+	}
+	#seat_div{
+		min-height:380px;
 	}
 	#screen{
 		text-align:center;
@@ -25,6 +28,10 @@
 		padding-top:1px;
 		padding-bottom:1px;
 		margin-bottom:30px;
+	}
+	#s_table{
+		margin-top:30px;
+		margin-left:52px;	
 	}
 	ul >li{
 		list-style: none;
@@ -111,10 +118,7 @@
 	}
 	input[class="wh_6"]:checked+label {
 		background-image: url('${pageContext.request.contextPath}/static/img/movie/six_bl.png');
-	}
-	input[type="checkbox"] {
-	display: none;
-	}
+	}	
 	#person_choice{
 		border-right:1px #DDDDDD solid;
 		padding-left: 85px;	
@@ -151,6 +155,105 @@
 	padding:0;
 	text-align:center;	
 }
+input[type="checkbox"] {
+	display: none;
+	}
+input[class="seat_1"]+label{
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/one.png');
+}
+input[class="seat_1"]:checked+label{
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/one_r.png');
+}
+input[class="seat_2"]+label{
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/two.png');
+}
+input[class="seat_2"]:checked+label{
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/two_r.png');
+}
+input[class="seat_3"]+label{
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/three.png');
+}
+input[class="seat_3"]:checked+label{
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/three_r.png');
+}
+input[class="seat_4"]+label{
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/four.png');
+}
+input[class="seat_4"]:checked+label{
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/four_r.png');
+}
+input[class="seat_5"]+label{
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/five.png');
+}
+input[class="seat_5"]:checked+label{
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/five_r.png');
+}
+input[class="seat_6"]+label{
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/six.png');
+}
+input[class="seat_6"]:checked+label{
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/six_r.png');
+}
+input[class="seat_7"]+label{
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/seven.png');
+}
+input[class="seat_7"]:checked+label{
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/seven_r.png');
+}
+input[class="seat_8"]+label{
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/eight.png');
+}
+input[class="seat_8"]:checked+label{
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/eight_r.png');
+}
+input[class="seat_9"]+label{
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/nine.png');
+}
+input[class="seat_9"]:checked+label{
+	background-image:url('${pageContext.request.contextPath}/static/img/movie/nine_r.png');
+}
+#seat_info{
+	margin-top:15px;
+}
+#seat_info > li {
+	min-height:30px;
+}
 </style>
 <div class="container">
 	<h1 style="text-align:center;">좌석 선택</h1>
@@ -159,7 +262,7 @@
 		<div class="col-sm-10" id="seat_div">
 			<table class="table">
 				<tr class="row" id="seat_main">
-					<th class="col-sm-12" id="seat_title"><h5><b>인원 / 좌석</b></h5></th>
+					<th class="col-sm-12 s_center"><h5><b>인원 / 좌석</b></h5></th>
 				</tr>
 				<tr class="row" id="seat_tb">
 					<td class="col-sm-6">
@@ -188,7 +291,7 @@
 									<input type="radio" id="ki_2" class="wh_2" name="kids"/><label for="ki_2"></label>
 									<input type="radio" id="ki_3" class="wh_3" name="kids"/><label for="ki_3"></label>
 									<input type="radio" id="ki_4" class="wh_4" name="kids"/><label for="ki_4"></label>
-									<input type="radio" id="ki_5" class="wh_5"name="kids"/><label for="ki_5"></label>
+									<input type="radio" id="ki_5" class="wh_5" name="kids"/><label for="ki_5"></label>
 									<input type="radio" id="ki_6" class="wh_6" name="kids"/><label for="ki_6"></label>
 								</div>
 							</li>
@@ -213,98 +316,101 @@
 					</td>
 			</table>			
 			<div class="row">
-				<div class="col-sm-9">
-					<div id="screen">
-						<h5><b>SCREEN</b></h5>
-					</div>
+				<div class="col-sm-9" id="seat_div">
 					<div class="row">
-						<div class="col-sm-4">
-							<table>
-								<c:set var="alphabet" value="A,B,C,D,E,F" /> 
-								<c:forTokens var="i" items="${alphabet}" delims=",">
-									<tr>
-										<c:forEach var="j" begin="1" end="9" varStatus="index">
-											<c:if test="${index.first}"><td>${i}&nbsp;&nbsp;&nbsp;</td></c:if> 
-											<td>${j}</td>
-											<c:if test="${j eq 3}">
-												<td>&nbsp;&nbsp;</td>
+						<div class="col-sm-2"></div>
+						<div class="col-sm-8">
+							<div id="screen">
+								<h5><b>SCREEN</b></h5>
+							</div>
+						</div>
+						<div class="col-sm-2"></div>
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-2"></div>
+						<div class="col-sm-8">
+							<table id="s_table">								
+										<c:set var="alphabet" value="A,B,C,D,E,F" /> 
+										<c:forTokens var="i" items="${alphabet}" delims=",">
+											<tr>
+												<c:forEach var="j" begin="1" end="9" varStatus="index">
+												<c:if test="${index.first}"><td><b>${i}</b>&nbsp;&nbsp;&nbsp;</td></c:if> 
+													<td>
+														<c:set var="s_name" value="${i}${j}"/>
+														<c:choose>
+															<c:when test="${j eq 1}">
+																<input type="checkbox" class="seat_1" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
+															</c:when>
+															<c:when test="${j eq 2}">
+																<input type="checkbox" class="seat_2" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
+															</c:when>
+															<c:when test="${j eq 3}">
+																<input type="checkbox" class="seat_3" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
+															</c:when>
+															<c:when test="${j eq 4}">
+																<input type="checkbox" class="seat_4" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
+															</c:when>
+															<c:when test="${j eq 5}">
+																<input type="checkbox" class="seat_5" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
+															</c:when>
+															<c:when test="${j eq 6}">
+																<input type="checkbox" class="seat_6" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
+															</c:when>
+															<c:when test="${j eq 7}">
+																<input type="checkbox" class="seat_7" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
+															</c:when>
+															<c:when test="${j eq 8}">
+																<input type="checkbox" class="seat_8" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
+															</c:when>
+															<c:otherwise>
+																<input type="checkbox" class="seat_9" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
+															</c:otherwise>																	
+														</c:choose>																								
+													</td>
+												<c:if test="${j eq 3}">
+													<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+												</c:if>
+												<c:if test="${j eq 6}">
+													<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+												</c:if>
+												<c:if test="${index.last}"><td>&nbsp;&nbsp;&nbsp;<b>${i}</b></td></c:if>
+												</c:forEach>
+											</tr>
+											<c:if test="${i eq 'C'}">
+												<tr>
+													<td>&nbsp;</td>
+												</tr>
 											</c:if>
-											<c:if test="${j eq 6}">
-												<td>&nbsp;&nbsp;</td>
-											</c:if>
-											<c:if test="${index.last}"><td>&nbsp;&nbsp;&nbsp;${i}</td></c:if>
-										</c:forEach>
-									</tr>
-									<c:if test="${i eq 'C'}">
-										<tr>
-											<td>&nbsp;</td>
-										</tr>
-									</c:if>
-								</c:forTokens>
+										</c:forTokens>									
 							</table>
 						</div>
-						<div class="col-sm-4">
-							<table>
-								<c:set var="alphabet2" value="A,B,C,D,E,F,G" /> 
-								<c:forTokens var="i" items="${alphabet2}" delims=",">
-									<tr>
-										<c:forEach var="j" begin="1" end="9" varStatus="index">
-											 <c:if test="${index.first}"><td>${i}&nbsp;&nbsp;&nbsp;</td></c:if> 
-											<td>${j}</td>
-											<c:if test="${j eq 2}"><td>&nbsp;&nbsp;</td></c:if>
-											<c:if test="${j eq 7}"><td>&nbsp;&nbsp;</td></c:if>						
-											<c:if test="${index.last}"><td>&nbsp;&nbsp;&nbsp;${i}</td></c:if>
-										</c:forEach>
-									</tr>
-									<c:if test="${i eq 'C'}">
-										<tr>
-											<td>&nbsp;</td>
-										</tr>
-									</c:if>
-									<c:if test="${i eq 'E'}">
-										<tr>
-											<td>&nbsp;</td>
-										</tr>
-									</c:if>
-								</c:forTokens>
-							</table>
-						</div>
-						<div class="col-sm-4">
-							<table>
-								<c:set var="alphabet3" value="A,B,C,D,E,F,G" /> 
-								<c:forTokens var="i" items="${alphabet3}" delims=",">
-									<tr>
-										<c:forEach var="j" begin="1" end="8" varStatus="index">
-											 <c:if test="${index.first}"><td>${i}&nbsp;&nbsp;&nbsp;</td></c:if> 
-											<td>${j}</td>
-											<c:if test="${j eq 2}"><td>&nbsp;&nbsp;&nbsp;</td></c:if>
-											<c:if test="${j eq 4}"><td>&nbsp;&nbsp;&nbsp;</td></c:if>	
-											<c:if test="${j eq 6}"><td>&nbsp;&nbsp;&nbsp;</td></c:if>			
-											<c:if test="${index.last}"><td>&nbsp;&nbsp;&nbsp;${i}</td></c:if>
-										</c:forEach>
-									</tr>									
-									<c:if test="${i eq 'D'}">
-										<tr>
-											<td>&nbsp;</td>
-										</tr>
-									</c:if>									
-								</c:forTokens>
-							</table>
-						</div>
+						<div class="col-sm-2"></div>						
 					</div>
 				</div>
 				<div class="col-sm-3" id="seat_side">
-					<ul>
-						<li>빈 좌석&nbsp;&nbsp;&nbsp; 
-							<img src="${pageContext.request.contextPath}/static/img/movie/no_check.png">
-						</li>
-						<li>선택좌석  
-							<img src="${pageContext.request.contextPath}/static/img/movie/choice.png">
-						</li>
-						<li>선택불가 
-							<img src="${pageContext.request.contextPath}/static/img/movie/x.png">
-						</li>
-					</ul>
+					<div class="row">
+						<div class="col-sm-1"></div>
+						<div class="col-sm-10">
+							<ul id="seat_info">
+								<li><h4><b>좌석안내</b></h4></li>
+								<li>
+									<img src="${pageContext.request.contextPath}/static/img/movie/no_check.png">
+									빈 좌석
+								</li>
+								<li>
+									<img src="${pageContext.request.contextPath}/static/img/movie/choice.png">
+									선택좌석  
+								</li>
+								<li>
+									<img src="${pageContext.request.contextPath}/static/img/movie/x.png">
+									선택불가 
+								</li>
+							</ul>
+						</div>
+						<div class="col-sm-1"></div>
+					</div>
+					
 				</div>
 			</div>
 			<div class='row'>
