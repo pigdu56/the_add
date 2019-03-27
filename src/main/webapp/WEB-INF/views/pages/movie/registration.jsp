@@ -19,7 +19,7 @@
 					<tr class="row">
 						<td class="col-sm-4">
 							<select name="movie_num">
-								<!--<c:forEach var="i" items="${ }"><option value=""></option></c:forEach>-->
+								
 							</select>
 						</td>
 						<td class="col-sm-4">
