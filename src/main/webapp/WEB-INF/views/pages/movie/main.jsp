@@ -37,56 +37,40 @@ ul > li{
 						<ul class="box_list">
 							<li>
 								<h4>
-								<b>${m.rnum}.</b>
-								<a href="${pageContext.request.contextPath}/movie/detail_view?movieCd=${m.movieCd}" id="title_a">${m.movieNm}</a>
+								<b>${m.mv_rnum}.</b>
+								<a href="${pageContext.request.contextPath}/movie/detail_view?movieCd=${m.MV_CODE}" id="title_a">${m.MV_TITLE_KR}</a>
 								</h4>
 							</li>
 							<li>								
-								<c:choose>
-									<c:when test="${fn:contains(m.posters, '|')}">
-										<img class="poster" src='${fn:substringBefore(m.posters,"|")}'>
-									</c:when>
-									<c:otherwise>
-										<img class="poster" src='${m.posters}'>
-									</c:otherwise>
-								</c:choose>											
+								<img class="poster" src='${m.MV_IMG}'>							
 							</li>
-							<li>개봉일자 : ${m.openDt}
+							<li>개봉일자 : ${m.MV_OD}
 							</li>
-							<li>누적 관람객 :<fmt:formatNumber
-								pattern="###,###,###" value="${m.audiCnt}" />명</li>
-							<li>평점 : ${m.userRating}</li>
+							<li>감독 :${m.DT_NAME}</li>
+							<li>평점 : ${m.MV_UR}</li>
 						</ul>
 					</td>					
 				</c:forEach>
 				</tr>
 				<tr>
 				<c:forEach var="m" items="${movie}" begin="5" end="9">					
-						<td>
-							<ul class="box_list">
-								<li>
-									<h4>
-									<b>${m.rnum}.</b>
-									<a href="${pageContext.request.contextPath}/movie/detail_view?movieCd=${m.movieCd}" id="title_a">${m.movieNm}</a>
-									</h4>
-								</li>
-								<li>
-									<c:choose>
-										<c:when test="${fn:contains(m.posters, '|')}">
-											<img class="poster" src='${fn:substringBefore(m.posters,"|")}'>
-										</c:when>
-										<c:otherwise>
-											<img class="poster" src='${m.posters}'>
-										</c:otherwise>
-									</c:choose>
-								</li>
-								<li>개봉일자 : ${m.openDt}
-								</li>
-								<li>누적 관람객 :<fmt:formatNumber
-									pattern="###,###,###" value="${m.audiCnt}" />명</li>
-								<li>평점 : ${m.userRating}</li>
-							</ul>
-						</td>				
+					<td>
+						<ul class="box_list">
+							<li>
+								<h4>
+								<b>${m.mv_rnum}.</b>
+								<a href="${pageContext.request.contextPath}/movie/detail_view?movieCd=${m.MV_CODE}" id="title_a">${m.MV_TITLE_KR}</a>
+								</h4>
+							</li>
+							<li>								
+								<img class="poster" src='${m.MV_IMG}'>							
+							</li>
+							<li>개봉일자 : ${m.MV_OD}
+							</li>
+							<li>감독 :${m.DT_NAME}</li>
+							<li>평점 : ${m.MV_UR}</li>
+						</ul>
+					</td>			
 				</c:forEach>
 				</tr>
 			</tbody>

@@ -1,8 +1,8 @@
 package add.movie.maps;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
@@ -35,6 +35,7 @@ public interface MovieMappable {
 	@Update("UPDATE MV_MOVIE SET MV_RNUM = 0")
 	public void mv_update();
 	
-	@Select("SELECT * FROM MV_V_MV MV WHERE MV_RNUM > 0")
-	public HashMap<String, String> mv_select();
+	// 개봉 영화 리스트
+	@Select("SELECT * FROM MV_V_MV WHERE MV_RNUM > 0")
+	public ArrayList<HashMap<String, String>> mv_select();
 }

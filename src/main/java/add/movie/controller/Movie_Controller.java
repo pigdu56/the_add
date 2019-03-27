@@ -35,13 +35,13 @@ public class Movie_Controller {
    MovieMappable mm;
 	
 	@RequestMapping(value= {"/main"}, method=RequestMethod.GET)
-	public ModelAndView Movie_main() throws Exception {
+	public ModelAndView Movie_main() {
 		ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String, String>>();
 		ModelAndView mv = new ModelAndView();
 		
 		mv.addObject("movie", mm.mv_select());
 		mv.setViewName("movie_main");
-
+		
 		return mv;
 	}
 	
