@@ -29,6 +29,13 @@ ul > li{
 <div class="container">
 	<div id="black">
 		<h2 id="b_title">박스오피스</h2>
+		<br/>
+		<c:if test="${'admin' eq LoginUser}">
+			<div>	
+				<button>갱신</button>
+			</div>
+		</c:if>
+		
 		<table class="table table-bordered" style="width: 100%;">			
 			<tbody>
 				<tr>
@@ -37,7 +44,7 @@ ul > li{
 						<ul class="box_list">
 							<li>
 								<h4>
-								<b>${m.mv_rnum}.</b>
+								<b>${m.MV_RNUM}.</b>
 								<a href="${pageContext.request.contextPath}/movie/detail_view?movieCd=${m.MV_CODE}" id="title_a">${m.MV_TITLE_KR}</a>
 								</h4>
 							</li>
@@ -58,7 +65,7 @@ ul > li{
 						<ul class="box_list">
 							<li>
 								<h4>
-								<b>${m.mv_rnum}.</b>
+								<b>${m.MV_RNUM}.</b>
 								<a href="${pageContext.request.contextPath}/movie/detail_view?movieCd=${m.MV_CODE}" id="title_a">${m.MV_TITLE_KR}</a>
 								</h4>
 							</li>

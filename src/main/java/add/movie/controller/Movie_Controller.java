@@ -40,6 +40,7 @@ public class Movie_Controller {
 		
 		mv.addObject("movie", mm.mv_select());
 		mv.setViewName("movie_main");
+		System.out.println(mv);
 		
 		return mv;
 	}
@@ -196,14 +197,14 @@ public class Movie_Controller {
 	        for(int i=0 ; i<date.length ; i++) {
 	        	String at = date[i];
 	        	mm.at_insert(mv_c, at);
-	            System.out.println("배우 : " + at);
+	            //System.out.println("배우 : " + at);
 	        }
 
     	 } else {
 	         for(HashMap<String, String> a : actor) {
 	            String at = a.get("peopleNm");
 	            mm.at_insert(mv_c, at);
-	            System.out.println("배우 : " + at);
+	            //System.out.println("배우 : " + at);
 	    	 }
     	 }
 
