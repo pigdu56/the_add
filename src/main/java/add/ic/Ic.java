@@ -19,7 +19,7 @@ public class Ic implements HandlerInterceptor{
 			throws Exception {
 		HttpSession s = rq.getSession();
 		Object obj = s.getAttribute("LoginUser");		
-		System.out.println(obj);
+		
 		if(obj == null) {
 			res.sendRedirect("/the_add/login");		
 			return false;

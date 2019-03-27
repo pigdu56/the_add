@@ -21,6 +21,8 @@ public class MovieJSONMain {
 	
 	@Autowired
 	KmdbApi ka;
+
+	
 	public MovieJSONMain() {
 		
 	}
@@ -33,7 +35,6 @@ public class MovieJSONMain {
 		SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
 		cal.add(cal.DATE, -5);
 		String yesterday = date.format(cal.getTime());
-		
 		
 		try {
 			URL url = new URL(
@@ -90,31 +91,32 @@ public class MovieJSONMain {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
+		}
+		
 		for(int j=0;j<list.size();j++) {			
-			list.get(j).putAll(na.NaverApi(list.get(j).get("movieNm")));
 			list.get(j).putAll(ka.kmdb(list.get(j).get("movieNm"), list.get(j).get("openDt")));
 		}		
 		return list;
 	}
 	
 	// 영화 정보 호출 메서드
-	public HashMap<String, Object> MV(String movieCd){
-		HashMap<String, Object> m = new HashMap<String, Object>();
-		JSONParser jsonparser = new JSONParser();
-		JSONObject jsonobject;
+	   public HashMap<String, Object> MV(String movieCd){
+	      HashMap<String, Object> m = new HashMap<String, Object>();
+      
+	      JSONParser jsonparser = new JSONParser();
+	      JSONObject jsonobject;
 
-		try {
-			jsonobject = (JSONObject) jsonparser.parse(movie(movieCd));
-			JSONObject movieInfoResult = (JSONObject) jsonobject.get("movieInfoResult");
-			JSONObject movieInfo = (JSONObject) movieInfoResult.get("movieInfo");
-			
-			m.put("movie_view", movieInfo);
-			m.put("movieNm", movieInfo.get("movieNm"));
-		} catch (Exception e) {
-			System.out.println("영화 상세 정보 호출 에러 : " + e.getMessage());
-		}
-		
-		return m;
-	}
+	      try {
+	         jsonobject = (JSONObject) jsonparser.parse(movie(movieCd));
+	         JSONObject movieInfoResult = (JSONObject) jsonobject.get("movieInfoResult");
+	         JSONObject movieInfo = (JSONObject) movieInfoResult.get("movieInfo");
+	         
+	         m.put("movie_view", movieInfo);
+	         m.put("movieNm", movieInfo.get("movieNm"));
+	      } catch (Exception e) {
+	         System.out.println("영화 상세 정보 호출 에러 : " + e.getMessage());
+	      }
+	      
+	      return m;
+	   }
 }

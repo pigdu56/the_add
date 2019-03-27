@@ -5,7 +5,7 @@
 body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 .w3-row-padding img {margin-bottom: 12px}
 .w3-sidebar {width: 120px;background: #222;}
-#main {margin-left: 120px}
+#main {margin-left: 120px;}
 @media only screen and (max-width: 600px) {#main {margin-left: 0}}
 #main{position:fixed; left:15%; top:20%; width:70%;}
 #menu1{position:fixed; left:75%; top:10%; width:8%; height:6%;}

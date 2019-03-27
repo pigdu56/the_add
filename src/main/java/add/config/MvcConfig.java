@@ -26,14 +26,14 @@ import add.ic.Ic;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = { "add.controller", "add.movie.controller", "add.bus.controller", "add.food.controller", "add.trip.controller", "add.real.controller", "add.ship.controller", "add.tour.controller", "add.config", "add.movie", "add.trip", "add.ic" })
-@MapperScan(basePackages = { "add.maps" })
+@MapperScan(basePackages = { "add.maps", "add.movie.maps" })
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
 	static HikariConfig config = new HikariConfig();
 	static HikariDataSource ds;
 	static SqlSessionFactoryBean sqlSessionFactory;
 	static {
-		config.setJdbcUrl("jdbc:oracle:thin:@10.0.0.65:1521:orcl");
+		config.setJdbcUrl("jdbc:oracle:thin:@10.0.0.53:1521:orcl");
 		config.setDriverClassName("oracle.jdbc.OracleDriver");
 		config.setUsername("jun");
 		config.setPassword("1234");
@@ -54,6 +54,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		sqlSessionFactory = new SqlSessionFactoryBean();
 		sqlSessionFactory.setDataSource(ds);
 		sqlSessionFactory.setTypeAliasesPackage("add.maps");
+		sqlSessionFactory.setTypeAliasesPackage("add.movie.maps");
 		return (SqlSessionFactory) sqlSessionFactory.getObject();
 	}
 

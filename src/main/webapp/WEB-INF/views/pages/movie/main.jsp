@@ -4,7 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <style>
-
+#title_a{ text-overflow: ellipsis; overflow: hidden; white-space: nowrap;
+width: 180px; height: 20px; display: block; float: right;}
 .btn_movie {
 	border: 0;
 	background-color: white;
@@ -32,31 +33,31 @@ ul > li{
 			<tbody>
 				<tr>
 				<c:forEach var="m" items="${movie}" begin="0" end="4">					
-						<td>
-							<ul class="box_list">
-								<li>
-									<h4>
-									<b>${m.rnum}.</b>
-									<a href="${pageContext.request.contextPath}/movie/detail_view?movieCd=${m.movieCd}">${m.movieNm}</a>
-									</h4>
-								</li>
-								<li>								
-									<c:choose>
-										<c:when test="${fn:contains(m.posters, '|')}">
-											<img class="poster" src='${fn:substringBefore(m.posters,"|")}'>
-										</c:when>
-										<c:otherwise>
-											<img class="poster" src='${m.posters}'>
-										</c:otherwise>
-									</c:choose>											
-								</li>
-								<li>개봉일자 : ${m.openDt}
-								</li>
-								<li>누적 관람객 :<fmt:formatNumber
-									pattern="###,###,###" value="${m.audiCnt}" />명</li>
-								<li>평점 : ${m.userRating}</li>
-							</ul>
-						</td>					
+					<td>
+						<ul class="box_list">
+							<li>
+								<h4>
+								<b>${m.rnum}.</b>
+								<a href="${pageContext.request.contextPath}/movie/detail_view?movieCd=${m.movieCd}" id="title_a">${m.movieNm}</a>
+								</h4>
+							</li>
+							<li>								
+								<c:choose>
+									<c:when test="${fn:contains(m.posters, '|')}">
+										<img class="poster" src='${fn:substringBefore(m.posters,"|")}'>
+									</c:when>
+									<c:otherwise>
+										<img class="poster" src='${m.posters}'>
+									</c:otherwise>
+								</c:choose>											
+							</li>
+							<li>개봉일자 : ${m.openDt}
+							</li>
+							<li>누적 관람객 :<fmt:formatNumber
+								pattern="###,###,###" value="${m.audiCnt}" />명</li>
+							<li>평점 : ${m.userRating}</li>
+						</ul>
+					</td>					
 				</c:forEach>
 				</tr>
 				<tr>
@@ -66,7 +67,7 @@ ul > li{
 								<li>
 									<h4>
 									<b>${m.rnum}.</b>
-									<a href="${pageContext.request.contextPath}/movie/detail_view?movieCd=${m.movieCd}">${m.movieNm}</a>
+									<a href="${pageContext.request.contextPath}/movie/detail_view?movieCd=${m.movieCd}" id="title_a">${m.movieNm}</a>
 									</h4>
 								</li>
 								<li>

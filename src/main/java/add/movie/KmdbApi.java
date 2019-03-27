@@ -58,7 +58,7 @@ public class KmdbApi {
 		list =(ArrayList<HashMap<String, Object>>) jsonObj.get("Data");
 		ArrayList<HashMap<String, String>> result = null;
 		result = (ArrayList<HashMap<String, String>>) list.get(0).get("Result");
-		for(HashMap<String, String> m : result) {				
+		for(HashMap<String, String> m : result) {
 			return m;
 		}
 		return null; 
