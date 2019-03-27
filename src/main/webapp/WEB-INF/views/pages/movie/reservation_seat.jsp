@@ -427,6 +427,8 @@ input[class="seat_9"]:checked+label{
 						<th class="col-sm-2 box_th">
 							<h3 class="box_title">극장선택</h3>
 						</th>
+						<c:url var="go_pay" value="/movie/"/>
+						<form action="${go_pay}" method="">
 						<th class="col-sm-2 box_th">
 							<h3 class="box_title">좌석선택</h3>
 						</th>
@@ -438,6 +440,7 @@ input[class="seat_9"]:checked+label{
 								<img class="btn-img" src="${pageContext.request.contextPath}/static/img/movie/right_pay.png">
 							</button>
 						</th>
+						</form>
 					</tr>
 				</table>
 			</div>

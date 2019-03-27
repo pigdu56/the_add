@@ -63,6 +63,11 @@
 		<put-attribute name="body" value="/WEB-INF/views/pages/movie/detail_view.jsp" />
 	</definition>
 	
+	<!--관리자 영화 등록 페이지 -->
+	<definition name="registration" extends="movies">
+		<put-attribute name="body" value="/WEB-INF/views/pages/movie/registration.jsp" />
+	</definition>
+	
 	<!--예매 페이지 -->
 	<definition name="reservation" extends="movies">
 		<put-attribute name="body" value="/WEB-INF/views/pages/movie/reservation.jsp" />
@@ -71,11 +76,6 @@
 	<!--예매 좌석 페이지 -->
 	<definition name="reservation_seat" extends="movies">
 		<put-attribute name="body" value="/WEB-INF/views/pages/movie/reservation_seat.jsp" />
-	</definition>
-	
-	<!--관리자 영화 등록 페이지 -->
-	<definition name="registration" extends="movies">
-		<put-attribute name="body" value="/WEB-INF/views/pages/movie/registration.jsp" />
 	</definition>
 	
 	<!-- 버스 홈페이지 -->
