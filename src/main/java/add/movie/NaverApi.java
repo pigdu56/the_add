@@ -18,7 +18,7 @@ public class NaverApi {
 	public NaverApi() {
 	}
 
-	public String NaverApi(String movieNm) {
+	public HashMap<String, String> NaverApi(String movieNm) {
 		String clientId = "8Zs2leAth5ub9RwZpaw8";// 애플리케이션 클라이언트 아이디값";
 		String clientSecret = "Rs9y6LyLHU";// 애플리케이션 클라이언트 시크릿값";
 		try {			
@@ -51,8 +51,8 @@ public class NaverApi {
 			JSONObject jsonObj = (JSONObject) obj;
 			ArrayList<HashMap<String, String>> list = (ArrayList<HashMap<String, String>>) jsonObj.get("items");			
 			for(HashMap<String, String> m : list) {	
-				String rating = m.get("userRating");
-				return rating;
+				
+				return m;
 			}		
 		} catch (Exception e) {
 			System.out.println(e);
