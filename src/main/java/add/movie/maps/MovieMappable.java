@@ -34,4 +34,7 @@ public interface MovieMappable {
 	// 영화 순위 초기화
 	@Update("UPDATE MV_MOVIE SET MV_RNUM = 0")
 	public void mv_update();
+	
+	@Select("SELECT * FROM MV_V_MV MV WHERE MV_RNUM > 0")
+	public HashMap<String, String> mv_select();
 }
