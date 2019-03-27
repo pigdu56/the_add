@@ -5,6 +5,9 @@
 #write{position:relative; top:50%; left:20%; width:80%;}
 #b1{width:50%; float:right;}
 #b2{width:50%; float:right;}
+body {
+	font-family: Verdana, sans-serif;
+}
 </style>
 <body>
 <br>

@@ -78,7 +78,8 @@ img {
 				<div class="numbertext">1 / 3</div>
 				<img src="${pageContext.request.contextPath}/static/img/bus/b1.png"
 					style="width: 100%; height: 61.5%;">
-				<button class="btn">
+					  <c:url value="/bus/ticketing" var="ticketing" />
+				<button class="btn" onclick="location.href='${ticketing}'">
 					<b><i class="fa fa-bus">&nbsp;&nbsp;버스정보 보러 가기</i></b>
 				</button>
 			
@@ -88,7 +89,8 @@ img {
 				<div class="numbertext">2 / 3</div>
 				<img src="${pageContext.request.contextPath}/static/img/bus/b2.png"
 					style="width: 100%; height: 50%;">
-				<button class="btn">
+					  <c:url value="/bus/ticketing" var="ticketing" />
+				<button class="btn" onclick="location.href='${ticketing}'">
 					<b><i class="fa fa-bus">&nbsp;&nbsp;버스정보 보러 가기</i></b>
 				</button>
 			
@@ -98,7 +100,8 @@ img {
 				<div class="numbertext">3 / 3</div>
 				<img src="${pageContext.request.contextPath}/static/img/bus/b3.png"
 					style="width: 100%; height: 61.5%;">
-				<button class="btn">
+					  <c:url value="/bus/ticketing" var="ticketing" />
+				<button class="btn" onclick="location.href='${ticketing}'">
 					<b><i class="fa fa-bus">&nbsp;&nbsp;버스정보 보러 가기</i></b>
 				</button>
 			

@@ -136,24 +136,7 @@ body{font-family: 'Gothic A1', sans-serif;}
 	<br>
 	<br>
 	<br>
-
-	<table id="tb5">
-		<tr>
-			<td><img
-				src="${pageContext.request.contextPath}/static/img/ship.png"
-				style="width: 130px;" id="bus"></td>
-			<td><p style="font-size: 25px; color: #FFD966;">&nbsp;&nbsp;Passenger
-					ship Program</p>
-				<p style="font-size: 15px;">&nbsp;&nbsp;개발자:한요셉</p>
-				<p style="font-size: 15px;">&nbsp;&nbsp;여객선 정보 조회 및 예약 프로그램입니다.</p></td>
-		</tr>
-	</table>
-
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+	
 
 
 </body>

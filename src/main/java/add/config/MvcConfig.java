@@ -21,12 +21,13 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import add.bus_api.Bus_Api;
 import add.ic.Ic;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "add.controller", "add.movie.controller", "add.bus.controller", "add.food.controller", "add.trip.controller", "add.real.controller", "add.ship.controller", "add.tour.controller", "add.config", "add.movie", "add.trip", "add.ic" })
-@MapperScan(basePackages = { "add.maps", "add.movie.maps" })
+@ComponentScan(basePackages = { "add.controller", "add.movie.controller", "add.bus.controller", "add.food.controller", "add.trip.controller", "add.real.controller", "add.ship.controller", "add.tour.controller", "add.config", "add.movie", "add.trip", "add.ic", "add.bus_api" })
+@MapperScan(basePackages = { "add.maps", "add.bus_annomaps", "add.movie.maps" })
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
 	static HikariConfig config = new HikariConfig();
@@ -54,7 +55,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		sqlSessionFactory = new SqlSessionFactoryBean();
 		sqlSessionFactory.setDataSource(ds);
 		sqlSessionFactory.setTypeAliasesPackage("add.maps");
-		sqlSessionFactory.setTypeAliasesPackage("add.movie.maps");
 		return (SqlSessionFactory) sqlSessionFactory.getObject();
 	}
 
@@ -73,7 +73,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		tilesConfigurer.setCheckRefresh(true);
 		return tilesConfigurer;
 	}
-
+	
 	/**
 	 * Configure ViewResolvers to deliver preferred views.
 	 */
@@ -100,4 +100,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
 		 registry.addInterceptor(new Ic()).addPathPatterns("/movie/**").addPathPatterns("/bus/**").addPathPatterns("/food/**").addPathPatterns("/ship/**").addPathPatterns("/real/**").addPathPatterns("/tour/**").addPathPatterns("/trip/**");
     }
+	 
+
 }

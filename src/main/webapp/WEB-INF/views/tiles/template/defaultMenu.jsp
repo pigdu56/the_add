@@ -58,6 +58,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 				<img src="${pageContext.request.contextPath}/static/img/wfood.png"
 				style="width: 75px; height: 50%;"><br>
 			</a>
+			
 			<c:url value="/trip/timg" var="trip" />
 			<a href="${trip}" class="w3-bar-item w3-button w3-middle w3-hover-black "
 				style="font-size: 13px;">
@@ -65,22 +66,13 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 				style="width: 55px; height: 30%;"><br>
 			</a>
 			
-			<a href="#contact" class="w3-bar-item w3-button w3-middle w3-hover-black"
-				style="font-size: 13px;">
-				<img src="${pageContext.request.contextPath}/static/img/mtour.png"
-				style="width: 55px; height: 30%;"><br>
-			</a> <a href="#contact"
+			<a href="#contact"
 				class="w3-bar-item w3-button w3-middle w3-hover-black"
 				style="font-size: 13px;"> <img
 				src="${pageContext.request.contextPath}/static/img/wreal.png"
 				style="width: 85px; height: 30%;"><br>
-
 			</a>
-			<a href="#contact" class="w3-bar-item w3-button w3-middle w3-hover-black"
-				style="font-size: 13px;">
-				<img src="${pageContext.request.contextPath}/static/img/wship.png"
-				style="width: 60px; height: 40%;"><br>
-			</a><br>	
+
 		</nav>
 	</div>
 
