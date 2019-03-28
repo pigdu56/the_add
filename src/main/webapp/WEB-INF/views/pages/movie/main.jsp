@@ -25,26 +25,26 @@ ul > li{
 .box_list{
 	padding:0;
 }
-table > thead { border: 0 !important; }
 </style>
 <div class="container">
 	<div id="black">
 		<h2 id="b_title">박스오피스</h2>
-		<br/>
-		
-		<table class="table table-bordered" style="width: 100%;">
+
+		<table class="table" style="width: 100%;">
 			<c:if test="${'admin' eq LoginUser}">
 				<thead>
 					<tr>
 						<td colspan="5" style="text-align: right;">
 							<c:url value="/movie/mv_insert" var="update" />
 							<form action="${update}" method="get">
-								<button>갱신</button>
+								<button style="border : 0; background-color: transparent;"><img src="${pageContext.request.contextPath}/static/img/movie/update.png" style="width: 40px; height: 40px;" /></button>
 							</form>
 						</td>
 					</tr>
 				</thead>			
 			</c:if>
+		</table>
+		<table class="table table-bordered" style="width: 100%;">
 			<tbody>
 				<tr>
 				<c:forEach var="m" items="${movie}" begin="0" end="4">					
@@ -53,7 +53,7 @@ table > thead { border: 0 !important; }
 							<li>
 								<h4>
 								<b>${m.MV_RNUM}.</b>
-								<a href="${pageContext.request.contextPath}/movie/detail_view?movieCd=${m.MV_CODE}" id="title_a">${m.MV_TITLE_KR}</a>
+								<a href="${pageContext.request.contextPath}/movie/detail_view?mv_code=${m.MV_CODE}" id="title_a">${m.MV_TITLE_KR}</a>
 								</h4>
 							</li>
 							<li>								
@@ -74,7 +74,7 @@ table > thead { border: 0 !important; }
 							<li>
 								<h4>
 								<b>${m.MV_RNUM}.</b>
-								<a href="${pageContext.request.contextPath}/movie/detail_view?movieCd=${m.MV_CODE}" id="title_a">${m.MV_TITLE_KR}</a>
+								<a href="${pageContext.request.contextPath}/movie/detail_view?mv_code=${m.MV_CODE}" id="title_a">${m.MV_TITLE_KR}</a>
 								</h4>
 							</li>
 							<li>								

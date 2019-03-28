@@ -38,4 +38,8 @@ public interface MovieMappable {
 	// 개봉 영화 리스트
 	@Select("SELECT * FROM MV_V_MV WHERE MV_RNUM > 0 ORDER BY MV_RNUM ASC")
 	public ArrayList<HashMap<String, String>> mv_select();
+	
+	// 영화 상세 정보
+	@Select("SELECT * FROM MV_V_MV WHERE MV_CODE = #{mv_code}")
+	public HashMap<String, String> mv_dt_sel(HashMap<String, String> m);
 }

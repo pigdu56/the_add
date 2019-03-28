@@ -24,38 +24,25 @@ dt, dd { float: left; }
 		<h2>영화 상세</h2>
 		<hr style="border: 3px solid #252424;">
 		<div class="box-image">
-			<img src="${img}" id="poster">
+			<img src="${movie['MV_IMG']}" id="poster">
 		</div>
 		
 		<div class="box-contents">
 			<div id="title">
-				<strong>${movie['movieNm']}</strong>
-				<p/>${movie['movieNmEn']}
+				<strong>${movie['MV_TITLE_KR']}</strong>
+				<p/>${movie['MV_TITLE_EN']}
 			</div>
 			<div class="score">
 				<strong>평점 &nbsp;</strong>
-				<span>${rating}</span>
+				<span>${movie['MV_UR']}</span>
 			</div>
 			<div class="content">
 				<dl>
 					<dt><strong>감독 :&nbsp;</strong></dt>
-					<dd><c:forEach var="d" items="${movie['directors']}" varStatus="status">
-						${d.peopleNm}
-							<c:choose>
-								<c:when test="${status.last}">/ &nbsp;</c:when>
-								<c:otherwise>,&nbsp;</c:otherwise>
-							</c:choose>
-						</c:forEach>
-					</dd>
+					<dd>${movie['DT_NAME']}/</dd>
 					
 					<dt><strong>배우 :&nbsp;</strong></dt>
-					<dd class="on"><c:forEach var="a" items="${movie['actors']}" varStatus="status">
-						${a.peopleNm}
-							<c:choose>
-								<c:when test="${status.last}"> &nbsp;</c:when>
-								<c:otherwise>,&nbsp;</c:otherwise>
-							</c:choose>
-						</c:forEach>
+					<dd class="on">${movie['A_name']}
 					</dd>
 					
 					<dt><strong>장르 :&nbsp;</strong></dt>
@@ -70,19 +57,14 @@ dt, dd { float: left; }
 					
 					<dt><strong>기본 :&nbsp;</strong>
 					<dd class="on">
-						<c:forEach var="ad" items="${movie['audits']}" end="0">
-							${ad.watchGradeNm}, &nbsp;
-						</c:forEach>
-						${movie['showTm']}분, &nbsp;
-						<c:forEach var="nt" items="${movie['nations']}">
-							${nt.nationNm}
-						</c:forEach>
+						${movie['RT_RATING']}, &nbsp;
+						${movie['MV_ST']}분, &nbsp;
+						${movie['CT_NAME']}
 					</dd>
 					
 					<dt><strong>개봉일 :&nbsp;</strong></dt>
 					<dd>
-						<fmt:parseDate value="${movie['openDt']}" var="mm" pattern="yyyyMMdd"/>
-						<fmt:formatDate value="${mm}" pattern="yyyy.MM.dd"/>
+						${movie['MV_OD']}
 					</dd>
 				</dl>
 			</div>
@@ -92,7 +74,10 @@ dt, dd { float: left; }
 				<a href=""><img src="${pageContext.request.contextPath}/static/img/movie/ticket.PNG" style="width: 40px; height: 40px;"></a>
 			</span>
 		</div>
-		
+		<div style="clear: both;">
+			<h3> 줄거리 </h3>
+			${movie['MV_STORY']}
+		</div>	
 	</div>
 </body>
 </html>

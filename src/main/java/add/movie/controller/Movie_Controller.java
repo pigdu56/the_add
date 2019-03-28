@@ -40,7 +40,6 @@ public class Movie_Controller {
 		
 		mv.addObject("movie", mm.mv_select());
 		mv.setViewName("movie_main");
-		//System.out.println(mv);
 		
 		return mv;
 	}
@@ -48,19 +47,20 @@ public class Movie_Controller {
 	@RequestMapping(value= {"/detail_view"}, method=RequestMethod.GET)
 	public ModelAndView detail_view(@RequestParam HashMap<String, String> m){
 		ModelAndView mv = new ModelAndView();
-		String movieCd = m.get("movieCd");
-		mv.addObject("movie", mj.MV(movieCd).get("movie_view"));
-		mv.setViewName("detail_view");
 		
+		mv.addObject("movie", mm.mv_dt_sel(m));
+		mv.setViewName("detail_view");
+		System.out.println(mv);
 		return mv;
 	}
+	
 	//예약 페이지
 	@RequestMapping(value= {"/reservation"}, method=RequestMethod.GET)
 	public ModelAndView reservation() {
 		ModelAndView mv = new ModelAndView();
 		SimpleDateFormat formatter = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
 	      Date currentTime = new Date();
-	      Calendar c = Calendar.getInstance();
+	      Calendar c = Calendar.getInstance();	
 	      ArrayList<HashMap<String, String>> daylist = new ArrayList<HashMap<String, String>>();
 	      HashMap<String, String> daydate =  null;
 	      String day =null;
