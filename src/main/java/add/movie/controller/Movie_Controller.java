@@ -103,7 +103,7 @@ public class Movie_Controller {
 	@RequestMapping(value= {"/registration"}, method=RequestMethod.GET)
 	public ModelAndView getRegist() {
 		ModelAndView mav = new ModelAndView();
-		
+		mav.addObject("movielist", mm.mv_select());
 		mav.setViewName("registration");
 		return mav;
 	}
