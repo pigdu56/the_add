@@ -3,11 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<style>
-	#admin_table {
-		text-align:center;
-	}
-</style>
+
 <script>
 $(function() {
 	$("#datepicker").datepicker(
@@ -38,6 +34,7 @@ $(function() {
 					onClose : function( selectedDate ) {  // 날짜를 설정 후 달력이 닫힐 때 실행
 	                      if( selectedDate != "" ) {
 	                          // yyy의 minDate를 xxx의 날짜로 설정
+	                          $("#datepicker2").removeAttr("disabled");
 	                          $("input[name='cdt']").datepicker("option", "minDate", selectedDate);
 	                      }
 	                  }
@@ -71,7 +68,21 @@ $(function() {
 						'토요일' ]
 			});
 });
-</script>	
+</script>
+<style>
+	#admin_table {
+		text-align:center;
+	}
+	#aj_left{
+		text-align:left;
+	}
+	#aj_left > li{
+		list-style: none;
+	}
+	#en_gray{
+		color: darkgray;
+	}
+</style>
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-1"></div>
@@ -87,11 +98,10 @@ $(function() {
 					</tr>
 					<tr class="row">
 						<td class="col-sm-4">
-							<select name="movie_num" class="form-control form-control-lg">
+							<select name="movie_num" class="form-control form-control-lg" id="mv_change">
 								<option>--영화 선택--</option>
 								<c:forEach var="i" items="${movielist}">
-									<option value="${i.MV_CODE}" data-icon="${pageContext.request.contextPath}/static/img/movie/${i.RT_IMG}" data-html-text="${i.MV_TITLE_KR}&lt;i&gt;in stock&lt;/i&gt;">${i.MV_TITLE_KR}-${i.RT_RATING}</option>								
-									
+									<option value="${i.MV_CODE}">${i.MV_TITLE_KR}-${i.RT_RATING}</option>						
 								</c:forEach>
 							</select>
 						</td>
@@ -115,21 +125,32 @@ $(function() {
 					<tr class="row">
 						<td class="col-sm-3"><h4>상영일</h4></td>	
 						<td class="col-sm-3">
-							<input type="text" id="datepicker" autocomplete='off' name="odt" class="form-control form-control-lg">
+							<input type="text" id="datepicker" autocomplete='off' name="odt" class="form-control form-control-lg" readonly="readonly">
 						</td>
 						<td class="col-sm-3"><h4>마감일</h4></td>	
 						<td class="col-sm-3">
-							<input type="text" id="datepicker2" autocomplete='off' name="cdt" class="form-control form-control-lg">
+							<input type="text" id="datepicker2" autocomplete='off' name="cdt" class="form-control form-control-lg" readonly="readonly" disabled="disabled">
 						</td>
 					</tr>
 					<tr class="row">
-						<td class="col-sm-3"><h4>시간 선택</h4></td>
-						<td class="col-sm-7">
-						
+						<td class="col-sm-3"><h4>첫 시간 선택</h4></td>
+						<td class="col-sm-9">
+							<input type="radio" name="mv_time" value="0900">09:00부터
+							<input type="radio" name="mv_time" value="0930">09:00부터
+							<input type="radio" name="mv_time" value="1000">10:00부터
+							<input type="radio" name="mv_time" value="1030">10:30부터
+							<input type="radio" name="mv_time" value="1100">11:00부터
+							<input type="radio" name="mv_time" value="1200">12:00부터
 						</td>
-						<td class="col-sm-2">
+					</tr>
+					<tr class="row" id="movie_info">
+					</tr>
+					<tr class="row">
+						<td class="col-sm-3"></td>
+						<td class="col-sm-6">
 							<button type="submit" class="btn btn-block btn-danger">영화등록</button>
 						</td>
+						<td class="col-sm-3"></td>
 					</tr>
 				</table>
 				<!--</form>-->
@@ -137,4 +158,24 @@ $(function() {
 			<div class="col-sm-1"></div>
 		</div>
 	</div>
-	
+<script>
+$("#mv_change").bind(
+        "change",
+        function() {
+        	 $("#movie_info").empty();
+        	 $.ajax({
+                 url : "${pageContext.request.contextPath}/movie/info",
+                 type : "get",
+                 data : {
+                    "mv_code" : this.value
+                 },                 
+                 success : function(data) {            
+                    $("#movie_info").append("<td class='col-sm-4'><img src='"+data.MV_IMG+"'></td><td class='col-sm-8'><ul id='aj_left'><li><h4>"+data.MV_TITLE_KR+"<img src='${pageContext.request.contextPath}/static/img/movie/"+data.RT_IMG+"' style='width:24px;'></h4></li><li id='en_gray'><h5>"+data.MV_TITLE_EN+"</h5></li><li><h5>감독 : "+data.DT_NAME+"</h5></li><li><h5>배우 : "+data.A_NAME+"</h5></li><li><h5>장르 : "+data.G_NAME+"</h5></li><li><h5>줄거리</h5></li><li><h6>"+data.MV_STORY+"</h6></li></ul></td>");
+                 },
+                 error : function(jqXHR, textStatus, errorThrown, error) {
+                    alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+                          + error);
+                 }
+           })        	 
+        });
+</script>
