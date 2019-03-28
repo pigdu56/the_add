@@ -37,7 +37,10 @@ table > thead { border: 0 !important; }
 				<thead>
 					<tr>
 						<td colspan="5" style="text-align: right;">
-							<button>갱신</button>
+							<c:url value="/movie/mv_insert" var="update" />
+							<form action="${update}" method="get">
+								<button>갱신</button>
+							</form>
 						</td>
 					</tr>
 				</thead>			

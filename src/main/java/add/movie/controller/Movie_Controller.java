@@ -40,7 +40,7 @@ public class Movie_Controller {
 		
 		mv.addObject("movie", mm.mv_select());
 		mv.setViewName("movie_main");
-		System.out.println(mv);
+		//System.out.println(mv);
 		
 		return mv;
 	}
@@ -191,7 +191,7 @@ public class Movie_Controller {
          ArrayList<HashMap<String, String>> actor = (ArrayList<HashMap<String, String>>) m.get("actors");
     	 if(actor.isEmpty()) {
     		 String ac = na.NaverApi(title_kr).get("actor");
-    		 System.out.println(ac);
+    		 //System.out.println(ac);
     		 String date[] = ac.split("\\|");
     	        
 	        for(int i=0 ; i<date.length ; i++) {
