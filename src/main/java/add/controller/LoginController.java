@@ -75,7 +75,7 @@ public class LoginController {
 					res.setContentType("text/html; charset=UTF-8");
 					PrintWriter out = res.getWriter();
 					out.println("<script>alert('비밀번호를 확인해주세요.');");
-					out.println("location.href='/the_add/member/login';</script>");
+					out.println("location.href='/the_add/login';</script>");
 					out.flush();
 				}
 			} else {

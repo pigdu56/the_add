@@ -130,17 +130,17 @@ function flogout(){
 			<div class="container" id="form">
 				<c:url var="login" value="/member/login" />
 				<form action="${login}" method="post" onsubmit="return login();">
-				<input type="hidden" id="RSAModulus" value="${RSAModulus}" /> 
-				<input type="hidden" id="RSAExponent" value="${RSAExponent}" />
-				<label for="f_id"></label> 
-				<input type="text" placeholder="ID" name="USER_ID_TEXT" id="USER_ID_TEXT" required> 
-				<label for="f_pw"></label> 
-				<input type="password" placeholder="PW" name="USER_PW_TEXT" id="USER_PW_TEXT" required> 
-				<input type="hidden" id="USER_ID" name="USER_ID"> 
-				<input type="hidden" id="USER_PW" name="USER_PW">
-				<br><br>
-				<button style="background-color: #9933FF; border-radius: 12px; font-size: 25px; color: white; font-family: Agency FB;">LOGIN</button>
-			</form>
+					<input type="hidden" id="RSAModulus" value="${RSAModulus}" /> 
+					<input type="hidden" id="RSAExponent" value="${RSAExponent}" />
+					<label for="f_id"></label> 
+					<input type="text" placeholder="ID" name="USER_ID_TEXT" id="USER_ID_TEXT" required> 
+					<label for="f_pw"></label> 
+					<input type="password" placeholder="PW" name="USER_PW_TEXT" id="USER_PW_TEXT" required> 
+					<input type="hidden" id="USER_ID" name="USER_ID"> 
+					<input type="hidden" id="USER_PW" name="USER_PW">
+					<br><br>
+					<button style="background-color: #9933FF; border-radius: 12px; font-size: 25px; color: white; font-family: Agency FB;">LOGIN</button>
+				</form>
 			<div style="position:relative; left:1%;">
 			<button onclick="authGoogle()" style="background-color: black; position:relative; left:-20px; width:150px;">
 				<img src="${pageContext.request.contextPath}/static/img/naver.PNG" style="position:relative; left:-13px; width:180px;height:40px;">
