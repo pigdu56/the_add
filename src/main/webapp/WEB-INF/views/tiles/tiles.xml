@@ -105,6 +105,16 @@
 	<definition name="ticketing" extends="bus">
 		<put-attribute name="body" value="/WEB-INF/views/pages/bus/ticketing.jsp" />
 	</definition>
+	
+	<!-- Bus Seat -->
+	<definition name="bus_seat" extends="bus">
+		<put-attribute name="body" value="/WEB-INF/views/pages/bus/bus_seat.jsp" />
+	</definition>
+	
+	<!-- Bus Ticket -->
+	<definition name="seat_ticket" extends="bus">
+		<put-attribute name="body" value="/WEB-INF/views/pages/bus/seat_ticket.jsp" />
+	</definition>
 	<!-- trip -->
 	<!-- tripApi -->
 	<definition name="timg" extends="bdefinition">

@@ -15,10 +15,14 @@
 <div class="w3-bar w3-white w3-middle" id="menu">
   <c:if test="${!LoginUser}">
 	 <a href="#" class="w3-bar-item w3-button w3-hover-blue w3-text-black w3-right"><i class="fa fa-bus">&nbsp;&nbsp;<b>${LoginUser}님</b></i></a>
-</c:if>
+  </c:if>
+  <c:if test="${LoginUser=='admin'}">
+  	 <a href="#" class="w3-bar-item w3-button w3-hover-blue w3-text-black w3-right"><i class="fa fa-bus">&nbsp;&nbsp;<b>예약목록</b></i></a>	
+  </c:if>
   <c:url value="/bus/about" var="about" />
   <a href="${about}" class="w3-bar-item w3-button w3-hover-blue w3-text-black w3-right"><b>ABOUT</b></a>
   <a href="#" class="w3-bar-item w3-button w3-hover-blue w3-text-black w3-right"><b>WHERE</b></a>
   
 </div>
+
 
