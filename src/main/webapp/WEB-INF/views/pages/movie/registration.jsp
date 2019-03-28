@@ -106,7 +106,7 @@ $(function() {
 							</select>
 						</td>
 						<td class="col-sm-4">
-							<select name="" class="form-control form-control-lg" required="required">
+							<select name="c_code" class="form-control form-control-lg" required="required">
 								<option>--영화관 선택--</option>
 								<option value="1">CGV 천안터미널</option>
 								<option value="2">CGV 천안역</option>
@@ -114,7 +114,7 @@ $(function() {
 							</select>
 						</td>
 						<td class="col-sm-4">
-							<select name="" class="form-control form-control-lg" required="required">
+							<select name="tt_code" class="form-control form-control-lg" required="required">
 								<option>--상영관 선택--</option>
 								<option value="1">1관</option>
 								<option value="2">2관</option>
@@ -133,14 +133,34 @@ $(function() {
 						</td>
 					</tr>
 					<tr class="row">
-						<td class="col-sm-3"><h4>첫 시간 선택</h4></td>
-						<td class="col-sm-9">
-							<input type="radio" name="mv_time" value="0900">09:00부터
-							<input type="radio" name="mv_time" value="0930">09:30부터
-							<input type="radio" name="mv_time" value="1000">10:00부터
-							<input type="radio" name="mv_time" value="1030">10:30부터
-							<input type="radio" name="mv_time" value="1100">11:00부터
-							<input type="radio" name="mv_time" value="1200">12:00부터
+						<td class="col-sm-3"><h4>상영 시간</h4></td>
+						<td class="col-sm-3">
+							<select name="" class="form-control form-control-lg" required="required">
+								<option>-- 첫 상영 시간 --</option>
+								<option value="0900">09:00</option>
+								<option value="0930">09:30</option>
+								<option value="1000">10:00</option>
+								<option value="1030">10:30</option>
+								<option value="1100">11:00</option>
+								<option value="1200">12:00</option>		
+							</select>
+						</td>
+						<td class="col-sm-3">
+							<select name="" class="form-control form-control-lg" required="required">
+								<option>-- 상영 간격 --</option>
+								<option></option>
+							</select>
+						</td>
+						<td class="col-sm-3">
+							<select name="" class="form-control form-control-lg" required="required">
+								<option>-- 마지막 상영 시간 --</option>
+								<option value="2130">21:30</option>
+								<option value="2200">22:00</option>
+								<option value="2230">22:30</option>
+								<option value="2300">23:00</option>
+								<option value="2330">23:30</option>
+								<option value="2300">24:00</option>
+							</select>
 						</td>
 					</tr>
 					<tr class="row" id="movie_info">
