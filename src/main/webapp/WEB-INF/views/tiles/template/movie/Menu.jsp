@@ -46,8 +46,11 @@
 </style>
 <nav class="navbar navbar-expand-sm" style="margin:0; padding:0; background-color:#FEFADB; color:black;">
 		<ul class="navbar-nav">
-			<li class="nav-item" style="text-align:center;padding-top:12px;"><img
-				src="${pageContext.request.contextPath}/static/img/movie/cgv.png" alt="logo" id="logos"></li>
+			<li class="nav-item" style="text-align:center;padding-top:12px;">
+				<c:url value="/movie/main" var="main"/>
+				<a href="${main}">
+				<img src="${pageContext.request.contextPath}/static/img/movie/cgv.png" alt="logo" id="logos" />
+				</a></li>
 			<li class="nav-item" style="margin-left:5px;"><h3 style="text-shadow: 1px 1px 1px gray;">CHEONAN</h3></li>
 		</ul>
 		<ul class="navbar-nav" style="margin-left:15px; font-size:14px; padding-top:7px;">
@@ -70,14 +73,17 @@
         			<a class="dropdown-item minis" href="">선호도</a>
      			</div>
 			</li>
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle se_li" href="" id="navbardrop" data-toggle="dropdown">
-					<b>극장</b>
-				</a>
-				<div class="dropdown-menu d_menu">
-       			<a class="dropdown-item minis" href="">영화관정보</a>        		
-     			</div>
-			</li>
+			<c:if test="${'admin' eq LoginUser}">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle se_li" href="" id="navbardrop" data-toggle="dropdown">
+						<b>관리자</b>
+					</a>
+					<div class="dropdown-menu d_menu">
+					<c:url value="/movie/registration" var="up" />
+	       			<a class="dropdown-item minis" href="${up}">영화상영등록</a>        		
+	     			</div>
+				</li>
+			</c:if>
 		</ul>
 	</nav>
 	<nav class="navbar navbar-expand-sm ns"

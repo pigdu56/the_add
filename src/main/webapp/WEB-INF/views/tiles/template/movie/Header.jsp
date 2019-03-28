@@ -36,15 +36,9 @@
 			<li class="nav-item"><a class="nav-link" id="top_link"
 				href="${pageContext.request.contextPath}/bus/main"><b>Bus</b></a></li>
 			<li class="nav-item"><a class="nav-link" id="top_link"
-				href=""><b>Food</b></a></li>
-			<li class="nav-item"><a class="nav-link" id="top_link"
-				href=""><b>Trip</b></a></li>
-			<li class="nav-item"><a class="nav-link" id="top_link"
-				href=""><b>Tour</b></a></li>
+				href=""><b>Rental</b></a></li>
 			<li class="nav-item"><a class="nav-link" id="top_link"
 				href=""><b>Property</b></a></li>
-			<li class="nav-item"><a class="nav-link" id="top_link"
-				href=""><b>Ship</b></a></li>
 		</ul>
 		<div class="navbar-collapse justify-content-end"
 			id="collapsibleNavbar">

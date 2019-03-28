@@ -98,7 +98,7 @@ $(function() {
 					</tr>
 					<tr class="row">
 						<td class="col-sm-4">
-							<select name="movie_num" class="form-control form-control-lg" id="mv_change">
+							<select name="movie_num" class="form-control form-control-lg" id="mv_change" required="required">
 								<option>--영화 선택--</option>
 								<c:forEach var="i" items="${movielist}">
 									<option value="${i.MV_CODE}">${i.MV_TITLE_KR}-${i.RT_RATING}</option>						
@@ -106,7 +106,7 @@ $(function() {
 							</select>
 						</td>
 						<td class="col-sm-4">
-							<select name="" class="form-control form-control-lg">
+							<select name="" class="form-control form-control-lg" required="required">
 								<option>--영화관 선택--</option>
 								<option value="1">CGV 천안터미널</option>
 								<option value="2">CGV 천안역</option>
@@ -114,7 +114,7 @@ $(function() {
 							</select>
 						</td>
 						<td class="col-sm-4">
-							<select name="" class="form-control form-control-lg">
+							<select name="" class="form-control form-control-lg" required="required">
 								<option>--상영관 선택--</option>
 								<option value="1">1관</option>
 								<option value="2">2관</option>
@@ -125,18 +125,18 @@ $(function() {
 					<tr class="row">
 						<td class="col-sm-3"><h4>상영일</h4></td>	
 						<td class="col-sm-3">
-							<input type="text" id="datepicker" autocomplete='off' name="odt" class="form-control form-control-lg" readonly="readonly">
+							<input type="text" id="datepicker" autocomplete='off' name="odt" class="form-control form-control-lg" readonly="readonly" required="required">
 						</td>
 						<td class="col-sm-3"><h4>마감일</h4></td>	
 						<td class="col-sm-3">
-							<input type="text" id="datepicker2" autocomplete='off' name="cdt" class="form-control form-control-lg" readonly="readonly" disabled="disabled">
+							<input type="text" id="datepicker2" autocomplete='off' name="cdt" class="form-control form-control-lg" readonly="readonly" disabled="disabled" required="required">
 						</td>
 					</tr>
 					<tr class="row">
 						<td class="col-sm-3"><h4>첫 시간 선택</h4></td>
 						<td class="col-sm-9">
 							<input type="radio" name="mv_time" value="0900">09:00부터
-							<input type="radio" name="mv_time" value="0930">09:00부터
+							<input type="radio" name="mv_time" value="0930">09:30부터
 							<input type="radio" name="mv_time" value="1000">10:00부터
 							<input type="radio" name="mv_time" value="1030">10:30부터
 							<input type="radio" name="mv_time" value="1100">11:00부터
@@ -148,7 +148,7 @@ $(function() {
 					<tr class="row">
 						<td class="col-sm-3"></td>
 						<td class="col-sm-6">
-							<button type="submit" class="btn btn-block btn-danger">영화등록</button>
+							<button type="submit" class="btn btn-block btn-danger"><h5>영화등록</h5></button>
 						</td>
 						<td class="col-sm-3"></td>
 					</tr>
@@ -170,7 +170,7 @@ $("#mv_change").bind(
                     "mv_code" : this.value
                  },                 
                  success : function(data) {            
-                    $("#movie_info").append("<td class='col-sm-4'><img src='"+data.MV_IMG+"'></td><td class='col-sm-8'><ul id='aj_left'><li><h4>"+data.MV_TITLE_KR+"<img src='${pageContext.request.contextPath}/static/img/movie/"+data.RT_IMG+"' style='width:24px;'></h4></li><li id='en_gray'><h5>"+data.MV_TITLE_EN+"</h5></li><li><h5>감독 : "+data.DT_NAME+"</h5></li><li><h5>배우 : "+data.A_NAME+"</h5></li><li><h5>장르 : "+data.G_NAME+"</h5></li><li><h5>줄거리</h5></li><li><h6>"+data.MV_STORY+"</h6></li></ul></td>");
+                    $("#movie_info").append("<td class='col-sm-4'><img src='"+data.MV_IMG+"'></td><td class='col-sm-8'><ul id='aj_left'><li><h3><img src='${pageContext.request.contextPath}/static/img/movie/"+data.RT_IMG+"' style='width:40px;'>"+data.MV_TITLE_KR+"</h3></li><li id='en_gray'><h5>"+data.MV_TITLE_EN+"</h5></li><li><h5>감독 : "+data.DT_NAME+"</h5></li><li><h5>배우 : "+data.A_NAME+"</h5></li><li><h5>장르 : "+data.G_NAME+"</h5></li><li><h5>상영시간  : "+data.MV_ST+" 분</h5><input type='hidden' name='mv_st' value='"+data.MV_ST+"'><li><h5>줄거리</h5></li><li><h6>"+data.MV_STORY+"</h6></li></ul></td>");
                  },
                  error : function(jqXHR, textStatus, errorThrown, error) {
                     alert("에러 발생~~ \n" + textStatus + " : " + errorThrown

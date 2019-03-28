@@ -20,7 +20,7 @@ dt, dd { float: left; }
 </style>
 </head>
 <body>
-	<div style="width: 80%; height : 400px; border:1px solid red; margin-left: 10%;">
+	<div style="width: 80%; height : 400px; margin-left: 10%;">
 		<h2>영화 상세</h2>
 		<hr style="border: 3px solid #252424;">
 		<div class="box-image">
@@ -29,7 +29,8 @@ dt, dd { float: left; }
 		
 		<div class="box-contents">
 			<div id="title">
-				<strong>${movie['MV_TITLE_KR']}</strong>
+				<img src="${pageContext.request.contextPath}/static/img/movie/${movie['RT_IMG']}" style="width: 40px;">
+				<strong> ${movie['MV_TITLE_KR']}</strong>
 				<p/>${movie['MV_TITLE_EN']}
 			</div>
 			<div class="score">
@@ -66,10 +67,10 @@ dt, dd { float: left; }
 				<a href=""><img src="${pageContext.request.contextPath}/static/img/movie/ticket.PNG" style="width: 40px; height: 40px;"></a>
 			</span>
 		</div>
-		<br/>
 		
-		<div style="clear: both; width: 40%;">
+		<div style="clear: both; width: 50%; padding-top : 20px;">
 			<h3> 줄거리 </h3>
+			<br/>
 			${movie['MV_STORY']}
 		</div>	
 	</div>

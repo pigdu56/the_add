@@ -28,7 +28,7 @@ ul > li{
 </style>
 <div class="container">
 	<div id="black">
-		<h2 id="b_title">박스오피스</h2>
+		<h2 id="b_title">영화 순위 TOP.10</h2>
 
 		<table class="table" style="width: 100%;">
 			<c:if test="${'admin' eq LoginUser}">
