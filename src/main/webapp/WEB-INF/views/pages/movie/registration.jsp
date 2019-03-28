@@ -146,9 +146,8 @@ $(function() {
 							</select>
 						</td>
 						<td class="col-sm-3">
-							<select name="" class="form-control form-control-lg" required="required">
-								<option>-- 상영 간격 --</option>
-								<option></option>
+							<select name="" class="form-control form-control-lg" required="required" id="interval">
+							<option>-- 영화 런타임 / 상영 간격 --</option>
 							</select>
 						</td>
 						<td class="col-sm-3">
@@ -183,6 +182,7 @@ $("#mv_change").bind(
         "change",
         function() {
         	 $("#movie_info").empty();
+        	 $("#interval").empty();
         	 $.ajax({
                  url : "${pageContext.request.contextPath}/movie/info",
                  type : "get",
@@ -190,7 +190,23 @@ $("#mv_change").bind(
                     "mv_code" : this.value
                  },                 
                  success : function(data) {            
-                    $("#movie_info").append("<td class='col-sm-4'><img src='"+data.MV_IMG+"'></td><td class='col-sm-8'><ul id='aj_left'><li><h3><img src='${pageContext.request.contextPath}/static/img/movie/"+data.RT_IMG+"' style='width:40px;'>"+data.MV_TITLE_KR+"</h3></li><li id='en_gray'><h5>"+data.MV_TITLE_EN+"</h5></li><li><h5>감독 : "+data.DT_NAME+"</h5></li><li><h5>배우 : "+data.A_NAME+"</h5></li><li><h5>장르 : "+data.G_NAME+"</h5></li><li><h5>상영시간  : "+data.MV_ST+" 분</h5><input type='hidden' name='mv_st' value='"+data.MV_ST+"'><li><h5>줄거리</h5></li><li><h6>"+data.MV_STORY+"</h6></li></ul></td>");
+                	var runtime = data.MV_ST;
+                	var interval = 30;
+                	var hour = parseInt((runtime*60)/3600);
+         			var min = parseInt(((runtime*60)%3600)/60);
+         			var m = Math.round(min/10)*10;
+         			if(m == 60){
+         				hour = hour+1;
+         				m = 0;
+         			}
+         			var run_plus = (hour*60)+m;
+         			var in_30 =run_plus+interval;
+                	var in_60= run_plus+(interval*2);
+                	var in_90 = run_plus+(interval*3);
+                	var in_120 = run_plus+(interval*4);
+         			var times = hour+"시간 "+m+"분";
+                    $("#movie_info").append("<td class='col-sm-4'><img src='"+data.MV_IMG+"'></td><td class='col-sm-8'><ul id='aj_left'><li><h3><img src='${pageContext.request.contextPath}/static/img/movie/"+data.RT_IMG+"' style='width:40px;'>"+data.MV_TITLE_KR+"</h3></li><li id='en_gray'><h5>"+data.MV_TITLE_EN+"</h5></li><li><h5>감독 : "+data.DT_NAME+"</h5></li><li><h5>배우 : "+data.A_NAME+"</h5></li><li><h5>장르 : "+data.G_NAME+"</h5></li><li><h5>상영시간  : "+runtime+" 분</h5><input type='hidden' name='mv_st' value='"+runtime+"'><li><h5>줄거리</h5></li><li><h6>"+data.MV_STORY+"</h6></li></ul></td>");
+                    $("#interval").append("<option>-- 영화 런타임 / 상영 간격 --</option><option name='in_time' value="+in_30+">"+times+"/ +30분 간격</option><option name='in_time' value='"+in_60+"'>"+times+"/+1시간</option><option name='in_time' value='"+in_90+"'>"+times+"/+1시간30분</option><option name='in_time' value='"+in_120+"'>"+times+"/+2시간</option>");
                  },
                  error : function(jqXHR, textStatus, errorThrown, error) {
                     alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
