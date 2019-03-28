@@ -20,7 +20,7 @@ dt, dd { float: left; }
 </style>
 </head>
 <body>
-	<div style="width: 80%; margin-left: 10%;">
+	<div style="width: 80%; height : 400px; border:1px solid red; margin-left: 10%;">
 		<h2>영화 상세</h2>
 		<hr style="border: 3px solid #252424;">
 		<div class="box-image">
@@ -39,21 +39,13 @@ dt, dd { float: left; }
 			<div class="content">
 				<dl>
 					<dt><strong>감독 :&nbsp;</strong></dt>
-					<dd>${movie['DT_NAME']}/</dd>
+					<dd>${movie['DT_NAME']}&nbsp;/&nbsp;</dd>
 					
 					<dt><strong>배우 :&nbsp;</strong></dt>
-					<dd class="on">${movie['A_name']}
-					</dd>
+					<dd class="on">${movie['A_NAME']}</dd>
 					
 					<dt><strong>장르 :&nbsp;</strong></dt>
-					<dd><c:forEach var="g" items="${movie['genres']}" varStatus="status">
-							${g.genreNm}
-								<c:choose>
-									<c:when test="${status.last}">/&nbsp;</c:when>
-									<c:otherwise>,&nbsp;</c:otherwise>
-								</c:choose>
-						</c:forEach>
-					</dd>
+					<dd>${movie['G_NAME']} &nbsp;</dd>
 					
 					<dt><strong>기본 :&nbsp;</strong>
 					<dd class="on">
@@ -74,7 +66,9 @@ dt, dd { float: left; }
 				<a href=""><img src="${pageContext.request.contextPath}/static/img/movie/ticket.PNG" style="width: 40px; height: 40px;"></a>
 			</span>
 		</div>
-		<div style="clear: both;">
+		<br/>
+		
+		<div style="clear: both; width: 40%;">
 			<h3> 줄거리 </h3>
 			${movie['MV_STORY']}
 		</div>	
