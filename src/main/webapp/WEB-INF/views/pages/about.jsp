@@ -62,13 +62,12 @@ body{font-family: 'Gothic A1', sans-serif;}
 	<table id="tb3">
 		<tr>
 			<td><img
-				src="${pageContext.request.contextPath}/static/img/rt.png"
-				style="width: 130px;" id="bus"></td>
-			<td><p style="font-size: 25px; color: #FFD966;">&nbsp;&nbsp;Restaurant
-					Program</p>
-				<p style="font-size: 15px;">&nbsp;&nbsp;개발자:양다솜</p>
-				<p style="font-size: 15px;">&nbsp;&nbsp;인원과 날짜 시간을 정할 수 있는 식당예약
-					프로그램 입니다</p></td>
+				src="${pageContext.request.contextPath}/static/img/rent (2).png"
+				style="width: 180px;" id="bus"></td>
+			<td><p style="font-size: 25px; color: #FFD966;">&nbsp;&nbsp;Rental Program</p>
+				<p style="font-size: 15px;">&nbsp;&nbsp;개발자:박지훈,이관희</p>
+				<p style="font-size: 15px;">&nbsp;&nbsp;가전, 가구, 헬스 제품을 렌탈하는 사이트입니다</p>
+				</td>
 		</tr>
 	</table>
 
@@ -78,46 +77,8 @@ body{font-family: 'Gothic A1', sans-serif;}
 	<br>
 	<br>
 
-	<table id="tb4">
-		<tr>
-			<td style="text-align: right;"><p
-					style="font-size: 25px; color: #FFD966;">Trip Information
-					Program &nbsp;&nbsp;</p>
-				<p style="font-size: 15px;">개발자: 박지훈, 이관희 &nbsp;&nbsp;</p>
-				<p style="font-size: 15px;">여행 정보를 조회하는 프로그램 입니다.&nbsp;&nbsp;</p></td>
-			<td><img
-				src="${pageContext.request.contextPath}/static/img/travle.png"
-				style="width: 130px;" id="bus"></td>
-		</tr>
-	</table>
 
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-
-	<table id="tb5">
-		<tr>
-			<td><img
-				src="${pageContext.request.contextPath}/static/img/tour.png"
-				style="width: 130px;" id="bus"></td>
-			<td><p style="font-size: 25px; color: #FFD966;">&nbsp;&nbsp;Tour
-					Program</p>
-				<p style="font-size: 15px;">&nbsp;&nbsp;개발자:오순영,김선중</p>
-				<p style="font-size: 15px;">&nbsp;&nbsp;관광정보 조회 및 숙박업소 예약
-					프로그램입니다.</p></td>
-		</tr>
-	</table>
-
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-
-	<table id="tb6">
+		<table id="tb6">
 		<tr>
 			<td style="text-align: right;"><p
 					style="font-size: 25px; color: #FFD966;">Real Property Program
