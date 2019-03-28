@@ -137,12 +137,12 @@ $(function() {
 						<td class="col-sm-3">
 							<select name="" class="form-control form-control-lg" required="required">
 								<option>-- 첫 상영 시간 --</option>
-								<option value="0900">09:00</option>
-								<option value="0930">09:30</option>
-								<option value="1000">10:00</option>
-								<option value="1030">10:30</option>
-								<option value="1100">11:00</option>
-								<option value="1200">12:00</option>		
+								<option value="540">09:00</option>
+								<option value="570">09:30</option>
+								<option value="600">10:00</option>
+								<option value="630">10:30</option>
+								<option value="660">11:00</option>
+								<option value="720">12:00</option>		
 							</select>
 						</td>
 						<td class="col-sm-3">
@@ -153,12 +153,12 @@ $(function() {
 						<td class="col-sm-3">
 							<select name="" class="form-control form-control-lg" required="required">
 								<option>-- 마지막 상영 시간 --</option>
-								<option value="2130">21:30</option>
-								<option value="2200">22:00</option>
-								<option value="2230">22:30</option>
-								<option value="2300">23:00</option>
-								<option value="2330">23:30</option>
-								<option value="2300">24:00</option>
+								<option value="1290">21:30</option>
+								<option value="1320">22:00</option>
+								<option value="1350">22:30</option>
+								<option value="1380">23:00</option>
+								<option value="1410">23:30</option>
+								<option value="1440">24:00</option>
 							</select>
 						</td>
 					</tr>
@@ -206,7 +206,7 @@ $("#mv_change").bind(
                 	var in_120 = run_plus+(interval*4);
          			var times = hour+"시간 "+m+"분";
                     $("#movie_info").append("<td class='col-sm-4'><img src='"+data.MV_IMG+"'></td><td class='col-sm-8'><ul id='aj_left'><li><h3><img src='${pageContext.request.contextPath}/static/img/movie/"+data.RT_IMG+"' style='width:40px;'>"+data.MV_TITLE_KR+"</h3></li><li id='en_gray'><h5>"+data.MV_TITLE_EN+"</h5></li><li><h5>감독 : "+data.DT_NAME+"</h5></li><li><h5>배우 : "+data.A_NAME+"</h5></li><li><h5>장르 : "+data.G_NAME+"</h5></li><li><h5>상영시간  : "+runtime+" 분</h5><input type='hidden' name='mv_st' value='"+runtime+"'><li><h5>줄거리</h5></li><li><h6>"+data.MV_STORY+"</h6></li></ul></td>");
-                    $("#interval").append("<option>-- 영화 런타임 / 상영 간격 --</option><option name='in_time' value="+in_30+">"+times+"/ +30분 간격</option><option name='in_time' value='"+in_60+"'>"+times+"/+1시간</option><option name='in_time' value='"+in_90+"'>"+times+"/+1시간30분</option><option name='in_time' value='"+in_120+"'>"+times+"/+2시간</option>");
+                    $("#interval").append("<option>-- 영화 런타임 / 상영 간격 --</option><option name='in_time' value="+in_30+">"+times+ "/ +30분 간격</option><option name='in_time' value='"+in_60+"'>"+times+"/ + 1시간</option><option name='in_time' value='"+in_90+"'>"+times+" / +1시간30분</option><option name='in_time' value='"+in_120+"'>"+times+" / +2시간</option>");
                  },
                  error : function(jqXHR, textStatus, errorThrown, error) {
                     alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
