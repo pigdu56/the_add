@@ -25,18 +25,23 @@ ul > li{
 .box_list{
 	padding:0;
 }
+table > thead { border: 0 !important; }
 </style>
 <div class="container">
 	<div id="black">
 		<h2 id="b_title">박스오피스</h2>
 		<br/>
-		<c:if test="${'admin' eq LoginUser}">
-			<div>	
-				<button>갱신</button>
-			</div>
-		</c:if>
 		
-		<table class="table table-bordered" style="width: 100%;">			
+		<table class="table table-bordered" style="width: 100%;">
+			<c:if test="${'admin' eq LoginUser}">
+				<thead>
+					<tr>
+						<td colspan="5" style="text-align: right;">
+							<button>갱신</button>
+						</td>
+					</tr>
+				</thead>			
+			</c:if>
 			<tbody>
 				<tr>
 				<c:forEach var="m" items="${movie}" begin="0" end="4">					
