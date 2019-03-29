@@ -135,7 +135,7 @@ $(function() {
 					<tr class="row">
 						<td class="col-sm-3"><h4>상영 시간</h4></td>
 						<td class="col-sm-3">
-							<select name="" id="f_time" class="form-control form-control-lg" required="required" onchange="sc_check();">
+							<select name="f_time" id="f_time" class="form-control form-control-lg" required="required" onchange="sc_check();">
 								<option value="0">-- 첫 상영 시간 --</option>
 								<option value="540">09:00</option>
 								<option value="570">09:30</option>
@@ -151,7 +151,7 @@ $(function() {
 							</select>
 						</td>
 						<td class="col-sm-3">
-							<select name="" id="e_time" class="form-control form-control-lg" required="required" onchange="sc_check();">
+							<select name="e_time" id="e_time" class="form-control form-control-lg" required="required" onchange="sc_check();">
 								<option value="0">-- 마지막 상영 시간 --</option>
 								<option value="1290">21:30</option>
 								<option value="1320">22:00</option>
@@ -179,13 +179,33 @@ $(function() {
 	</div>
 	<script>
 	function sc_check(){
-	if($("#mv_change").val()!= 0 && $("#mv_cinema").val() != 0 && $("#mv_theater").val() != 0 && $("#datepicker").val != "" && $("#datepicker2").val() != ""){
-			alert("ajax 값 비교 ");
-			if($("#f_time").val()!= 0 && $("#interval").val()!= 0 && $("#e_time").val()!= 0){
-				$("#submit").removeAttr("disabled");
-			}else{
-				$("#submit").attr("disabled", "disabled");
-			}
+	if($("#mv_change").val()!= 0 && $("#mv_cinema").val() != 0 && $("#mv_theater").val() != 0 && $("#datepicker").val() != "" && $("#datepicker2").val() != ""){
+		$.ajax({
+            url : "${pageContext.request.contextPath}/movie/t_check",
+            type : "post",
+            data : {
+               "mv_code" : $("#mv_change").val(),
+               "c_code" : $("#mv_cinema").val(),
+               "tt_name" : $("#mv_theater").val(),
+               "d_start" : $("#datepicker").val(),
+               "d_end" : $("#datepicker2").val()
+            },                 
+            success : function(data) {
+           		if(data == ""){
+           			if($("#f_time").val()!= 0 && $("#interval").val()!= 0 && $("#e_time").val()!= 0){
+    					$("#submit").removeAttr("disabled");
+    				}else{
+    					$("#submit").attr("disabled", "disabled");
+    				}	
+          	 	}else{
+           			alert("이미 상영중인 상영관입니다. 다시 선택해 주세요.");
+           			location.reload();
+           		}
+            },
+            error : function(jqXHR, textStatus, errorThrown, error) {
+               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+                     + error);
+            }	
 		}else{
 			$("#submit").attr("disabled", "disabled");
 		}
