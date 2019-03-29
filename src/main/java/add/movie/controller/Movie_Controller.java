@@ -275,7 +275,7 @@ public class Movie_Controller {
 	      		   String times = sb2.toString() + sb.toString();
 	
 	      		   map.put("t_time", times);			
-	      		   System.out.println("map" + map);
+	      		   //System.out.println("map" + map);
 	      		   mm.mv_in(map);
 	      		   
 	      		}
