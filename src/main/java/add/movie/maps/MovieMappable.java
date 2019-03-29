@@ -52,11 +52,5 @@ public interface MovieMappable {
 	@Options(statementType = StatementType.CALLABLE)
 	public void mv_in(HashMap<String, String> m);
 	
-	// 상영 영화 불러오기
-	@Select("SELECT MV_CODE FROM MV_V_SD GROUP BY MV_CODE ORDER BY MV_CODE ASC")
-	public ArrayList<HashMap<String, String>> mv_new();
 	
-	// 상영관 조회
-	@Select("SELECT MV_TITLE_KR, C_NAME, TT_NAME FROM MV_V_SD WHERE MV_CODE = #{mv_code, jdbcType=INTEGER} GROUP BY MV_TITLE_KR, C_NAME, TT_NAME")
-	public ArrayList<HashMap<String, String>> tt_sel(@Param("mv_code") int mv_code);
 }
