@@ -34,6 +34,7 @@ public class Movie_Controller {
 	@Autowired
 	MovieMappable mm;
 	
+	// 메인
 	@RequestMapping(value= {"/main"}, method=RequestMethod.GET)
 	public ModelAndView Movie_main() {
 		ModelAndView mv = new ModelAndView();
@@ -44,6 +45,7 @@ public class Movie_Controller {
 		return mv;
 	}
 	
+	// 상세 정보
 	@RequestMapping(value= {"/detail_view"}, method=RequestMethod.GET)
 	public ModelAndView detail_view(@RequestParam HashMap<String, String> m){
 		ModelAndView mv = new ModelAndView();
@@ -100,6 +102,7 @@ public class Movie_Controller {
 		return mv;
 	}
 	
+	// 관리자 등록
 	@RequestMapping(value= {"/registration"}, method=RequestMethod.GET)
 	public ModelAndView getRegist() {
 		ModelAndView mav = new ModelAndView();
@@ -219,4 +222,39 @@ public class Movie_Controller {
       
       return "redirect:/movie/main";
    }
+   
+   // 상영 영화 등록
+   @RequestMapping(value = {"/regi_ok"}, method = RequestMethod.POST)
+   public String mv_in(@RequestParam HashMap<String, String> map) {
+	   //System.out.println(map);
+	   //시간 테스트
+	   String run = map.get("in_time");
+	   String start = map.get("f_time");
+	   String end = map.get("e_time");
+      
+	   int runtime = Integer.parseInt(run);
+	   int st_time = Integer.parseInt(start);
+	   int en_time = Integer.parseInt(end);
+	   for(int i = st_time; i <= en_time;i+=runtime) {
+		   int hour =i/60;
+		   int min = ((i*60)%3600)/60;
+		   String h = Integer.toString(hour);
+		   StringBuffer sb2 = new StringBuffer(h);
+		   String m = Integer.toString(min);
+		   StringBuffer sb = new StringBuffer(m);
+			if (hour < 10) {
+				sb2.insert(0, 0);
+			}
+			if (min < 10) {
+				sb.insert(0, 0);
+			}
+			String times = sb2.toString() + sb.toString();
+
+			map.put("t_time", times);			
+			//System.out.println("map" + map);
+			mm.mv_in(map);
+		}
+
+		return "";
+	}
 }
