@@ -73,4 +73,10 @@ public class Bus_Api_Controller {
          return list;
       }
    }
+    @ResponseBody
+	@RequestMapping(value= {"/ajax_seat"}, method=RequestMethod.GET)
+	public ArrayList<HashMap<String, String>> getSeatNum(@RequestParam("bus_seq") String bus_seq) {
+		ArrayList<HashMap<String, String>> list = amap.getSeatNumber(bus_seq);
+		return list;
+	}
 }

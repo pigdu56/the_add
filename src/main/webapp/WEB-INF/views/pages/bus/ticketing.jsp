@@ -38,6 +38,7 @@
 	width: 100%;
 } 
 .yap{font-size:15px;}
+.yap2{font-size:20px; font-family: bold; color: skyblue;}
 .get{width:80%; font-size:15px;}
 .do{width:160px; height:15%; height:50px; font-size:15px;}
 .start_terminal{width:160px; height:50px; font-size:15px;}   
@@ -97,7 +98,7 @@
 </div>
    <div class="container">
 <div id="box">
-         <!-- ************************ 출발  **************      **********-->
+         <!-- ************************ 출발  ************************-->
 <div id="inbox">
          <select name="do_name" id="do"
             class="btn btn-outline-info text-dark do" >
@@ -140,6 +141,8 @@
       </div>
    </div>
  </div>
+ <c:url value="/bus/bus_seat" var="bus_seat"/>
+ <form action="${bus_seat}" method="get">
  <hr style="position:relative;left:10%;width:80%;">
  <br><br>
  <div style="border:solid 2px #17A2B8;" id="listname">
@@ -160,7 +163,7 @@
                <th>남은 좌석</th>
             </tr>
          </thead>
-         <tbody id="result"  style="cursor:pointer">
+         <tbody id="result" style="cursor:pointer">
             <!-- 조회한 버스 목록이 나올 곳 -->                                       
          </tbody>
 
@@ -168,9 +171,7 @@
       </div>
       </div>  
       <div class="buy">
-      <c:url value="/buy_seat" var="buy"/>
-      <form action="${buy}" method="post">
-         <table class="table text-center">
+     	 <table class="table text-center">
             <thead id="search_day">
                <!-- 날짜가 나옴 -->
                <tr>
@@ -184,8 +185,8 @@
                </tr>               
             </tbody>
          </table>
-      </form>
       </div>
+      </form>
  <script>
 //포맷 함수
  function leadingZeros(n, digits) {
@@ -314,8 +315,9 @@
                          return;
                       }else{
                          $("#listname").append(
-                               "<h1>" + data[0].DEP_TER + "<img src='${pageContext.request.contextPath}/static/img/bus/right (4).png'"
-                                + "id='right2'>" + data[0].ARR_TER +"</h1>"
+                               "<input type='text' name='dep_ter' class='btn text-center yap2' value='" + data[0].DEP_TER + "' readonly='readonly'>" 
+                               + "<img src='${pageContext.request.contextPath}/static/img/bus/right (4).png' id='right2'>"
+                               + "<input type='text' name='arr_ter' class='btn text-center yap2' value='" + data[0].ARR_TER + "' readonly='readonly'>"
                                );
                          // 검색한 날짜
                          if(todayYMD == data[0].SCHE_DAY){
@@ -376,6 +378,10 @@
                      
                            Number(todayHM)
                            // 컴퓨터에 시간을 받아와 시간이 지난 것들이 안나오게 하기
+                           if(data[i].BUS_SEATNAM == 0){
+                        	   
+                           }
+                           
                            if(todayHM < start ){
                               $("#result").append(
                                   "<tr><td style='display:none;'>" + data[i].SCHE_CODE + "</td>"
@@ -416,34 +422,44 @@
                           var bus = td.eq(3).text();
                           var grade = td.eq(4).text();
                           var charge = td.eq(5).text();
-                                               
+                          var seat_nam = td.eq(6).text();
+                        
                           $("#reservation").append(
                              "<tr>"
                              + "<td><label class='label_margin text-center'>출발</label></td>"
                              + "<td><input type='text' size='10px' class='btn text-center yap' name='dep' value='"+ dep +"' readonly='readonly'></td>"
                              + "</tr><tr>"
-                             + "<td><input type='hidden' name='bus_seq' value='"+ bus_seq +"' readonly='readonly'></td>"
-                            + "<td class='text-center'> ↓ </td>"
-                            + "</tr><tr>"
-                            + "<td><label class='label_margin text-center'>도착</label></td>"
-                            + "<td><input type='text'  size='10px' class='btn text-center  yap' name='arr' value='"+ arr +"' readonly='readonly'></td>"
-                            + "</tr><tr>"
-                            + "<td></td>"
-                            + "<td><input type='text' size='10px' class='btn text-center  yap' name='bus' value='"+ bus +"' readonly='readonly'></td>"
-                            + "</tr><tr>"
-                            + "<td></td>"
-                            + "<td><input type='text' size='10px' class='btn text-center  yap' name='grade' value='"+ grade +"' readonly='readonly'></td>"
-                            + "</tr><tr>"
-                            + "<td><label class='label_margin text-center'>운임 비용</label></td>"
-                            + "<td><input type='text' size='10px' class='btn text-center yap' name='charge' value='"+ charge +"' readonly='readonly'></td>"
-                            + "</tr>"
-                            + "<tr><td><br><br><br><br><br><br><br><br><br></td><td></td></tr>"
-                            + "<tr>"
-                            + "<td colspan='2'>"
-                            + "<input type='submit' value='예매하기' class='btn btn-info btn-block text-center get'>"
-                            + "</td>"
-                            + "</tr>"
-                         );                       
+                             + "<td><input type='hidden' name='bus_seq' value='"+ bus_seq +"'></td>"
+                             + "<td class='text-center'> ↓ </td>"
+                             + "</tr><tr>"
+                             + "<td><label class='label_margin text-center'>도착</label></td>"
+                             + "<td><input type='text'  size='10px' class='btn text-center  yap' name='arr' value='"+ arr +"' readonly='readonly'></td>"
+                             + "</tr><tr>"
+                             + "<td></td>"
+                             + "<td><input type='text' size='10px' class='btn text-center  yap' name='bus' value='"+ bus +"' readonly='readonly'></td>"
+                             + "</tr><tr>"
+                             + "<td></td>"
+                             + "<td><input type='text' size='10px' class='btn text-center  yap' name='grade' value='"+ grade +"' readonly='readonly'></td>"
+                             + "</tr><tr>"
+                             + "<td><label class='label_margin text-center'>운임 비용</label></td>"
+                             + "<td><input type='text' size='10px' class='btn text-center yap' name='charge' value='"+ charge +"' readonly='readonly'></td>"
+                             + "</tr>"
+                             + "<tr><td><br><br><br><br><br><br><br><br><br></td><td></td></tr>"
+                             + "<tr>"
+                             + "<td colspan='2'>"
+                             + "<input type='hidden' name='id' value='${LoginUser}'>"
+                             + "<input type='submit' id='submit' value='예매하기' class='btn btn-info btn-block text-center get'>"
+                             + "</td>"
+                             + "</tr>"
+                         );     
+                          
+                          // 좌석이 없을 경우 예약하기 막기
+                          if(seat_nam == '0 석'){
+                        	  $(function(){
+                        		  $("#submit").attr("disabled", "disabled");
+                        	  });
+                          }
+                          
                        });
                   }
                })
