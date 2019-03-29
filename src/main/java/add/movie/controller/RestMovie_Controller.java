@@ -40,10 +40,10 @@ public class RestMovie_Controller {
 	@RequestMapping(value = {"/t_check"}, method = RequestMethod.POST)
 	public String tt_sel(@RequestParam HashMap<String, String> m) {
 		int result = mm.tt_sel(m);
-		if(result == 1) {
-			return "상영중!!";
-		} else {
+		if(result == 0) {
 			return null;
+		} else {
+			return "상영중!!";
 		}
 	}
 }
