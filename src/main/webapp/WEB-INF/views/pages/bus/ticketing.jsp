@@ -30,128 +30,152 @@
     width:80%;
     }
     body {
-	font-family: Verdana, sans-serif;
+   font-family: Verdana, sans-serif;
 }
-.footer {
-	position:static;
-	bottom:-50%;
-	width: 100%;
-} 
+
 .yap{font-size:15px;}
-.yap2{font-size:20px; font-family: bold; color: skyblue;}
+.yap2{font-size:25px; font-family: bold; color:17AB28; padding: 0 !important;}
+#yap2 td{border:solid 1px white;}
 .get{width:80%; font-size:15px;}
-.do{width:160px; height:15%; height:50px; font-size:15px;}
-.start_terminal{width:160px; height:50px; font-size:15px;}   
-.do1{width:160px; height:50px; font-size:15px;}   
-.arrival_terminal{width:160px; height:50px; font-size:15px;}
-.datepicker{width:330px; height:50px; font-size:15px;}
-.search{width:330px; height:50px; font-size:15px;}
+.do{height:15%; height:50px; font-size:15px;}
 
-#box{ margin: 10px; padding: 10px 20px;position:relative;width:70%;left:15%;}
-#inbox{position:relative;left:-2%;}
-#right{width:35px;}
 #right2{width:20px;}
-#listname{position:relative;text-align:center;left:30%; width:40%}
+#listname{text-align:center;}
 
-.list{
-      margin:0px;
-      padding:0px;
-      
-      
-   }
- /*   .all{
-   position:relative;
-   width:100%;
-   left:2%;
-   } */
-   .main_list{
-      border: 1px solid black;
-      width:60%;
-      height:600px;
-      font-size:15px;
-      overflow-y:scroll;
-      position:relative;
-      right:-30%;
-   }
-   .buy{
-     width:25%;
-     border: 1px solid black;
-     height:600px;
-	 font-size:15px;
-	 position:relative;
-	 top:-600px;
-	 left:4.9%;
-	 background-color:#B8DAFF;
-	 border-top:none;
-	 border-left:none;
-	 border-bottom:none;
-	 border-right:none;
-   }
+
 .buy td{border:solid 1px #B8DAFF;}
-   .label_margin{
-      margin-right:10px;
+#select td{border:solid 1px white;}  
+.label_margin{margin-right:10px;}
+
+ .main_list{
+    border:1px solid black;
+    overflow-y:scroll;
+    font-size:15px;
+    width:100%;
+    height:600px;
+     padding: 0 !important;
    }
    
+   
+   .buy{
+    border: 1px solid black;
+    font-size:15px;
+    background-color:#B8DAFF;
+    border-top:none;
+    border-left:none;
+    border-bottom:none;
+    border-right:none;
+     padding: 0 !important;
+   }
+   
+}
+
     </style>
 <body>
-<div><img src="${pageContext.request.contextPath}/static/img/bus/with.png" id="want">
-</div>
-   <div class="container">
-<div id="box">
-         <!-- ************************ 출발  ************************-->
-<div id="inbox">
-         <select name="do_name" id="do"
-            class="btn btn-outline-info text-dark do" >
+<div class="container">
+   <div class="row">
+   <!------------------------ 맨위 사진 ------------------------>
+   <div class="col-sm-12">
+         <img src="${pageContext.request.contextPath}/static/img/bus/with.png" id="want">
+   </div>
+   </div>
+   
+    <br><br>
+    
+   <!------------------------ 검색 input ------------------------>
+   <table class="table text-center" id="select">
+    <tr class="row"> 
+    <!-- ************************ 출발  ************************-->
+    <!-- 공백 -->
+    <td class="col-sm-2"></td>
+   
+    <td class="col-sm-2">
+       <select name="do_name" id="do"
+            class="btn btn-outline-info btn-block text-dark do" >
             <option value="0">출발</option>
             <c:forEach var="i" items="${dolist}">
                <option value="${i.DO_CODE}">${i.DO_NAME}</option>
             </c:forEach>
          </select>
-         &nbsp;&nbsp;
+     </td>
+     
+     <td class="col-sm-2">
          <select name="start_terminal" id="start_terminal"
-            class="btn btn-outline-info text-dark start_terminal" >
+            class="btn btn-outline-info btn-block text-dark do" >
             <option value="0">출발 터미널</option>
          </select>
-         <!-- ************************ 도착  ************************-->
- 	 &nbsp;&nbsp;
- 	 <img src="${pageContext.request.contextPath}/static/img/bus/right (4).png" id="right">
- 	 &nbsp;&nbsp;
-         <select name="do_name1" id="do1"
-            class="btn btn-outline-info text-dark do" >
+      
+     </td>
+     
+     <!-- ************************ 도착  ************************-->
+     <td class="col-sm-2">
+        <select name="do_name1" id="do1"
+            class="btn btn-outline-info btn-block text-dark do" >
             <option value="0">도착</option>
             <c:forEach var="i" items="${dolist}">
                <option value="${i.DO_CODE}">${i.DO_NAME}</option>
             </c:forEach>
          </select>
-                 &nbsp;&nbsp;
-         <select name="arrival_terminal" id="arrival_terminal"
-            class="btn btn-outline-info text-dark arrival_terminal">
+      </td>
+      
+      <td class="col-sm-2">
+          <select name="arrival_terminal" id="arrival_terminal"
+            class="btn btn-outline-info btn-block text-dark do">
             <option value="0">도착 터미널</option>
-         </select> <br>
-                 &nbsp;&nbsp;&nbsp;&nbsp;
-         <!-- ************************ 버스등급  ************************-->
-</div>
-  <div class="row">
-         <input type="text" name="date" id="datepicker" readonly="readonly"
-            placeholder="날짜" class="btn btn-outline-info text-dark datepicker" >
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         <button id="search" class="btn btn-info text-dark search">검색</button>
+         </select>
+      </td>
+     
+     <!-- 공백 -->
+     <td class="col-sm-2"></td>
+     </tr>
+     
+     <!-- ************************ 날짜, 버튼  ************************ -->
+     <tr class="row">
+        <td class="col-sm-2"></td>
+        <td class="col-sm-4">
+           <input type="text" name="date" id="datepicker" readonly="readonly"
+            placeholder="날짜" class="btn btn-outline-info btn-block text-dark do" >
+        </td>
+        
+        <td class="col-sm-4">
+           <button id="search" class="btn btn-info btn-block text-dark do">검색</button>
+        </td>
+        <td class="col-sm-2"></td>
+     </tr>
+     </table>
 
-      </div>
-   </div>
- </div>
+ <!-- ************************ 폼 and 등급  ************************ -->
  <c:url value="/bus/bus_seat" var="bus_seat"/>
  <form action="${bus_seat}" method="get">
  <hr style="position:relative;left:10%;width:80%;">
  <br><br>
- <div style="border:solid 2px #17A2B8;" id="listname">
- <h1>출발<img src="${pageContext.request.contextPath}/static/img/bus/right (4).png" id="right2">도착</h1>
+ <div class="row">
+ <!------------------------ 공백 ------------------------>
+ <div class="col-sm-4"></div>
+
+<!------------------------ 출발 -> 도착 ------------------------> 
+ <div  class="col-sm-4"style="border:solid 2px #17A2B8;" id="listname">
+ <table class="table yap2" id="yap2">
+    <tr class="row">
+       <td class="col-sm-5"><b>출발</b></td>
+       <td class="col-sm-2"><img src="${pageContext.request.contextPath}/static/img/bus/right (4).png" id="right2"></td>
+       <td class="col-sm-5"><b>도착</b></td>    
+    </tr>
+ </table>
  </div>
+ 
+<!------------------------ 공백 ------------------------>
+<div class="col-sm-4"></div>
+</div>
  <br>
 <br>
-   <div class="main_list" id="main_list">
-      <div class="list">
+   <div class="row">
+   
+   <!------------------------ 공백 ------------------------>
+   <div class="col-sm-1"></div>
+   
+   <!------------------------ 버스 조회 리스트 ------------------------>
+   <div class="col-sm-7 main_list" id="main_list">
       <table class = "table table-hover text-center " id ="busresult" >
          <thead id="resulthead" class="table-primary">
             <tr>
@@ -166,12 +190,12 @@
          <tbody id="result" style="cursor:pointer">
             <!-- 조회한 버스 목록이 나올 곳 -->                                       
          </tbody>
-
-      </table>
-      </div>
-      </div>  
-      <div class="buy">
-     	 <table class="table text-center">
+     </table>
+      
+     </div>  
+      <!------------------------ 예약 테이블 ------------------------>
+      <div class="col-sm-3 buy text-dark" id="buy" >
+         <table class="table text-center">
             <thead id="search_day">
                <!-- 날짜가 나옴 -->
                <tr>
@@ -186,7 +210,12 @@
             </tbody>
          </table>
       </div>
-      </form>
+      
+      <!------------------------ 공백 ------------------------>
+      <div class="col-sm-1"></div>
+      </div>
+      </form> 
+       </div>
  <script>
 //포맷 함수
  function leadingZeros(n, digits) {
@@ -310,14 +339,15 @@
                       if(data[0] == null){
                          alert("조회된 버스가 없습니다.");
                          $("#listname").append(
-                        		 "<h1>출발<img src='${pageContext.request.contextPath}/static/img/bus/right (4).png' id='right2'>도착</h1>"		 
+                               "<h1>출발<img src='${pageContext.request.contextPath}/static/img/bus/right (4).png' id='right2'>도착</h1>"       
                          );
                          return;
                       }else{
                          $("#listname").append(
-                               "<input type='text' name='dep_ter' class='btn text-center yap2' value='" + data[0].DEP_TER + "' readonly='readonly'>" 
-                               + "<img src='${pageContext.request.contextPath}/static/img/bus/right (4).png' id='right2'>"
-                               + "<input type='text' name='arr_ter' class='btn text-center yap2' value='" + data[0].ARR_TER + "' readonly='readonly'>"
+                              "<table class='table yap2' id='yap2'><tr class='row'><td class='col-sm-5'><b>"
+                               +"<input type='text' name='dep_ter' class='btn btn-block text-center yap2' value='" + data[0].DEP_TER + "' readonly='readonly'></b></td>" 
+                               + "<td class='col-sm-2'><img src='${pageContext.request.contextPath}/static/img/bus/right (4).png' id='right2'></td>"
+                               + "<td class='col-sm-5'><input type='text' name='arr_ter' class='btn btn-block text-center yap2' value='" + data[0].ARR_TER + "' readonly='readonly'></b></td></tr></table>"
                                );
                          // 검색한 날짜
                          if(todayYMD == data[0].SCHE_DAY){
@@ -379,7 +409,7 @@
                            Number(todayHM)
                            // 컴퓨터에 시간을 받아와 시간이 지난 것들이 안나오게 하기
                            if(data[i].BUS_SEATNAM == 0){
-                        	   
+                              
                            }
                            
                            if(todayHM < start ){
@@ -423,7 +453,7 @@
                           var grade = td.eq(4).text();
                           var charge = td.eq(5).text();
                           var seat_nam = td.eq(6).text();
-						                          
+                                            
                           $("#reservation").append(
                              "<tr>"
                              + "<td><label class='label_margin text-center'>출발</label></td>"
@@ -443,9 +473,7 @@
                              + "</tr><tr>"
                              + "<td><label class='label_margin text-center'>운임 비용</label></td>"
                              + "<td><input type='text' size='10px' class='btn text-center yap' name='charge' value='"+ charge +"' readonly='readonly'></td>"
-                             + "</tr>"
-                             + "<tr><td><br><br><br><br><br><br><br><br><br></td><td></td></tr>"
-                             + "<tr>"
+                             + "</tr><tr><td><br></td></tr><tr>"
                              + "<td colspan='2'>"
                              + "<input type='hidden' name='id' value='${LoginUser}'>"
                              + "<input type='submit' id='submit' value='예매하기' class='btn btn-info btn-block text-center get'>"
@@ -455,9 +483,9 @@
                           
                           // 좌석이 없을 경우 예약하기 막기
                           if(seat_nam == '0 석'){
-                        	  $(function(){
-                        		  $("#submit").attr("disabled", "disabled");
-                        	  });
+                             $(function(){
+                                $("#submit").attr("disabled", "disabled");
+                             });
                           }
                           
                        });

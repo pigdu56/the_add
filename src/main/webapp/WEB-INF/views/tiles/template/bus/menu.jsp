@@ -21,7 +21,8 @@
   </c:if>
   <c:url value="/bus/about" var="about" />
   <a href="${about}" class="w3-bar-item w3-button w3-hover-blue w3-text-black w3-right"><b>ABOUT</b></a>
-  <a href="#" class="w3-bar-item w3-button w3-hover-blue w3-text-black w3-right"><b>WHERE</b></a>
+   <c:url value="/bus/ticketing" var="ticketing" />
+  <a href="${ticketing}" class="w3-bar-item w3-button w3-hover-blue w3-text-black w3-right"><b>TICKET</b></a>
   
 </div>
 

@@ -83,7 +83,7 @@ body{font-family: 'Gothic A1', sans-serif;}
 			<td style="text-align: right;"><p
 					style="font-size: 25px; color: #FFD966;">Real Property Program
 					&nbsp;&nbsp;</p>
-				<p style="font-size: 15px;">개발자:장백훈 &nbsp;&nbsp;</p>
+				<p style="font-size: 15px;">개발자:장백훈,박민용 &nbsp;&nbsp;</p>
 				<p style="font-size: 15px;">부동산 정보를 조회 할 수 있는
 					프로그램입니다.&nbsp;&nbsp;</p></td>
 			<td><img

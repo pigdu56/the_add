@@ -3,6 +3,10 @@
 <style>
 
 #icon{color:#2196F3;}
+.footer{
+width:100%;
+position:absolute;
+}
 </style>
 
 
