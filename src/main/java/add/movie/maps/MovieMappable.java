@@ -47,10 +47,9 @@ public interface MovieMappable {
 	@Select("SELECT MV_F_TT(#{c_code}, #{tt_name}, #{d_start, jdbcType=INTEGER}, #{d_end, jdbcType=INTEGER}) FROM DUAL")
 	public int tt_sel(HashMap<String, String> m);
 	
-	// 상영 영화 등록 (수정 확인할 것)
-	@Insert(value = "{CALL MV_F_S(#{movie_num}, #{c_code}, #{tt_name}, #{sd_day}, #{t_time})}")
+	// 상영 영화 등록
+	@Insert(value = "{CALL MV_P_S(#{movie_num}, #{c_code}, #{tt_name}, #{sd_day}, #{t_time})}")
 	@Options(statementType = StatementType.CALLABLE)
 	public void mv_in(HashMap<String, String> m);
-	
 	
 }

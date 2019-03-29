@@ -1,6 +1,7 @@
 package add.movie.controller;
 
 import java.sql.Connection;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -227,34 +228,62 @@ public class Movie_Controller {
    @RequestMapping(value = {"/regi_ok"}, method = RequestMethod.POST)
    public String mv_in(@RequestParam HashMap<String, String> map) {
 	   //System.out.println(map);
-	   //시간 테스트
-	   String run = map.get("in_time");
-	   String start = map.get("f_time");
-	   String end = map.get("e_time");
+	   //두 날짜 사이 값 구하기
+	   String d1 = map.get("odt");
+	   String d2 = map.get("cdt");      
+ 	   
       
-	   int runtime = Integer.parseInt(run);
-	   int st_time = Integer.parseInt(start);
-	   int en_time = Integer.parseInt(end);
-	   for(int i = st_time; i <= en_time;i+=runtime) {
-		   int hour =i/60;
-		   int min = ((i*60)%3600)/60;
-		   String h = Integer.toString(hour);
-		   StringBuffer sb2 = new StringBuffer(h);
-		   String m = Integer.toString(min);
-		   StringBuffer sb = new StringBuffer(m);
-			if (hour < 10) {
-				sb2.insert(0, 0);
-			}
-			if (min < 10) {
-				sb.insert(0, 0);
-			}
-			String times = sb2.toString() + sb.toString();
-
-			map.put("t_time", times);			
-			//System.out.println("map" + map);
-			mm.mv_in(map);
+ 	   SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");      
+ 	   try {
+ 		   Date date = sdf.parse(d1);
+ 		   Date date2 = sdf.parse(d2);
+         
+ 		   ArrayList<String> dates = new ArrayList<String>();
+ 		   Date startDate = date;
+ 		   while( startDate.compareTo( date2 ) <=0 ){
+ 			   dates.add(sdf.format(startDate));
+ 			   Calendar c = Calendar.getInstance();
+ 			   c.setTime(startDate);
+ 			   c.add(Calendar.DAY_OF_MONTH, 1);
+ 			   startDate = c.getTime();
+ 		   }
+ 		   System.out.println(dates);
+ 		   for(String s2 : dates) {  	
+ 			   map.put("sd_day", s2);
+ 			   
+ 			   String run = map.get("in_time");
+ 		 	   String start = map.get("f_time");
+ 		 	   String end = map.get("e_time");
+ 		       
+ 		 	   int runtime = Integer.parseInt(run);
+ 		 	   int st_time = Integer.parseInt(start);
+ 		 	   int en_time = Integer.parseInt(end);
+ 			   
+ 			   for(int i = st_time; i <= en_time;i+=runtime) {
+ 				   int hour =i/60;
+	      		   int min = ((i*60)%3600)/60;
+	      		   String h = Integer.toString(hour);
+	      		   StringBuffer sb2 = new StringBuffer(h);
+	      		   String m = Integer.toString(min);
+	      		   StringBuffer sb = new StringBuffer(m);
+	      		   if (hour < 10) {
+	      			   sb2.insert(0, 0);
+	      		   }
+	      		   if (min < 10) {
+	      			   sb.insert(0, 0);
+	      		   }
+	      		   String times = sb2.toString() + sb.toString();
+	
+	      		   map.put("t_time", times);			
+	      		   System.out.println("map" + map);
+	      		   mm.mv_in(map);
+	      		   
+	      		}
+ 		   }
+		} catch (ParseException e) {
+	        e.printStackTrace();
 		}
-
-		return "";
+ 	   
+		return "redirect:/movie/main";
 	}
 }
