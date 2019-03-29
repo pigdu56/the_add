@@ -1,5 +1,10 @@
 package add.movie.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +33,17 @@ public class RestMovie_Controller {
 			return null;
 		}
 		
+	}
+	
+	// 상영관 확인
+	@ResponseBody
+	@RequestMapping(value = {"/t_check"}, method = RequestMethod.POST)
+	public String tt_sel(@RequestParam HashMap<String, String> m) {
+		int result = mm.tt_sel(m);
+		if(result == 1) {
+			return "상영중!!";
+		} else {
+			return null;
+		}
 	}
 }

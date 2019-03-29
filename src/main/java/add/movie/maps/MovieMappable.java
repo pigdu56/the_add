@@ -42,4 +42,8 @@ public interface MovieMappable {
 	// 영화 상세 정보
 	@Select("SELECT * FROM MV_V_MV WHERE MV_CODE = #{mv_code}")
 	public HashMap<String, String> mv_dt_sel(HashMap<String, String> m);
+	
+	// 상영관 확인
+	@Select("SELECT MV_F_TT(#{c_code}, #{tt_name}, #{d_start, jdbcType=INTEGER}, #{d_end, jdbcType=INTEGER}) FROM DUAL")
+	public int tt_sel(HashMap<String, String> m);
 }
