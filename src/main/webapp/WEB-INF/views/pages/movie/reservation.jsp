@@ -4,8 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<html>
-<head>
 <meta charset="utf-8">
 <style>
 ul>li {
@@ -68,9 +66,11 @@ ul>li {
 	padding:0;
 	text-align:center;	
 }
+.check_choice{
+	background-color:#1D1D1C;
+	color:white;
+}
 </style>
-</head>
-<body>
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-1"></div>
@@ -85,18 +85,20 @@ ul>li {
 					</tr>
 					<tr class="row re_main">
 						<td class="col-sm-4">
-							<ul class="re_select">
-
-							</ul></td>
+							<ul class="re_select" id="mv_choice">
+								<li>캡틴마블</li>
+								<li>돈</li>		
+							</ul>
+						</td>
 						<td class="col-sm-3">
-							<ul class="re_select">
+							<ul class="re_select" id="c_choice">
 								<li>천안터미널CGV</li>
 								<li>천안역 CGV</li>
 								<li>천안펜타포트 CGV</li>
 							</ul>
 						</td>
 						<td class="col-sm-1">
-							<ul class="re_select">
+							<ul class="re_select" id="sd_choice">
 								<li style="font-size: 13px;"><c:set var="now"
 										value="<%=new java.util.Date()%>" /> <fmt:formatDate
 										value="${now}" type="date" pattern="YYYY" var="years" />${years}</li>
@@ -115,16 +117,15 @@ ul>li {
 														${years}
 													</c:otherwise>
 												</c:choose>
-												
 											</li>
 											<li style="font-size: 30px;">
 												<fmt:parseDate value="${dates+1}" pattern="MM" var="months"/>
 												<fmt:formatDate value="${months}" type="date" pattern="MM"/>												
 											</li>
-											<li><b>${i.days}</b>&nbsp;<b>${i.dates}</b></li>
+											<li class="sd_dates"><b>${i.days}</b>&nbsp;<b>${i.dates}</b></li>
 										</c:when>
 										<c:otherwise>
-											<li><b>${i.days}</b>&nbsp;<b>${i.dates}</b></li>
+											<li class="sd_dates"><b>${i.days}</b>&nbsp;<b>${i.dates}</b></li>
 										</c:otherwise>
 									</c:choose>								
 								</c:forEach>
@@ -169,5 +170,23 @@ ul>li {
 			<div class="col-sm-1"></div>
 		</div>
 	</div>
-</body>
-</html>
+<script>
+$(document).ready(function(){	
+	$("#mv_choice li").click(function(){
+		$("#mv_choice li").removeClass("check_choice");
+		var li=$(this);
+		$(li).addClass("check_choice");
+	});
+	$("#c_choice li").click(function(){
+		$("#c_choice li").removeClass("check_choice");
+		var li=$(this);
+		$(li).addClass("check_choice");
+	});
+	$("#sd_choice .sd_dates").click(function(){
+		$("#sd_choice .sd_dates").removeClass("check_choice");
+		var li=$(this);
+		$(li).addClass("check_choice");
+	});
+});
+	
+</script>
