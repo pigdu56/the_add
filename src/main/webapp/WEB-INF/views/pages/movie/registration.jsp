@@ -98,45 +98,45 @@ $(function() {
 					</tr>
 					<tr class="row">
 						<td class="col-sm-4">
-							<select name="movie_num" class="form-control form-control-lg" id="mv_change" required="required">
-								<option>--영화 선택--</option>
+							<select name="movie_num" class="form-control form-control-lg" id="mv_change" required="required" onchange="sc_check();">
+								<option	value="0">--영화 선택--</option>
 								<c:forEach var="i" items="${movielist}">
 									<option value="${i.MV_CODE}">${i.MV_TITLE_KR}-${i.RT_RATING}</option>						
 								</c:forEach>
 							</select>
 						</td>
 						<td class="col-sm-4">
-							<select name="c_code" class="form-control form-control-lg" required="required">
-								<option>--영화관 선택--</option>
+							<select id="mv_cinema" name="c_code" class="form-control form-control-lg" required="required" onchange="sc_check();">
+								<option value="0">--영화관 선택--</option>
 								<option value="1">CGV 천안터미널</option>
 								<option value="2">CGV 천안역</option>
 								<option value="3">CGV 천안펜타포트</option>								
 							</select>
 						</td>
 						<td class="col-sm-4">
-							<select name="tt_code" class="form-control form-control-lg" required="required">
-								<option>--상영관 선택--</option>
-								<option value="1">1관</option>
-								<option value="2">2관</option>
-								<option value="3">3관</option>
+							<select id="mv_theater" name="tt_code" class="form-control form-control-lg" required="required" onchange="sc_check();">
+								<option value="0">--상영관 선택--</option>
+								<option value="1관">1관</option>
+								<option value="2관">2관</option>
+								<option value="3관">3관</option>
 							</select>
 						</td>
 					</tr>
 					<tr class="row">
 						<td class="col-sm-3"><h4>상영일</h4></td>	
 						<td class="col-sm-3">
-							<input type="text" id="datepicker" autocomplete='off' name="odt" class="form-control form-control-lg" readonly="readonly" required="required">
+							<input type="text" id="datepicker" autocomplete='off' name="odt" class="form-control form-control-lg" readonly="readonly" required="required" onchange="sc_check();">
 						</td>
 						<td class="col-sm-3"><h4>마감일</h4></td>	
 						<td class="col-sm-3">
-							<input type="text" id="datepicker2" autocomplete='off' name="cdt" class="form-control form-control-lg" readonly="readonly" disabled="disabled" required="required">
+							<input type="text" id="datepicker2" autocomplete='off' name="cdt" class="form-control form-control-lg" readonly="readonly" disabled="disabled" required="required" onchange="sc_check();">
 						</td>
 					</tr>
 					<tr class="row">
 						<td class="col-sm-3"><h4>상영 시간</h4></td>
 						<td class="col-sm-3">
-							<select name="" class="form-control form-control-lg" required="required">
-								<option>-- 첫 상영 시간 --</option>
+							<select name="" id="f_time" class="form-control form-control-lg" required="required" onchange="sc_check();">
+								<option value="0">-- 첫 상영 시간 --</option>
 								<option value="540">09:00</option>
 								<option value="570">09:30</option>
 								<option value="600">10:00</option>
@@ -146,13 +146,13 @@ $(function() {
 							</select>
 						</td>
 						<td class="col-sm-3">
-							<select name="" class="form-control form-control-lg" required="required" id="interval">
-							<option>-- 영화 런타임 / 상영 간격 --</option>
+							<select name="" class="form-control form-control-lg" required="required" id="interval" onchange="sc_check();">
+							<option value="0">-- 영화 런타임 / 상영 간격 --</option>
 							</select>
 						</td>
 						<td class="col-sm-3">
-							<select name="" class="form-control form-control-lg" required="required">
-								<option>-- 마지막 상영 시간 --</option>
+							<select name="" id="e_time" class="form-control form-control-lg" required="required" onchange="sc_check();">
+								<option value="0">-- 마지막 상영 시간 --</option>
 								<option value="1290">21:30</option>
 								<option value="1320">22:00</option>
 								<option value="1350">22:30</option>
@@ -167,7 +167,7 @@ $(function() {
 					<tr class="row">
 						<td class="col-sm-3"></td>
 						<td class="col-sm-6">
-							<button type="submit" class="btn btn-block btn-danger"><h5>영화등록</h5></button>
+							<button type="submit" class="btn btn-block btn-danger" id="submit" disabled="disabled"><h5>영화등록</h5></button>
 						</td>
 						<td class="col-sm-3"></td>
 					</tr>
@@ -177,6 +177,20 @@ $(function() {
 			<div class="col-sm-1"></div>
 		</div>
 	</div>
+	<script>
+	function sc_check(){
+	if($("#mv_change").val()!= 0 && $("#mv_cinema").val() != 0 && $("#mv_theater").val() != 0 && $("#datepicker").val != "" && $("#datepicker2").val() != ""){
+			alert("ajax 값 비교 ");
+			if($("#f_time").val()!= 0 && $("#interval").val()!= 0 && $("#e_time").val()!= 0){
+				$("#submit").removeAttr("disabled");
+			}else{
+				$("#submit").attr("disabled", "disabled");
+			}
+		}else{
+			$("#submit").attr("disabled", "disabled");
+		}
+	}
+	</script>
 <script>
 $("#mv_change").bind(
         "change",
@@ -189,24 +203,31 @@ $("#mv_change").bind(
                  data : {
                     "mv_code" : this.value
                  },                 
-                 success : function(data) {            
-                	var runtime = data.MV_ST;
-                	var interval = 30;
-                	var hour = parseInt((runtime*60)/3600);
-         			var min = parseInt(((runtime*60)%3600)/60);
-         			var m = Math.round(min/10)*10;
-         			if(m == 60){
-         				hour = hour+1;
-         				m = 0;
-         			}
-         			var run_plus = (hour*60)+m;
-         			var in_30 =run_plus+interval;
-                	var in_60= run_plus+(interval*2);
-                	var in_90 = run_plus+(interval*3);
-                	var in_120 = run_plus+(interval*4);
-         			var times = hour+"시간 "+m+"분";
-                    $("#movie_info").append("<td class='col-sm-4'><img src='"+data.MV_IMG+"'></td><td class='col-sm-8'><ul id='aj_left'><li><h3><img src='${pageContext.request.contextPath}/static/img/movie/"+data.RT_IMG+"' style='width:40px;'>"+data.MV_TITLE_KR+"</h3></li><li id='en_gray'><h5>"+data.MV_TITLE_EN+"</h5></li><li><h5>감독 : "+data.DT_NAME+"</h5></li><li><h5>배우 : "+data.A_NAME+"</h5></li><li><h5>장르 : "+data.G_NAME+"</h5></li><li><h5>상영시간  : "+runtime+" 분</h5><input type='hidden' name='mv_st' value='"+runtime+"'><li><h5>줄거리</h5></li><li><h6>"+data.MV_STORY+"</h6></li></ul></td>");
-                    $("#interval").append("<option>-- 영화 런타임 / 상영 간격 --</option><option name='in_time' value="+in_30+">"+times+ "/ +30분 간격</option><option name='in_time' value='"+in_60+"'>"+times+"/ + 1시간</option><option name='in_time' value='"+in_90+"'>"+times+" / +1시간30분</option><option name='in_time' value='"+in_120+"'>"+times+" / +2시간</option>");
+                 success : function(data) {
+                	if(data == ""){
+                		$("#movie_info").empty();
+                   	 	$("#interval").empty();
+                   	 	$("#interval").append("<option value='0'>-- 영화 런타임 / 상영 간격 --</option>");
+                	}else{
+                		var runtime = data.MV_ST;
+                    	var interval = 30;
+                    	var hour = parseInt((runtime*60)/3600);
+             			var min = parseInt(((runtime*60)%3600)/60);
+             			var m = Math.round(min/10)*10;
+             			if(m == 60){
+             				hour = hour+1;
+             				m = 0;
+             			}
+             			var run_plus = (hour*60)+m;
+             			var in_30 =run_plus+interval;
+                    	var in_60= run_plus+(interval*2);
+                    	var in_90 = run_plus+(interval*3);
+                    	var in_120 = run_plus+(interval*4);
+             			var times = hour+"시간 "+m+"분";
+                        $("#movie_info").append("<td class='col-sm-4'><img src='"+data.MV_IMG+"'></td><td class='col-sm-8'><ul id='aj_left'><li><h3><img src='${pageContext.request.contextPath}/static/img/movie/"+data.RT_IMG+"' style='width:40px;'>"+data.MV_TITLE_KR+"</h3></li><li id='en_gray'><h5>"+data.MV_TITLE_EN+"</h5></li><li><h5>감독 : "+data.DT_NAME+"</h5></li><li><h5>배우 : "+data.A_NAME+"</h5></li><li><h5>장르 : "+data.G_NAME+"</h5></li><li><h5>상영시간  : "+runtime+" 분</h5><input type='hidden' name='mv_st' value='"+runtime+"'><li><h5>줄거리</h5></li><li><h6>"+data.MV_STORY+"</h6></li></ul></td>");
+                        $("#interval").append("<option value='0'>-- 영화 런타임 / 상영 간격 --</option><option name='in_time' value="+in_30+">"+times+ "/ +30분 간격</option><option name='in_time' value='"+in_60+"'>"+times+"/ + 1시간</option><option name='in_time' value='"+in_90+"'>"+times+" / +1시간30분</option><option name='in_time' value='"+in_120+"'>"+times+" / +2시간</option>");	
+                	}
+                	
                  },
                  error : function(jqXHR, textStatus, errorThrown, error) {
                     alert("에러 발생~~ \n" + textStatus + " : " + errorThrown

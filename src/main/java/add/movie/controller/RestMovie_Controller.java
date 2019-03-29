@@ -22,6 +22,11 @@ public class RestMovie_Controller {
 	@ResponseBody
 	@RequestMapping(value= {"/info"}, method = RequestMethod.GET)
 	public HashMap<String, String> movieInfo(@RequestParam HashMap<String, String> map) {
-		return mm.mv_dt_sel(map);
+		if(map.get("mv_code") != null) {
+			return mm.mv_dt_sel(map);
+		}else {
+			return null;
+		}
+		
 	}
 }
