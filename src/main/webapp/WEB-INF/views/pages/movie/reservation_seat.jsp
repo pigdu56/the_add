@@ -271,14 +271,14 @@ input[class="seat_9"]:checked+label{
 								<div class="col-sm-2">
 									<h6><b>일반</b></h6>
 								</div>
-								<div class="col-sm-10">
-									<input type="radio" class="wh_0" id="no_0" name="nomal" checked="checked"/><label for="no_0"></label>								
-									<input type="radio" class="wh_1" id="no_1" name="nomal"/><label for="no_1"></label>
-									<input type="radio" class="wh_2" id="no_2" name="nomal"/><label for="no_2"></label>
-									<input type="radio" class="wh_3" id="no_3" name="nomal"/><label for="no_3"></label>
-									<input type="radio" class="wh_4" id="no_4" name="nomal"/><label for="no_4"></label>
-									<input type="radio" class="wh_5" id="no_5" name="nomal"/><label for="no_5"></label>
-									<input type="radio" class="wh_6" id="no_6" name="nomal"/><label for="no_6"></label>
+								<div class="col-sm-10" id="nomal">
+									<input type="radio" class="wh_0" id="no_0" name="nomal" value="0" checked="checked" /><label for="no_0"></label>								
+									<input type="radio" class="wh_1" id="no_1" name="nomal" value="1" /><label for="no_1"></label>
+									<input type="radio" class="wh_2" id="no_2" name="nomal" value="2" /><label for="no_2"></label>
+									<input type="radio" class="wh_3" id="no_3" name="nomal" value="3" /><label for="no_3"></label>
+									<input type="radio" class="wh_4" id="no_4" name="nomal" value="4" /><label for="no_4"></label>
+									<input type="radio" class="wh_5" id="no_5" name="nomal" value="5" /><label for="no_5"></label>
+									<input type="radio" class="wh_6" id="no_6" name="nomal" value="6" /><label for="no_6"></label>
 								</div>
 							</li>
 							<li class="row select_person">
@@ -286,13 +286,13 @@ input[class="seat_9"]:checked+label{
 									<h6><b>유아</b></h6>
 								</div>
 								<div class="col-sm-10">
-									<input type="radio" id="ki_0" class="wh_0" name="kids" checked="checked"/><label for="ki_0"></label>								
-									<input type="radio" id="ki_1" class="wh_1" name="kids"/><label for="ki_1"></label>
-									<input type="radio" id="ki_2" class="wh_2" name="kids"/><label for="ki_2"></label>
-									<input type="radio" id="ki_3" class="wh_3" name="kids"/><label for="ki_3"></label>
-									<input type="radio" id="ki_4" class="wh_4" name="kids"/><label for="ki_4"></label>
-									<input type="radio" id="ki_5" class="wh_5" name="kids"/><label for="ki_5"></label>
-									<input type="radio" id="ki_6" class="wh_6" name="kids"/><label for="ki_6"></label>
+									<input type="radio" id="ki_0" class="wh_0" name="kids" value="0" checked="checked"/><label for="ki_0"></label>								
+									<input type="radio" id="ki_1" class="wh_1" name="kids" value="1" /><label for="ki_1"></label>
+									<input type="radio" id="ki_2" class="wh_2" name="kids" value="2" /><label for="ki_2"></label>
+									<input type="radio" id="ki_3" class="wh_3" name="kids" value="3" /><label for="ki_3"></label>
+									<input type="radio" id="ki_4" class="wh_4" name="kids" value="4" /><label for="ki_4"></label>
+									<input type="radio" id="ki_5" class="wh_5" name="kids" value="5" /><label for="ki_5"></label>
+									<input type="radio" id="ki_6" class="wh_6" name="kids" value="6" /><label for="ki_6"></label>
 								</div>
 							</li>
 							<li class="row select_person">
@@ -300,13 +300,13 @@ input[class="seat_9"]:checked+label{
 									<h6><b>청소년</b></h6>
 								</div>
 								<div class="col-sm-10">
-									<input type="radio" id="yo_0" class="wh_0" name="young" checked="checked"/><label for="yo_0"></label>								
-									<input type="radio" id="yo_1" class="wh_1" name="young"/><label for="yo_1"></label>
-									<input type="radio" id="yo_2" class="wh_2" name="young"/><label for="yo_2"></label>
-									<input type="radio" id="yo_3" class="wh_3" name="young"/><label for="yo_3"></label>
-									<input type="radio" id="yo_4" class="wh_4" name="young"/><label for="yo_4"></label>
-									<input type="radio" id="yo_5" class="wh_5" name="young"/><label for="yo_5"></label>
-									<input type="radio" id="yo_6" class="wh_6" name="young"/><label for="yo_6"></label>
+									<input type="radio" id="yo_0" class="wh_0" name="young" value="0" checked="checked"/><label for="yo_0"></label>								
+									<input type="radio" id="yo_1" class="wh_1" name="young" value="1" /><label for="yo_1"></label>
+									<input type="radio" id="yo_2" class="wh_2" name="young" value="2" /><label for="yo_2"></label>
+									<input type="radio" id="yo_3" class="wh_3" name="young" value="3" /><label for="yo_3"></label>
+									<input type="radio" id="yo_4" class="wh_4" name="young" value="4" /><label for="yo_4"></label>
+									<input type="radio" id="yo_5" class="wh_5" name="young" value="5" /><label for="yo_5"></label>
+									<input type="radio" id="yo_6" class="wh_6" name="young" value="6" /><label for="yo_6"></label>
 								</div>
 							</li>
 						</ul>
@@ -448,6 +448,34 @@ input[class="seat_9"]:checked+label{
 		</div>
 		<div class="col-sm-1"></div>		
 	</div>
-	
-	
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		if($(':radio[name="nomal"]:checked').val() == 0){
+			$(':checkbox[name="seat"]').attr("disabled", "disabled");
+		}
+		
+		$('#nomal :radio').change(function () {
+			var nomal = $(':radio[name="nomal"]:checked').val();
+			var young = $(':radio[name="nomal"]:checked').val();
+			var kids = $(':radio[name="nomal"]:checked').val();
+			console.log(r_num);
+			
+			if($(':radio[name="nomal"]:checked').val() != 0){
+				$(':checkbox[name="seat"]').removeAttr("disabled");
+			}
+			
+			$(':checkbox[name="seat"]').change(function(){
+				var checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
+				if (checkboxBoxes.length > nomal) {
+					this.checked = false;
+					alert('갯수초과');
+				}
+				else {
+					
+				}
+			});
+		});
+	});
+</script>
