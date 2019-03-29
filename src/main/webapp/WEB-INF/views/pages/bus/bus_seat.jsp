@@ -108,7 +108,10 @@ input[class="che"]+label {
 					<table class="table table-borderless text-center">
 						<tr>
 							<td>${bus_ticket.get("dep_ter")}</td>
-							<td>→</td>
+							<td>
+								<img src='${pageContext.request.contextPath}/static/img/bus/right (4).png'
+							 	style="width:20px;">
+							</td>
 							<td>${bus_ticket.get("arr_ter")}</td>
 						</tr>
 						<tr>
@@ -130,16 +133,20 @@ input[class="che"]+label {
 							<td>${bus_ticket.get("charge")}</td>
 						</tr>
 						<tr>
-							<td>가격</td>
-							<td>
+							<td>운임 비용</td>
+							<td id="charge">
 								<input type="text" name="charge_seat"
-								value="0" id="test" readonly="readonly" class="btn btn-primary">원
+								value="" id="test" readonly="readonly" class="btn btn-primary">원
 							</td>
 						</tr>
 						<tr>
+							<td>결제</td>
+							<td id="m_payment_td"><input type="text" placeholder="결제금액 입력" id="m_payment" class="btn btn-warning">원</td>
+						</tr>
+						<tr>
 							<td colspan="2">
-								<input type="submit" value="예매하기"
-								class="btn btn-primary btn-block">
+								<input type="submit" id="submit" value="예매하기"
+								class="btn btn-primary btn-block" disabled="disabled">
 							</td>
 						</tr>
 					</table>
@@ -157,6 +164,50 @@ input[class="che"]+label {
    </form>
 </body>
 <script>
+	// 체크박스 개수를 가져와 가격에 * 하기
+
+	
+	function check(frm){
+		// 체크된 체크박스개수 가져오기
+		var check = $("input:checkbox[class=nochecked]:checked").length;
+		// 운임비용 가져와 뒷자리 " 원" 자르기
+		var charge = '${bus_ticket.get("charge")}'.substr(0, '${bus_ticket.get("charge")}'.length-2);
+		$("#charge").empty();        // 운임비용 td 지우기
+		$("#m_payment_td").empty();  // 입력 금액 td 지우기
+		$("#charge").append(
+			"<input type='text' name='charge_seat'"
+			+ "value='" + charge * check +"' id='payment' readonly='readonly' class='btn btn-primary'> 원"
+		);
+		$("#m_payment_td").append(
+			"<input type='text' placeholder='결제금액 입력' id='m_payment' class='btn btn-warning'> 원"		
+		);
+		
+		// 체크박스를 클릭할 때 예맵 버튼 막기
+		$("#submit").attr("disabled", "disabled");
+		
+		// 운임비용하고 결제금액 입력이 같을 경우 실행 
+		$(function(){
+			// 결제할 금액이 없거나 0원일 경우 막기 
+			if($("#payment").val() != "" && $("#payment").val() != 0){
+				$("#m_payment").keyup(function(){
+					// 결제금액을 입력 한값이 있을 경우
+					if($(this.vlaue) != ""){
+						// 결제할 금액과 입력 금액이 같고 0원이 아닐 경우, 
+						if($("#m_payment").val() == $("#payment").val() && ($("#m_payment").val() == $("#payment").val()) != 0){
+							$("#submit").removeAttr("disabled");
+				 		}else{
+			 				$("#submit").attr("disabled", "disabled");
+						}
+					}
+					})
+				}
+			})
+	}
+	
+	
+	
+	
+	
  $(document).ready(function(){
        $.ajax({
           url: "${pageContext.request.contextPath}/ajax_seat",
@@ -198,13 +249,13 @@ input[class="che"]+label {
                 	   if(i < 10){
                 	   $("#seat").append(
                        		  "<td>&nbsp;<input type='checkbox' class='nochecked' name='b_seatnum' id='box" + i + "' value='" + i 
-                         		  + "'>[" + i +"]<label for='box" + i
+                         		  + "' onclick='check(this.form)'>[" + i +"]<label for='box" + i
                                  + "'>&nbsp;&nbsp;</label><div class='div_nocheck'></td>"
                                  );
               	   	  }else{
               	   		$("#seat").append(
                          		  "<td>&nbsp;<input type='checkbox' class='nochecked' name='b_seatnum' id='box" + i + "' value='" + i 
-                           		  + "'>[" + i +"]<label for='box" + i
+                           		  + "' onclick='check(this.form)'>[" + i +"]<label for='box" + i
                                    + "'>&nbsp;&nbsp;</label><div class='div_nocheck'></td>"
                                    );
               	   	  }
@@ -248,13 +299,13 @@ input[class="che"]+label {
                 	   if(i < 10){
                 		   $("#seat").append(
                           		  "<td><input type='checkbox' class='nochecked' name='b_seatnum' id='box" + i + "' value='" + i 
-                            		  + "'>&nbsp;&nbsp;[" + i +"]<label for='box" + i
+                            		  + "' onclick='check(this.form)'>&nbsp;&nbsp;[" + i +"]<label for='box" + i
                                     + "'>&nbsp;&nbsp;</label><div class='div_nocheck'></td>"
                                     );
                  	   	  }else{
                  	   		$("#seat").append(
                             		  "<td><input type='checkbox' class='nochecked' name='b_seatnum' id='box" + i + "' value='" + i 
-                              		  + "'>[" + i +"]<label for='box" + i
+                              		  + "' onclick='check(this.form)'>[" + i +"]<label for='box" + i
                                       + "'>&nbsp;&nbsp;</label><div class='div_nocheck'></td>"
                                       );
                  	   	  }
@@ -300,13 +351,13 @@ input[class="che"]+label {
                 	   	  if(i < 10){
                     	    $("#seat").append(
                            		  "<td><input type='checkbox' class='nochecked' name='b_seatnum' id='box" + i + "' value='" + i 
-                             		  + "'>&nbsp;&nbsp;[" + i +"]<label for='box" + i
+                             		  + "' onclick='check(this.form)'>&nbsp;&nbsp;[" + i +"]<label for='box" + i
                                      + "'>&nbsp;&nbsp;</label><br><div class='div_nocheck'></td>"
                                      );
                   	   	  }else{
                   	   		$("#seat").append(
                              		  "<td><input type='checkbox' class='nochecked' name='b_seatnum' id='box" + i + "' value='" + i 
-                               		  + "'>[" + i +"]<label for='box" + i
+                               		  + "' onclick='check(this.form)'>[" + i +"]<label for='box" + i
                                        + "'>&nbsp;&nbsp;</label><br><div class='div_nocheck'></td>"
                                        );
                   	   	  }

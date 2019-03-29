@@ -110,7 +110,7 @@
          &nbsp;&nbsp;
          <select name="start_terminal" id="start_terminal"
             class="btn btn-outline-info text-dark start_terminal" >
-            <option value="0">선택</option>
+            <option value="0">출발 터미널</option>
          </select>
          <!-- ************************ 도착  ************************-->
  	 &nbsp;&nbsp;
@@ -126,7 +126,7 @@
                  &nbsp;&nbsp;
          <select name="arrival_terminal" id="arrival_terminal"
             class="btn btn-outline-info text-dark arrival_terminal">
-            <option value="0">선택</option>
+            <option value="0">도착 터미널</option>
          </select> <br>
                  &nbsp;&nbsp;&nbsp;&nbsp;
          <!-- ************************ 버스등급  ************************-->
@@ -423,7 +423,7 @@
                           var grade = td.eq(4).text();
                           var charge = td.eq(5).text();
                           var seat_nam = td.eq(6).text();
-                        
+						                          
                           $("#reservation").append(
                              "<tr>"
                              + "<td><label class='label_margin text-center'>출발</label></td>"
