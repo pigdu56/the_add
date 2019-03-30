@@ -35,9 +35,9 @@ public interface MovieMappable {
 	@Update("UPDATE MV_MOVIE SET MV_RNUM = 0")
 	public void mv_update();
 	
-	// 개봉 영화 리스트
+	// 영화 순위 리스트
 	@Select("SELECT * FROM MV_V_MV WHERE MV_RNUM > 0 ORDER BY MV_RNUM ASC")
-	public ArrayList<HashMap<String, String>> mv_select();
+	public ArrayList<HashMap<String, String>> boxList();
 	
 	// 영화 상세 정보
 	@Select("SELECT * FROM MV_V_MV WHERE MV_CODE = #{mv_code}")
@@ -52,4 +52,27 @@ public interface MovieMappable {
 	@Options(statementType = StatementType.CALLABLE)
 	public void mv_in(HashMap<String, String> m);
 	
+	// 개봉 영화 리스트
+	@Select("SELECT MV_CODE, MV_TITLE_KR, RT_IMG FROM MV_V_S GROUP BY MV_CODE, MV_TITLE_KR, RT_IMG")
+	public ArrayList<HashMap<String, String>> mv_select();
+		
+	// 영화 선택 후 영화관
+	@Select("SELECT C_NAME FROM MV_V_S WHERE MV_TITLE_KR = #{mv_title_kr} GROUP BY C_NAME")
+	public ArrayList<HashMap<String, String>> tc(String mv_title_kr);
+	
+	// 영화관 선택 후 영화
+	@Select("SELECT MV_CODE, MV_TITLE_KR, RT_IMG FROM MV_V_S WHERE C_NAME=#{c_name} GROUP BY MV_CODE, MV_TITLE_KR, RT_IMG")
+	public ArrayList<HashMap<String, String>> mv_sel(String c_name);
+	
+	// 영화, 영화관, 날짜 선택 시
+	@Select("SELECT MV_CODE, MV_TITLE_KR, TT_NAME, SD_DAY, T_TIME FROM MV_V_S WHERE MV_TITLE_KR = #{mv_title_kr} AND C_NAME=#{c_name} AND SD_DAY = #{sd_day} GROUP BY MV_CODE, MV_TITLE_KR, TT_NAME, SD_DAY, T_TIME")
+	public ArrayList<HashMap<String, String>> time(HashMap<String, String> map);
+	
+	// 영화 스케쥴 코드 조회
+	@Select("SELECT SD_CODE FROM MV_V_S WHERE MV_TITLE_KR = #{mv_title_kr} AND C_NAME=#{c_name} AND SD_DAY = #{sd_day} AND T_TIME = #{t_time}")
+	public String SDC(HashMap<String, String> map);
+	
+	// 예매 된 좌석
+	@Select("SELECT MV_CODE, MV_TITLE_KR, C_NAME, TT_NAME, SD_DAY, T_TIME, S_NAME FROM MV_V_RE WHERE SD_CODE = #{sd_code}")
+	public ArrayList<HashMap<String, String>> seat(String sd_code);
 }

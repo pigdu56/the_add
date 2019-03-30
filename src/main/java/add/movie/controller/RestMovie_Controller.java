@@ -46,4 +46,25 @@ public class RestMovie_Controller {
 			return "상영중!!";
 		}
 	}
+	
+	// 영화 선택후 영화관 리스트
+	@ResponseBody
+	@RequestMapping(value= {"/tc"}, method = RequestMethod.POST)
+	public ArrayList<HashMap<String, String>> tc(@RequestParam String mv_title_kr){
+		return mm.tc(mv_title_kr);
+	}
+	
+	// 영화관 선택 후 영화
+	@ResponseBody
+	@RequestMapping(value= {"/mv_c"}, method = RequestMethod.POST)
+	public ArrayList<HashMap<String, String>> mv_c(@RequestParam String c_name){
+		return mm.mv_sel(c_name);
+	}
+	
+	// 영화, 영화관, 날짜 선택시
+	@ResponseBody
+	@RequestMapping(value= {"/time"}, method = RequestMethod.POST)
+	public ArrayList<HashMap<String, String>> time(@RequestParam HashMap<String, String> map){
+		return mm.time(map);
+	}
 }

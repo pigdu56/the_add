@@ -96,8 +96,10 @@ ul>li {
 					<tr class="row re_main">
 						<td class="col-sm-4">
 							<ul class="re_select" id="mv_choice">
-								<li>캡틴마블</li>
-								<li>돈</li>		
+								<c:forEach var="ml" items="${mv_list}">
+									<li style="text-align: left;">
+										<h4 style="margin-left: 20px;"><img src="${pageContext.request.contextPath}/static/img/movie/${ml.RT_IMG}" style="width: 30px;">${ml.MV_TITLE_KR}</h4></li>
+								</c:forEach>
 							</ul>
 						</td>
 						<td class="col-sm-3">
