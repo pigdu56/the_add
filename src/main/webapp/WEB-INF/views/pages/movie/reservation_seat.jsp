@@ -326,6 +326,7 @@ input[class="x"]+label{
 							<dl>
 								<dt>${mv_list['c_name']}&nbsp;|&nbsp;</dt>
 								<dt>${mv_list['tt_name']}&nbsp;|&nbsp;</dt>
+								<dt>남은 좌석 ${mv_list['tt_name']}</dt>
 							</dl>
 						</div>
 					</td>
