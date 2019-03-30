@@ -39,6 +39,10 @@ ul>li {
 	padding: 0;
 	cursor: pointer;
 }
+#sd_choice > li{
+	height:40px;
+	vertical-align:middle;
+}
 #select_box{
 	width:100%;
 	height:105px;
@@ -70,6 +74,12 @@ ul>li {
 	background-color:#1D1D1C;
 	color:white;
 }
+.red{
+	color:red;
+}
+.blue{
+	color:blue;
+}
 </style>
 	<div class="container">
 		<div class="row">
@@ -99,10 +109,12 @@ ul>li {
 						</td>
 						<td class="col-sm-1">
 							<ul class="re_select" id="sd_choice">
-								<li style="font-size: 13px;">
 								<c:set var="now" value="<%=new java.util.Date()%>" /> 
-								<fmt:formatDate value="${now}" type="date" pattern="YYYY" var="years" />${years}</li>
-								<li style="font-size: 30px;">
+								<fmt:formatDate value="${now}" type="date" pattern="YYYY" var="years" />
+								<li style="font-size: 13px; margin-top:10px;">
+									${years}
+								</li>
+								<li style="font-size: 30px; margin-top:-25px; margin-bottom:10px">
 								<fmt:formatDate value="${now}" type="date" pattern="MM" var="mon" />${mon}</li>
 								<c:forEach var="i" items="${daylist}">
 									<c:choose>
@@ -119,12 +131,22 @@ ul>li {
 													</c:otherwise>
 												</c:choose>
 											</li>
-											<li style="font-size: 30px;">
+											<li style="font-size: 30px; margin-top:-25px; margin-bottom:10px;">
 												<fmt:parseDate value="${mon+1}" pattern="MM" var="months"/>
 												<fmt:formatDate value="${months}" type="date" pattern="MM" var='mon2'/> ${mon2}												
 											</li>
 											<li class="sd_dates">
-												<b>${i.days}</b>&nbsp;<b>${i.dates}</b>
+												<c:choose>
+													<c:when test="${i.days eq '토'}">
+														<b class="blue" id="blue_check">${i.days}&nbsp;${i.dates}</b>
+													</c:when>
+													<c:when test="${i.days eq '일'}">
+														<b class="red" id="red_check">${i.days}&nbsp;${i.dates}</b>
+													</c:when>
+													<c:otherwise>
+														<b>${i.days}&nbsp;${i.dates}</b>
+													</c:otherwise>
+												</c:choose>
 												<c:choose>
 													<c:when test="${mon eq 01}">
 														<input type="hidden" name='s_dates' value="${years2}${mon2}${i.dates}">
@@ -137,7 +159,17 @@ ul>li {
 										</c:when>
 										<c:otherwise>
 											<li class="sd_dates">
-												<b>${i.days}</b>&nbsp;<b>${i.dates}</b>
+												<c:choose>
+													<c:when test="${i.days eq '토'}">
+														<b class="blue" id="blue_check">${i.days}&nbsp;${i.dates}</b>
+													</c:when>
+													<c:when test="${i.days eq '일'}">
+														<b class="red "id="red_check">${i.days}&nbsp;${i.dates}</b>
+													</c:when>
+													<c:otherwise>
+														<b>${i.days}&nbsp;${i.dates}</b>
+													</c:otherwise>
+												</c:choose>
 													<c:choose>
 														<c:when test="${empty mon2}">
 															<input type="hidden" name='s_dates' value="${years}${mon}${i.dates}">
@@ -240,6 +272,14 @@ $(document).ready(function(){
 		sd_dates = $(this).find("input").val();
 		sd_check = true;
 		$(sd_li).addClass("check_choice");
+		sd_day = sd_li.text();
+		$("#blue_check").addClass("blue");
+		$("#red_check").addClass("red");
+		if(sd_day.indexOf('토') != -1){
+			$("#blue_check").removeClass("blue");
+		}else if(sd_day.indexOf('일') != -1){
+			$("#red_check").removeClass("red");
+		}
 		if(mv_check && c_check){
 			alert("영화 : "+mv_li.text()+" 영화관 : "+c_li.text()+" 날짜 "+ sd_dates);
 		}else if(!mv_check || !c_check){
