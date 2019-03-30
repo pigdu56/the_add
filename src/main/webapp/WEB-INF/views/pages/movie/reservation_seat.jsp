@@ -272,11 +272,12 @@ input[class="x"]+label{
 					<th class="col-sm-12 s_center"><h5><b>인원 / 좌석</b></h5></th>
 				</tr>
 				<tr class="row" id="seat_tb">
+					<!-- 인원수 -->
 					<td class="col-sm-6">
 						<ul id="person_choice">
 							<li class="row select_person">
 								<div class="col-sm-2">
-									<h6><b>일반</b></h6>
+									<h6><b>성인</b></h6>
 								</div>
 								<div class="col-sm-10" id="nomal">
 									<input type="radio" class="wh_0" id="no_0" name="nomal" value="0" checked="checked" /><label for="no_0"></label>								
@@ -306,7 +307,7 @@ input[class="x"]+label{
 							
 							<li class="row select_person" id="kids">
 								<div class="col-sm-2">
-									<h6><b>유아</b></h6>
+									<h6><b>어린이</b></h6>
 								</div>
 								<div class="col-sm-10">
 									<input type="radio" id="ki_0" class="wh_0" name="kids" value="0" checked="checked"/><label for="ki_0"></label>								
@@ -321,9 +322,16 @@ input[class="x"]+label{
 						</ul>
 					</td>
 					<td class="col-sm-6">
-						
+						<div>
+							<dl>
+								<dt>${mv_list['c_name']}&nbsp;|&nbsp;</dt>
+								<dt>${mv_list['tt_name']}&nbsp;|&nbsp;</dt>
+							</dl>
+						</div>
 					</td>
-				</table>			
+				</tr>
+			</table>
+						
 			<div class="row">
 				<div class="col-sm-9" id="seat_div">
 					<div class="row">
@@ -567,6 +575,8 @@ input[class="x"]+label{
 									<input type="hidden" name="mv_code" value="${mv_list['mv_code']}" />
 									<input type="hidden" name="mv_title_kr" value="${mv_list['mv_title_kr']}" />
 									<input type="hidden" name="c_name" value="${mv_list['c_name']}" />
+									<input type="hidden" name="tt_name" value="${mv_list['tt_name']}" />
+									<input type="hidden" name="s_s_name" />
 									
 									<button class="btn go_seat" id="go_pay" disabled="disabled">
 										<img class="btn-img" src="${pageContext.request.contextPath}/static/img/movie/right_pay.png">

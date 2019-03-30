@@ -57,7 +57,7 @@ public interface MovieMappable {
 	public ArrayList<HashMap<String, String>> mv_select();
 		
 	// 영화 선택 후 영화관
-	@Select("SELECT MV_CODE, MV_TITLE_KR, RT_RATING, C_NAME FROM MV_V_S WHERE MV_TITLE_KR = #{mv_title_kr} GROUP BY MV_CODE, MV_TITLE_KR, RT_RATING, C_NAME")
+	@Select("SELECT MV_CODE, MV_TITLE_KR, RT_RATING, MV_IMG, C_NAME FROM MV_V_S WHERE MV_TITLE_KR = #{mv_title_kr} GROUP BY MV_CODE, MV_TITLE_KR, MV_IMG, RT_RATING, C_NAME")
 	public ArrayList<HashMap<String, String>> tc(String mv_title_kr);
 	
 	// 영화관 선택 후 영화
