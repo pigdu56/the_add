@@ -33,12 +33,12 @@ public class MovieJSONMain {
 		// 하루 전 날짜
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
-		cal.add(cal.DATE, -5);
+		cal.add(cal.DATE, -1);
 		String yesterday = date.format(cal.getTime());
 		
 		try {
 			URL url = new URL(
-					"http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchWeeklyBoxOfficeList.json?key=f831993857b52d6a24b646f46bcac4b4&targetDt="+ yesterday);
+					"http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f831993857b52d6a24b646f46bcac4b4&targetDt="+ yesterday);
 			reader = new BufferedInputStream(url.openStream());
 			StringBuffer buffer = new StringBuffer();
 			int i;
@@ -82,9 +82,10 @@ public class MovieJSONMain {
 		try {
 			jsonobject = (JSONObject) jsonparser.parse(readUrl());
 			JSONObject json = (JSONObject) jsonobject.get("boxOfficeResult");
-			JSONArray array = (JSONArray) json.get("weeklyBoxOfficeList");
+			JSONArray array = (JSONArray) json.get("dailyBoxOfficeList");
 			for (int i = 0; i < array.size(); i++) {
-				JSONObject entity = (JSONObject) array.get(i);				
+				JSONObject entity = (JSONObject) array.get(i);	
+				//System.out.println(entity);
 				list.add(entity);
 			}			
 		} catch (ParseException e) {

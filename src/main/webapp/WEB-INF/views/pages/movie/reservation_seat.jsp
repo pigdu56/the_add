@@ -138,7 +138,7 @@
 	padding:10px;
 	color:white;
 }
-#go_seat{
+.go_seat{
 	border:0;
 	background-color:#1D1D1C;
 	padding:0;	
@@ -281,7 +281,23 @@ input[class="seat_9"]:checked+label{
 									<input type="radio" class="wh_6" id="no_6" name="nomal" value="6" /><label for="no_6"></label>
 								</div>
 							</li>
+							
 							<li class="row select_person">
+								<div class="col-sm-2">
+									<h6><b>청소년</b></h6>
+								</div>
+								<div class="col-sm-10" id="young">
+									<input type="radio" id="yo_0" class="wh_0" name="young" value="0" checked="checked"/><label for="yo_0"></label>								
+									<input type="radio" id="yo_1" class="wh_1" name="young" value="1" /><label for="yo_1"></label>
+									<input type="radio" id="yo_2" class="wh_2" name="young" value="2" /><label for="yo_2"></label>
+									<input type="radio" id="yo_3" class="wh_3" name="young" value="3" /><label for="yo_3"></label>
+									<input type="radio" id="yo_4" class="wh_4" name="young" value="4" /><label for="yo_4"></label>
+									<input type="radio" id="yo_5" class="wh_5" name="young" value="5" /><label for="yo_5"></label>
+									<input type="radio" id="yo_6" class="wh_6" name="young" value="6" /><label for="yo_6"></label>
+								</div>
+							</li>
+							
+							<li class="row select_person" id="kids">
 								<div class="col-sm-2">
 									<h6><b>유아</b></h6>
 								</div>
@@ -294,21 +310,7 @@ input[class="seat_9"]:checked+label{
 									<input type="radio" id="ki_5" class="wh_5" name="kids" value="5" /><label for="ki_5"></label>
 									<input type="radio" id="ki_6" class="wh_6" name="kids" value="6" /><label for="ki_6"></label>
 								</div>
-							</li>
-							<li class="row select_person">
-								<div class="col-sm-2">
-									<h6><b>청소년</b></h6>
-								</div>
-								<div class="col-sm-10">
-									<input type="radio" id="yo_0" class="wh_0" name="young" value="0" checked="checked"/><label for="yo_0"></label>								
-									<input type="radio" id="yo_1" class="wh_1" name="young" value="1" /><label for="yo_1"></label>
-									<input type="radio" id="yo_2" class="wh_2" name="young" value="2" /><label for="yo_2"></label>
-									<input type="radio" id="yo_3" class="wh_3" name="young" value="3" /><label for="yo_3"></label>
-									<input type="radio" id="yo_4" class="wh_4" name="young" value="4" /><label for="yo_4"></label>
-									<input type="radio" id="yo_5" class="wh_5" name="young" value="5" /><label for="yo_5"></label>
-									<input type="radio" id="yo_6" class="wh_6" name="young" value="6" /><label for="yo_6"></label>
-								</div>
-							</li>
+							</li>					
 						</ul>
 					</td>
 					<td class="col-sm-6">
@@ -418,7 +420,7 @@ input[class="seat_9"]:checked+label{
 				<table id="select_box">
 					<tr class="row" id="selects">
 						<th class="col-sm-2" id="go_btn">
-							<button class="btn" id="go_seat" onclick="location.href='${pageContext.request.contextPath}/movie/reservation'">
+							<button class="btn go_seat" id="go_seat" onclick="location.href='${pageContext.request.contextPath}/movie/reservation'">
 								<img class="btn-img" src="${pageContext.request.contextPath}/static/img/movie/left_mv.png">
 							</button>
 						<th class="col-sm-2 box_th">
@@ -436,7 +438,7 @@ input[class="seat_9"]:checked+label{
 							<h3 class="box_title">결제</h3>
 						</th>
 						<th class="col-sm-2" id="go_btn">
-							<button class="btn" id="go_seat">
+							<button class="btn go_seat" id="go_pay" disabled="disabled">
 								<img class="btn-img" src="${pageContext.request.contextPath}/static/img/movie/right_pay.png">
 							</button>
 						</th>
@@ -452,30 +454,102 @@ input[class="seat_9"]:checked+label{
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		if($(':radio[name="nomal"]:checked').val() == 0){
+		var nomal = $(':radio[name="nomal"]:checked').val();
+		var young = $(':radio[name="nomal"]:checked').val();
+		var kids = $(':radio[name="nomal"]:checked').val();
+		var sum = Number(nomal) + Number(young) + Number(kids);
+		var checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
+		
+		if(sum == 0){
 			$(':checkbox[name="seat"]').attr("disabled", "disabled");
 		}
 		
 		$('#nomal :radio').change(function () {
-			var nomal = $(':radio[name="nomal"]:checked').val();
-			var young = $(':radio[name="nomal"]:checked').val();
-			var kids = $(':radio[name="nomal"]:checked').val();
-			console.log(r_num);
+			nomal = $(':radio[name="nomal"]:checked').val();
+			young = $(':radio[name="young"]:checked').val();
+			kids = $(':radio[name="kids"]:checked').val();
+			sum = Number(nomal) + Number(young) + Number(kids);
+			checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
 			
-			if($(':radio[name="nomal"]:checked').val() != 0){
+			if(sum == 0){
+				$(':checkbox[name="seat"]').attr("disabled", "disabled");
+			} else {
+				$(':checkbox[name="seat"]').removeAttr("disabled");
+			}
+					
+			if(checkboxBoxes.length > sum){
+				alert('좌석이 초과 되었습니다');
+				return false;
+			}
+			
+			if(checkboxBoxes.length == sum && sum != 0){
+				$("#go_pay").attr('disabled', false);
+			} else {
+				$("#go_pay").attr('disabled', true);
+			}
+		});
+		
+		$('#young :radio').change(function(){
+			nomal = $(':radio[name="nomal"]:checked').val();
+			young = $(':radio[name="young"]:checked').val();
+			kids = $(':radio[name="kids"]:checked').val();
+			sum = Number(nomal) + Number(young) + Number(kids);
+			checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
+					
+			if(sum == 0){
+				$(':checkbox[name="seat"]').attr("disabled", "disabled");
+			} else {
 				$(':checkbox[name="seat"]').removeAttr("disabled");
 			}
 			
-			$(':checkbox[name="seat"]').change(function(){
-				var checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
-				if (checkboxBoxes.length > nomal) {
-					this.checked = false;
-					alert('갯수초과');
-				}
-				else {
-					
-				}
-			});
+			if(checkboxBoxes.length > sum){
+				alert('좌석이 초과 되었습니다');
+				return false;
+			}
+			
+			if(checkboxBoxes.length == sum && sum != 0){
+				$("#go_pay").attr('disabled', false);
+			} else {
+				$("#go_pay").attr('disabled', true);
+			}
 		});
+		
+		$('#kids :radio').bind('click' ,function(){
+			nomal = $(':radio[name="nomal"]:checked').val();
+			young = $(':radio[name="young"]:checked').val();
+			kids = $(':radio[name="kids"]:checked').val();
+			sum = Number(nomal) + Number(young) + Number(kids);
+			checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
+			
+			if(sum == 0){
+				$(':checkbox[name="seat"]').attr("disabled", "disabled");
+			} else {
+				$(':checkbox[name="seat"]').removeAttr("disabled");
+			}
+			
+			if(checkboxBoxes.length > sum){
+				alert('좌석이 초과 되었습니다');
+				return false;
+			}
+			
+			if(checkboxBoxes.length == sum && sum != 0){
+				$("#go_pay").attr('disabled', false);
+			} else {
+				$("#go_pay").attr('disabled', true);
+			}
+		});
+		
+		$(':checkbox[name="seat"]').click(function(){
+			checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
+			if (checkboxBoxes.length > sum) {
+				this.checked = false;
+			}
+			
+			if(checkboxBoxes.length == sum && sum != 0){
+				$("#go_pay").attr('disabled', false);
+			} else {
+				$("#go_pay").attr('disabled', true);
+			}
+		});		
 	});
 </script>

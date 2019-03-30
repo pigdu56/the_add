@@ -149,9 +149,13 @@ public class Movie_Controller {
          
          // 제목(영)
          String title_en = (String) m.get("movieNmEn");
-         dtm.put("title_en", title_en);
+         if(title_en.equals("")) {
+        	 title_en = " ";   	 
+         } 
+    	 dtm.put("title_en", title_en);
          //System.out.println("title_en : " + title_en);
-         
+
+                 
          // 국가
          ArrayList<HashMap<String, String>> country = (ArrayList<HashMap<String, String>>) m.get("nations");
          for(HashMap<String, String> c : country) {
