@@ -116,7 +116,7 @@ public class Movie_Controller {
 		String sd_code = mm.SDC(map);
 		
 		mv.addObject("mv_list",map);
-		mv.addObject("seat", mm.seat(sd_code));
+		mv.addObject("seat", mm.seat(sd_code));	
 		mv.setViewName("reservation_seat");
 		System.out.println(mv);
 		return mv;
