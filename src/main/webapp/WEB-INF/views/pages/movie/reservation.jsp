@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,6 +8,8 @@
 <style>
 ul>li {
 	list-style: none;
+	margin:0;
+	padding:0;
 }
 
 #reser_table {
@@ -80,6 +82,18 @@ ul>li {
 .blue{
 	color:blue;
 }
+#sel_c{
+	padding:0;
+}
+#sel_post{
+	padding:0;
+}
+#sel_mv{
+	padding:0;
+}
+ #time_choice > li{
+ 	list-style:none;
+ }
 </style>
 	<div class="container">
 		<div class="row">
@@ -97,16 +111,19 @@ ul>li {
 						<td class="col-sm-4">
 							<ul class="re_select" id="mv_choice">
 								<c:forEach var="ml" items="${mv_list}">
-									<li style="text-align: left;">
-										<h4 style="margin-left: 20px;"><img src="${pageContext.request.contextPath}/static/img/movie/${ml.RT_IMG}" style="width: 30px;">${ml.MV_TITLE_KR}</h4></li>
+									<li style="text-align: left;" class="m_list">
+										<h4 style="margin-left: 20px;"><img src="${pageContext.request.contextPath}/static/img/movie/${ml.RT_IMG}" style="width: 30px;">${ml.MV_TITLE_KR}</h4>
+										<input type="hidden" name="mv_name" value="${ml.MV_TITLE_KR}">
+									</li>
+										
 								</c:forEach>
 							</ul>
 						</td>
 						<td class="col-sm-3">
 							<ul class="re_select" id="c_choice">
-								<li>천안터미널CGV</li>
-								<li>천안역 CGV</li>
-								<li>천안펜타포트 CGV</li>
+								<li class="c_list">천안터미널 CGV <input type="hidden" name="c_name" value="천안터미널 CGV"></li>
+								<li class="c_list">천안역 CGV <input type="hidden" name="c_name" value="천안 CGV"></li>
+								<li class="c_list">천안 펜타포트 CGV <input type="hidden" name="c_name" value="천안 펜타포트"></li>
 							</ul>
 						</td>
 						<td class="col-sm-1">
@@ -187,7 +204,11 @@ ul>li {
 
 							</ul>
 						</td>
-						<td class="col-sm-4"></td>
+						<td class="col-sm-4">
+							<ul id="time_choice">
+							
+							</ul>
+						</td>
 					</tr>
 				</table>
 			</div>
@@ -200,21 +221,30 @@ ul>li {
 				<form method="get" action="${go_seat}">
 				<table id="select_box">
 					<tr class="row" id="selects">
-						<th class="col-sm-2 box_th">
-							<h3 class="box_title">영화선택</h3>
+						<th class="col-sm-3 box_th">
+							<ul class="col-sm-6" id="sel_poster">
+							</ul>
+							<ul class="col-sm-6" id="sel_mv">
+								<li>
+									<h3 class="box_title">영화선택</h3>
+								</li>
+							</ul>
 						</th>
 						<th class="col-sm-2 box_th">
-							<h3 class="box_title">극장선택</h3>
+							<ul class="row" id="sel_c">
+								<li style="padding-left:35px;"><h3 class="box_title">극장선택</h3></li>
+							</ul>	
+							<ul id="sel_tt"></ul>
 						</th>
 						<th class="col-sm-2 box_th">
-							<h3 class="box_title">좌석선택</h3>
+							<h3 class="box_title" id="sel_sd">좌석선택</h3>
 						</th>
 						<th class="col-sm-2 box_th">
 							<h3 class="box_title">결제</h3>
 						</th>
-						<th class="col-sm-2"></th>
-						<th class="col-sm-2" id="go_btn">
-							<button class="btn" id="go_seat" type="submit">
+						<th class="col-sm-1" id="go_btn"></th>
+						<th class="col-sm-1">
+							<button class="btn" id="go_seat" type="submit" disabled="disabled">
 								<img class="btn-img" src="${pageContext.request.contextPath}/static/img/movie/right_seat.png">
 							</button>
 						</th>
@@ -225,46 +255,253 @@ ul>li {
 			<div class="col-sm-1"></div>
 		</div>
 	</div>
-<script>
-$(document).ready(function(){
+<script type="text/javascript">
+$( document ).ready(function() {
 	var mv_check = false;
 	var c_check = false;
 	var sd_check = false;
+	var time_check = false;
 	var mv_li;
 	var c_li;
 	var sd_li;
+	var time_li;
 	var sd_dates;
-	$("#mv_choice li").click(function(){
-		$("#mv_choice li").removeClass("check_choice");
+	var mv_name;
+	var c_name;
+	var time_name;
+	var tt_name;
+	//영화 선택시 
+	$(document).on("click", "#mv_choice .m_list", function() {
+		$("#mv_choice .m_list").removeClass("check_choice");
 		mv_li=$(this);
 		$(mv_li).addClass("check_choice");
 		mv_check=true;
+		mv_name = $(this).find("input").val();
 		if(c_check && sd_check){
 			alert("영화 : "+mv_li.text()+" 영화관 : "+c_li.text()+" 날짜 "+ sd_dates);
+			$.ajax({
+	            url : "${pageContext.request.contextPath}/movie/time",
+	            type : "post",
+	            data : {
+	               "mv_title_kr" : mv_name,
+	               "c_name" : c_name,
+	               "sd_day" : sd_dates
+	            },            
+	            success : function(data) {
+            		$("#time_choice").empty();
+	            	if(data == ""){
+		            	$("#time_choice").append("<h4>상영시간이 없습니다. <br>다른날짜를 선택해주세요.</h4>");
+	            	}else{
+		            	$("#time_choice").append("<li style='text-align:left;'><h4>"+data[0].TT_NAME+"</h4></li>");
+		            	for(var tt in data){
+		            		$("#time_choice").append("<li style='border:2px solid black'>"+data[tt].T_TIME+"</li>");	
+		            	}	
+	            	}
+	            },
+	            error : function(jqXHR, textStatus, errorThrown, error) {
+	               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+	                     + error);
+	            }
+			});
 		}else if(!sd_check || !c_check){
 			if(!sd_check && !c_check){
 				alert("날짜와 영화관을 선택해주세요.");
+				$.ajax({
+		            url : "${pageContext.request.contextPath}/movie/tc",
+		            type : "post",
+		            data : {
+		               "mv_title_kr" : mv_name
+		            },                
+		            success : function(data) {
+		            	$("#c_choice").empty();
+		            	$("#sel_mv").empty();
+		            	$("#sel_poster").empty();
+		            	for(var a in data){
+		            		$("#c_choice").append("<li class='c_list'>"+data[a].C_NAME+"<input type='hidden' name='c_name' value='"+data[a].C_NAME+"'></li>");	
+		            	}
+		            	$("#sel_poster").append("<li><img src='"+data[0].MV_IMG+"' style='height:100px;'></li>");
+		            	$("#sel_mv").append("<li><h4>"+mv_name+"</h4><li>&nbsp;</li><li><h5>"+data[0].RT_RATING+"</h5></li>");
+		            },
+		            error : function(jqXHR, textStatus, errorThrown, error) {
+		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+		                     + error);
+		            }
+				});
 			}else if(!c_check){
 				alert("영화관을 선택해주세요.");
+				$.ajax({
+		            url : "${pageContext.request.contextPath}/movie/tc",
+		            type : "post",
+		            data : {
+		               "mv_title_kr" : mv_name
+		            },                 
+		            success : function(data) {
+		            	$("#c_choice").empty();
+		            	$("#sel_mv").empty();
+		            	$("#sel_poster").empty();
+		            	for(var a in data){
+		            		alert(data[a].C_NAME);
+		            		$("#c_choice").append("<li class='c_list'>"+data[a].C_NAME+"<input type='hidden' name='c_name' value='"+data[a].C_NAME+"'></li>");	
+		            	}
+		            	$("#sel_poster").append("<li><img src='"+data[0].MV_IMG+"' style='height:100px;'></li>");
+		            	$("#sel_mv").append("<li><h4>"+mv_name+"</h4><li><li>"+data[0].RT_RATING+"</li>");
+		            },
+		            error : function(jqXHR, textStatus, errorThrown, error) {
+		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+		                     + error);
+		            }
+				});
 			}else{
-				alert("날짜를 선택해주세요.");
+				$.ajax({
+		            url : "${pageContext.request.contextPath}/movie/tc",
+		            type : "post",
+		            data : {
+		               "mv_title_kr" : mv_name
+		            },                 
+		            success : function(data) {
+		            	var cn_check = false;
+		            	for(var cc in data){
+		            		if(data[cc].C_NAME==c_name){
+		            			cn_check=true;
+		            			break;
+		            		}
+		            	}
+		            	if(cn_check){
+		            		alert("날짜를 선택해주세요.");
+		            	}else{
+		            		alert("선택하신 영화는 해당 극장에 상영하지않습니다. 다시 선택해주세요.");
+		            		$("#c_choice").empty();
+		            		$("#sel_c").empty();
+		            		c_check=false;
+		         			for(var a in data){
+			            		$("#c_choice").append("<li class='c_list'>"+data[a].C_NAME+"<input type='hidden' name='c_name' value='"+data[a].C_NAME+"'></li>");	
+			            	}
+		            	}
+		            	$("#sel_mv").empty();
+		            	$("#sel_poster").empty();
+		            	$("#sel_poster").append("<li><img src='"+data[0].MV_IMG+"' style='height:100px;'></li>");
+		            	$("#sel_mv").append("<li><h4>"+mv_name+"</h4><li><li>"+data[0].RT_RATING+"</li>");
+		            },
+		            error : function(jqXHR, textStatus, errorThrown, error) {
+		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+		                     + error);
+		            }
+				});
 			}
 		}
 	});
-	$("#c_choice li").click(function(){
-		$("#c_choice li").removeClass("check_choice");
+	//영화관 선택시
+	$(document).on("click", "#c_choice .c_list", function() {
+		$("#c_choice .c_list").removeClass("check_choice");
 		c_li=$(this);
 		c_check=true;
+		c_name=$(this).find("input").val();
 		$(c_li).addClass("check_choice");
 		if(mv_check && sd_check){
-			alert("영화 : "+mv_li.text()+" 영화관 : "+c_li.text()+" 날짜 "+ sd_dates);
+			alert("영화 : "+mv_name+" 영화관 : "+c_name+" 날짜 "+ sd_dates);
+			$.ajax({
+	            url : "${pageContext.request.contextPath}/movie/time",
+	            type : "post",
+	            data : {
+	               "mv_title_kr" : mv_name,
+	               "c_name" : c_name,
+	               "sd_day" : sd_dates
+	            },            
+	            success : function(data) {
+            		$("#time_choice").empty();
+	            	if(data == ""){
+		            	$("#time_choice").append("<h4>상영시간이 없습니다. <br>다른날짜를 선택해주세요.</h4>");
+	            	}else{
+		            	$("#time_choice").append("<li style='text-align:left;'><h4>"+data[0].TT_NAME+"</h4></li>");
+		            	for(var tt in data){
+		            		$("#time_choice").append("<li style='border:2px solid black'>"+data[tt].T_TIME+"</li>");	
+		            	}	
+	            	}
+	            },
+	            error : function(jqXHR, textStatus, errorThrown, error) {
+	               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+	                     + error);
+	            }
+			});
 		}else if(!mv_check || !sd_check){
 			if(!mv_check && !sd_check){
 				alert("영화와 날짜를 선택해주세요.");
-			}else if(!sd_check){
-				alert("날짜를 선택해주세요.");
+				$.ajax({
+		            url : "${pageContext.request.contextPath}/movie/mv_c",
+		            type : "post",
+		            data : {
+		               "c_name" : c_name
+		            },                 
+		            success : function(data) {
+		            	$("#mv_choice").empty();
+		            	$("#sel_c").empty();
+		            	for(var a in data){
+		            		$("#mv_choice").append("<li class='m_list' style='text-align:left;'><h4 style='margin-left: 20px;'><img src='${pageContext.request.contextPath}/static/img/movie/"+data[a].RT_IMG+"' style='width: 30px;'>"+data[a].MV_TITLE_KR+"</h4><input type='hidden' name='mv_name' value='"+data[a].MV_TITLE_KR+"'></li>");	
+		            	}
+		            	$("#sel_c").append("<li style='padding-left:35px;'><h4>"+c_name+"</h4></li>");
+		            },
+		            error : function(jqXHR, textStatus, errorThrown, error) {
+		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+		                     + error);
+		            }
+				});
+			}else if(!sd_check){			
+				$.ajax({
+		            url : "${pageContext.request.contextPath}/movie/mv_c",
+		            type : "post",
+		            data : {
+		               "c_name" : c_name
+		            },                
+		            success : function(data) {
+		            	var mn_check = false;
+		            	for(var mn in data){
+		            		if(mv_name==data[mn].MV_TITLE_KR){
+		            			mn_check=true;
+		            			break;
+		            		}	
+		            	}
+		            	if(!mn_check){
+		            		alert("선택하신 극장는 해당 영화를 상영하지않습니다. 다시 선택해주세요.");
+		            		$("#mv_choice").empty();
+			            	$("#sel_poster").empty();
+			            	$("#sel_mv").empty();
+			            	$("#sel_mv").append("<li><h3 class='box_title'>영화선택</h3></li>");
+			            	for(var a in data){
+			            		$("#mv_choice").append("<li class='c_list' style='text-align:left;'><h4 style='margin-left: 20px;'><img src='${pageContext.request.contextPath}/static/img/movie/"+data[a].RT_IMG+"' style='width: 30px;'>"+data[a].MV_TITLE_KR+"</h4><input type='hidden' name='mv_name' value="+data[a].MV_TITLE_KR+"></li>");	
+			            	}
+			            	mv_check=false;
+		            	}else{
+		            		alert("날짜를 선택해주세요.");
+		            	}
+		            	$("#sel_c").empty();
+	            		$("#sel_c").append("<li style='padding-left:35px;'><h4>"+c_name+"</h4></li>");
+		            },
+		            error : function(jqXHR, textStatus, errorThrown, error) {
+		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+		                     + error);
+		            }
+				});          
 			}else{
 				alert("영화를 선택해주세요.");
+				$.ajax({
+		            url : "${pageContext.request.contextPath}/movie/mv_c",
+		            type : "post",
+		            data : {
+		               "c_name" : c_name
+		            },                
+		            success : function(data) {
+		            	$("#mv_choice").empty();
+		            	$("#sel_c").empty();
+		            	for(var a in data){
+		            		$("#mv_choice").append("<li class='c_list' style='text-align:left;'><h4 style='margin-left: 20px;'><img src='${pageContext.request.contextPath}/static/img/movie/"+data[a].RT_IMG+"' style='width: 30px;'>"+data[a].MV_TITLE_KR+"</h4><input type='hidden' name='mv_name' value="+data[a].MV_TITLE_KR+"></li>");	
+		            	}
+		            	$("#sel_c").append("<li style='padding-left:35px;'><h4>"+c_name+"</h4></li>");
+		            },
+		            error : function(jqXHR, textStatus, errorThrown, error) {
+		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+		                     + error);
+		            }
+				});
 			}
 		}
 	});
@@ -283,18 +520,65 @@ $(document).ready(function(){
 			$("#red_check").removeClass("red");
 		}
 		if(mv_check && c_check){
-			alert("영화 : "+mv_li.text()+" 영화관 : "+c_li.text()+" 날짜 "+ sd_dates);
+			alert("영화 : "+mv_name+" 영화관 : "+c_name+" 날짜 "+ sd_dates);
+			$.ajax({
+	            url : "${pageContext.request.contextPath}/movie/time",
+	            type : "post",
+	            data : {
+	               "mv_title_kr" : mv_name,
+	               "c_name" : c_name,
+	               "sd_day" : sd_dates
+	            },            
+	            success : function(data) {
+            		$("#time_choice").empty();
+	            	if(data == ""){
+		            	$("#time_choice").append("<h4>상영시간이 없습니다. <br>다른날짜를 선택해주세요.</h4>");
+	            	}else{
+	            		$("#sel_tt").empty();
+	    				$("#sel_tt").append("<li><h5>"+sd_dates+"</h5></li>");
+	            		$("#time_choice").append("<li style='text-align:left;'><h4>"+data[0].TT_NAME+"</h4></li>");
+		            	for(var tt in data){
+		            		$("#time_choice").append("<li style='border:2px solid black'>"+data[tt].T_TIME+"<input type='hidden' id='time_name' name ='time_name' value='"+data[tt].T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+data[tt].TT_NAME+"'></li>");	
+		            	}
+	            	}
+	            },
+	            error : function(jqXHR, textStatus, errorThrown, error) {
+	               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+	                     + error);
+	            }
+			});
 		}else if(!mv_check || !c_check){
 			if(!mv_check && !c_check){
 				alert("영화와 영화관을 선택해주세요.");
+				$("#sel_c").empty();
+				$("#sel_tt").empty();
+				$("#sel_tt").append("<li><h5>"+sd_dates+"</h5></li>");
 			}else if(!c_check){
 				alert("영화관을 선택해주세요.");
+				$("#sel_c").empty();
+				$("#sel_tt").empty();
+				$("#sel_tt").append("<li><h5>"+sd_dates+"</h5></li>");
 			}else{
 				alert("영화를 선택해주세요.");
+				$("#sel_tt").empty();
+				$("#sel_tt").append("<li><h5>"+sd_dates+"</h5></li>");
 			}
 		}
 	});
-	
+	$(document).on("click", "#time_choice li", function() {
+		$("#time_choice li").removeClass("check_choice");
+		time_li=$(this);
+		time_li.addClass("check_choice");
+		tt_name = $(this).find("#tt_name").val();
+		time_name = $(this).find("#time_name").val();
+		$("#sel_tt").empty();
+		$("#sel_tt").append("<li><h5>"+sd_dates+"</h5></li><li><h5>"+tt_name+"</h5></li><li><h6>"+time_name+"</h6></li>");
+		$("#go_btn").empty();
+		$("#go_btn").append("<input type='hidden' name='mv_code' value=''><input type='hidden' name='tt_code' value=''><input type='hidden' name='t_code' value=''>");
+		$("#go_seat").empty();
+		$("#go_seat").append("<img class='btn-img' src='${pageContext.request.contextPath}/static/img/movie/right_seat_red.png'>");
+		$("#go_seat").removeAttr("disabled");
+	});
 });
-	
+
 </script>
