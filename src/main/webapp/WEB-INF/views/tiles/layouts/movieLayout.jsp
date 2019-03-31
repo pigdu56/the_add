@@ -54,7 +54,7 @@ function logout(){
 
 	<tiles:insertAttribute name="menu" />
 
-	<tiles:insertAttribute name="body" />
+	<tiles:insertAttribute name="body" ignore="true"/>
 
 
 	<!-- Footer -->

@@ -113,9 +113,12 @@ public class Movie_Controller {
 	@RequestMapping(value= {"/reservation_seat"}, method=RequestMethod.GET)
 	public ModelAndView getSeat(@RequestParam HashMap<String, String> map) {
 		ModelAndView mv = new ModelAndView();
+		//System.out.println("map : " + map);
 		String sd_code = mm.SDC(map);
-		
+		//System.out.println("sd_code : " + sd_code);
 		mv.addObject("mv_list",map);
+		mv.addObject("sd_list", mm.sd(sd_code));
+		mv.addObject("seat_count", mm.sc(sd_code));
 		mv.addObject("seat", mm.seat(sd_code));	
 		mv.setViewName("reservation_seat");
 		System.out.println(mv);
@@ -126,7 +129,7 @@ public class Movie_Controller {
 	@RequestMapping(value= {"/registration"}, method=RequestMethod.GET)
 	public ModelAndView getRegist() {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("movielist", mm.mv_select());
+		mav.addObject("movielist", mm.boxList());
 		mav.setViewName("registration");
 		return mav;
 	}

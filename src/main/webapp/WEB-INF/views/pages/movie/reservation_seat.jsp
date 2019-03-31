@@ -261,6 +261,8 @@ input[class="x"]+label{
 #seat_info > li {
 	min-height:30px;
 }
+dt, dd { float: left; }
+.on {float: none;}
 </style>
 <div class="container">
 	<h1 style="text-align:center;">좌석 선택</h1>
@@ -322,11 +324,21 @@ input[class="x"]+label{
 						</ul>
 					</td>
 					<td class="col-sm-6">
-						<div>
-							<dl>
-								<dt>${mv_list['c_name']}&nbsp;|&nbsp;</dt>
-								<dt>${mv_list['tt_name']}&nbsp;|&nbsp;</dt>
-								<dt>남은 좌석 ${mv_list['tt_name']}</dt>
+						<div style="padding-top : 15px;">
+							<dl style="font-size: 16px;">
+								<dt><strong>${mv_list['c_name']} &nbsp;|&nbsp;</strong></dt>
+								<dt><strong>${mv_list['tt_name']} &nbsp;|&nbsp;</strong></dt>
+								<dt><strong>남은 좌석 </strong>&nbsp;</dt>
+								<dd class="on"><font color="red">${sd_list['TT_SEAT']-seat_count}</font> / ${sd_list['TT_SEAT']}</dd>
+							</dl>
+							<dl style="font-size: 24px;">
+								<dt><fmt:parseDate value="${mv_list['sd_day']}" var="noticePostDate" pattern="yyyyMMdd"/>
+									<fmt:formatDate value="${noticePostDate}" pattern="yyyy.MM.dd"/> &nbsp;</dt>
+								<dt><fmt:parseDate value="${mv_list['t_time']}" var="s_time" pattern="HHmm"/>
+									<fmt:formatDate value="${s_time}" pattern="HH:mm"/> &nbsp; ~ </dt>
+									
+								<dt><fmt:parseDate value="${mv_list['MV_ST']}" var="st" pattern="mm"/>
+									<fmt:formatDate value="${st}" pattern="HH:mm"/></dt>
 							</dl>
 						</div>
 					</td>
@@ -359,21 +371,21 @@ input[class="x"]+label{
 												<c:choose>
 													<c:when test="${j eq 1}">					
 														<c:set var="bl" value="false" />
-														<c:forEach var=st items="${seat}">
+														<%-- <c:forEach var=st items="${seat}">
 															<c:if test="${s_name eq st.s_name}">
 																<c:set var="bl" value="true" />														
 															</c:if>															
 														</c:forEach>
 														<c:choose>
-															<c:when test="${bl eq true}">
+															<c:when test="${true eq bl}"> --%>
 																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
-															</c:when>
+															<%--</c:when>
 															<c:otherwise>
 																<input type="checkbox" class="seat_1" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
 															</c:otherwise>
-														</c:choose>
+														</c:choose> --%>
 													</c:when>
-													<c:when test="${j eq 2}">
+													<%-- <c:when test="${j eq 2}">
 														<c:set var="bl" value="false" />
 														<c:forEach var=st items="${seat}">
 															<c:if test="${s_name eq st.s_name}">
@@ -381,7 +393,7 @@ input[class="x"]+label{
 															</c:if>															
 														</c:forEach>
 														<c:choose>
-															<c:when test="${bl eq true}">
+															<c:when test="${true eq bl}">
 																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
 															</c:when>
 															<c:otherwise>
@@ -397,7 +409,7 @@ input[class="x"]+label{
 															</c:if>															
 														</c:forEach>
 														<c:choose>
-															<c:when test="${bl eq true}">
+															<c:when test="${true eq bl}">
 																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
 															</c:when>
 															<c:otherwise>
@@ -413,7 +425,7 @@ input[class="x"]+label{
 															</c:if>															
 														</c:forEach>
 														<c:choose>
-															<c:when test="${bl eq true}">
+															<c:when test="${true eq bl}">
 																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
 															</c:when>
 															<c:otherwise>
@@ -429,7 +441,7 @@ input[class="x"]+label{
 															</c:if>															
 														</c:forEach>
 														<c:choose>
-															<c:when test="${bl eq true}">
+															<c:when test="${true eq bl}">
 																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
 															</c:when>
 															<c:otherwise>
@@ -445,7 +457,7 @@ input[class="x"]+label{
 															</c:if>															
 														</c:forEach>
 														<c:choose>
-															<c:when test="${bl eq true}">
+															<c:when test="${true eq bl}">
 																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
 															</c:when>
 															<c:otherwise>
@@ -461,7 +473,7 @@ input[class="x"]+label{
 															</c:if>															
 														</c:forEach>
 														<c:choose>
-															<c:when test="${bl eq true}">
+															<c:when test="${true eq bl}">
 																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
 															</c:when>
 															<c:otherwise>
@@ -477,7 +489,7 @@ input[class="x"]+label{
 															</c:if>															
 														</c:forEach>
 														<c:choose>
-															<c:when test="${bl eq true}">
+															<c:when test="${true eq bl}">
 																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
 															</c:when>
 															<c:otherwise>
@@ -493,16 +505,16 @@ input[class="x"]+label{
 															</c:if>															
 														</c:forEach>
 														<c:choose>
-															<c:when test="${bl eq true}">
+															<c:when test="${true eq bl}">
 																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
 															</c:when>
 															<c:otherwise>
 																<input type="checkbox" class="seat_9" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
 															</c:otherwise>
 														</c:choose>
-													</c:otherwise>																	
+													</c:otherwise> --%>																	
 												</c:choose>																								
-											</td>
+											</td> 
 											
 										<c:if test="${j eq 3}">
 											<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>

@@ -320,7 +320,9 @@ $( document ).ready(function() {
 		            		$("#c_choice").append("<li class='c_list'>"+data[a].C_NAME+"<input type='hidden' name='c_name' value='"+data[a].C_NAME+"'></li>");	
 		            	}
 		            	$("#sel_poster").append("<li><img src='"+data[0].MV_IMG+"' style='height:100px;'></li>");
-		            	$("#sel_mv").append("<li><h4>"+mv_name+"</h4><li>&nbsp;</li><li><h5>"+data[0].RT_RATING+"</h5></li>");
+		            	$("#sel_mv").append("<li><input type='hidden' name='mv_code' value='"+ data[0].MV_CODE 
+		            			+ "'/><input type='hidden' name='mv_title_kr' value='"+ mv_name +"'/><h4>" + mv_name 
+		            			+ "</h4><li>&nbsp;</li><li><h5>"+data[0].RT_RATING+"</h5></li>");
 		            },
 		            error : function(jqXHR, textStatus, errorThrown, error) {
 		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
@@ -341,10 +343,11 @@ $( document ).ready(function() {
 		            	$("#sel_poster").empty();
 		            	for(var a in data){
 		            		alert(data[a].C_NAME);
-		            		$("#c_choice").append("<li class='c_list'>"+data[a].C_NAME+"<input type='hidden' name='c_name' value='"+data[a].C_NAME+"'></li>");	
+		            		$("#c_choice").append("<li class='c_list'>" + data[a].C_NAME + "<input type='hidden' name='c_name' value='"+data[a].C_NAME+"'></li>");	
 		            	}
 		            	$("#sel_poster").append("<li><img src='"+data[0].MV_IMG+"' style='height:100px;'></li>");
-		            	$("#sel_mv").append("<li><h4>"+mv_name+"</h4><li><li>"+data[0].RT_RATING+"</li>");
+		            	$("#sel_mv").append("<li><input type='hidden' name='mv_code' value='"+ data[0].MV_CODE 
+		            			+ "'/><input type='hidden' name='mv_title_kr' value='"+ mv_name +"'/><h4>"+mv_name+"</h4><li><li>"+data[0].RT_RATING+"</li>");
 		            },
 		            error : function(jqXHR, textStatus, errorThrown, error) {
 		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
@@ -438,7 +441,7 @@ $( document ).ready(function() {
 		            	for(var a in data){
 		            		$("#mv_choice").append("<li class='m_list' style='text-align:left;'><h4 style='margin-left: 20px;'><img src='${pageContext.request.contextPath}/static/img/movie/"+data[a].RT_IMG+"' style='width: 30px;'>"+data[a].MV_TITLE_KR+"</h4><input type='hidden' name='mv_name' value='"+data[a].MV_TITLE_KR+"'></li>");	
 		            	}
-		            	$("#sel_c").append("<li style='padding-left:35px;'><h4>"+c_name+"</h4></li>");
+		            	$("#sel_c").append("<li style='padding-left:35px;'><input type='hidden' name='c_name' value='" + c_name + "'/><h4>" + c_name + "</h4></li>");
 		            },
 		            error : function(jqXHR, textStatus, errorThrown, error) {
 		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
@@ -474,7 +477,7 @@ $( document ).ready(function() {
 		            		alert("날짜를 선택해주세요.");
 		            	}
 		            	$("#sel_c").empty();
-	            		$("#sel_c").append("<li style='padding-left:35px;'><h4>"+c_name+"</h4></li>");
+	            		$("#sel_c").append("<li style='padding-left:35px;'><input type='hidden' name='c_name' value='" + c_name + "'/><h4>"+c_name+"</h4></li>");
 		            },
 		            error : function(jqXHR, textStatus, errorThrown, error) {
 		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
@@ -574,7 +577,7 @@ $( document ).ready(function() {
 		$("#sel_tt").empty();
 		$("#sel_tt").append("<li><h5>"+sd_dates+"</h5></li><li><h5>"+tt_name+"</h5></li><li><h6>"+time_name+"</h6></li>");
 		$("#go_btn").empty();
-		$("#go_btn").append("<input type='hidden' name='mv_code' value=''><input type='hidden' name='tt_code' value=''><input type='hidden' name='t_code' value=''>");
+		$("#go_btn").append("<input type='hidden' name='tt_name' value='"+tt_name+"'/> <input type='hidden' name='sd_day' value='" + sd_dates + "'/><input type='hidden' name='t_time' value='" + time_name + "'/>");
 		$("#go_seat").empty();
 		$("#go_seat").append("<img class='btn-img' src='${pageContext.request.contextPath}/static/img/movie/right_seat_red.png'>");
 		$("#go_seat").removeAttr("disabled");

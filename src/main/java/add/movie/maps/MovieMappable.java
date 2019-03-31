@@ -65,14 +65,21 @@ public interface MovieMappable {
 	public ArrayList<HashMap<String, String>> mv_sel(String c_name);
 	
 	// 영화, 영화관, 날짜 선택 시
-	@Select("SELECT MV_CODE, MV_TITLE_KR, TT_NAME, SD_DAY, T_TIME FROM MV_V_S WHERE MV_TITLE_KR = #{mv_title_kr} AND C_NAME=#{c_name} AND SD_DAY = #{sd_day} GROUP BY MV_CODE, MV_TITLE_KR, TT_NAME, SD_DAY, T_TIME")
+	@Select("SELECT MV_CODE, MV_TITLE_KR, TT_NAME, SD_DAY, T_TIME FROM MV_V_S WHERE MV_TITLE_KR = #{mv_title_kr} AND C_NAME=#{c_name} AND SD_DAY = #{sd_day} GROUP BY MV_CODE, MV_TITLE_KR, TT_NAME, SD_DAY, T_TIME ORDER BY TT_NAME ASC")
 	public ArrayList<HashMap<String, String>> time(HashMap<String, String> map);
 	
 	// 영화 스케쥴 코드 조회
 	@Select("SELECT SD_CODE FROM MV_V_S WHERE MV_TITLE_KR = #{mv_title_kr} AND C_NAME=#{c_name} AND SD_DAY = #{sd_day, jdbcType = INTEGER} AND T_TIME = #{t_time}")
 	public String SDC(HashMap<String, String> map);
 	
+	// 스케쥴 조회
+	@Select("SELECT * FROM MV_V_S WHERE SD_CODE = #{sd_code, jdbcType = INTEGER}")
+	public HashMap<String, String> sd(@Param(value="sd_code") String sd_code);
+	
 	// 예매 된 좌석
 	@Select("SELECT MV_CODE, MV_TITLE_KR, C_NAME, TT_NAME, SD_DAY, T_TIME, S_NAME FROM MV_V_RE WHERE SD_CODE = #{sd_code, jdbcType = INTEGER} ORDER BY S_NAME ASC")
 	public ArrayList<HashMap<String, String>> seat(@Param(value="sd_code") String sd_code);
+	
+	@Select("SELECT MV_F_SC(#{sd_code, jdbcType = INTEGER}) SC FROM DUAL")
+	public int sc(String sd_code);
 }
