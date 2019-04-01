@@ -82,9 +82,6 @@ ul>li {
 .blue{
 	color:blue;
 }
-#sel_c{
-	padding:0;
-}
 #sel_post{
 	padding:0;
 }
@@ -95,9 +92,8 @@ ul>li {
  	list-style:none;
  }
  #sel_c > li{
- 	text-align:center;
- 	padding-left:18px;
- }
+ 	text-align:left;
+  }
  #sel_c h4{
  	margin-bottom:0;
  }
@@ -254,7 +250,7 @@ ul>li {
 						</th>
 						<th class="col-sm-2 box_th" >
 							<ul class="row" id="sel_c">
-								<li style="padding-left:35px;"><h3 class="box_title">극장선택</h3></li>
+								<li><h3 class="box_title">극장선택</h3></li>
 							</ul>	
 							<ul id="sel_tt"></ul>
 						</th>
@@ -339,7 +335,7 @@ $( document ).ready(function() {
 	    					            			+ "'/><input type='hidden' name='mv_title_kr' value='"+ mv_name +"'/><h4>" + mv_name 
 	    					            			+ "</h4><li>&nbsp;</li><li><h5>"+data[0].RT_RATING+"</h5></li>");
 	    					            	$("#sel_c").empty();
-	    					            	$("#sel_c").append("<li style='padding-left:35px;'><h3 class='box_title'>극장선택</h3></li>");
+	    					            	$("#sel_c").append("<li ><h3 class='box_title'>극장선택</h3></li>");
 	    					            	$("#sel_tt").empty();
 	    					            },
 	    					            error : function(jqXHR, textStatus, errorThrown, error) {
@@ -367,7 +363,7 @@ $( document ).ready(function() {
 	    					            			+ "'/><input type='hidden' name='mv_title_kr' value='"+ mv_name +"'/><h4>" + mv_name 
 	    					            			+ "</h4><li>&nbsp;</li><li><h5>"+data[0].RT_RATING+"</h5></li>");
 	    					            	$("#sel_c").empty();
-	    					            	$("#sel_c").append("<li style='padding-left:35px;'><h3 class='box_title'>극장선택</h3></li>");
+	    					            	$("#sel_c").append("<li ><h3 class='box_title'>극장선택</h3></li>");
 	    					            	$("#sel_tt").empty();
 	    					            },
 	    					            error : function(jqXHR, textStatus, errorThrown, error) {
