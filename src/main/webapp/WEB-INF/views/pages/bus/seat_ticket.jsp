@@ -26,7 +26,15 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 </head>
+<style>
+#want3{
+position:relative;
+width:80%;
+left:8%;
+}
+</style>
 <body>
+<img src="${pageContext.request.contextPath}/static/img/bus/s3.png" id="want3">
 <table class="table" style="font-size:13px;">
 	<tr>
 		<th>스케쥴 번호</th>

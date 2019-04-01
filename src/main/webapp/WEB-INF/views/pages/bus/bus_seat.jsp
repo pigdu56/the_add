@@ -12,7 +12,12 @@
    href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
    
-input[class="che"]+label {
+   #want2{
+    position:relative;
+    width:80%;
+    }
+   
+   input[class="che"]+label {
    display: inline-block;
    line-height: 45px;
    padding-left: 45px;
@@ -71,8 +76,7 @@ input[class="che"]+label {
          <div class="row">
             <!-- 상단 글씨 -->
             <div class="col-sm-12 text-center">
-               <p style="font-size: 40px;">좌석 예매</p>
-               <br><br><br>
+             <img src="${pageContext.request.contextPath}/static/img/bus/s2.png" id="want2">
             </div>
             <!-- 가장 바깥 공백 -->
             <div class="col-sm-2"></div>

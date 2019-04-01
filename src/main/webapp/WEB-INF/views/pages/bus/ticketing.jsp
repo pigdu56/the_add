@@ -76,7 +76,7 @@
    <div class="row">
    <!------------------------ 맨위 사진 ------------------------>
    <div class="col-sm-12">
-         <img src="${pageContext.request.contextPath}/static/img/bus/with.png" id="want">
+         <img src="${pageContext.request.contextPath}/static/img/bus/s1.png" id="want">
    </div>
    </div>
    
