@@ -115,13 +115,15 @@ public class Movie_Controller {
 		ModelAndView mv = new ModelAndView();
 		//System.out.println("map : " + map);
 		String sd_code = mm.SDC(map);
+		map.put("sd_code", sd_code);
 		//System.out.println("sd_code : " + sd_code);
+		
 		mv.addObject("mv_list",map);
 		mv.addObject("sd_list", mm.sd(sd_code));
 		mv.addObject("seat_count", mm.sc(sd_code));
-		mv.addObject("seat", mm.seat(sd_code));	
 		mv.setViewName("reservation_seat");
 		
+		System.out.println(mv);
 		return mv;
 	}
 	

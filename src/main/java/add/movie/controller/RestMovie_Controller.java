@@ -1,10 +1,6 @@
 package add.movie.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,4 +71,13 @@ public class RestMovie_Controller {
 		
 		return mm.mv_c_sel(map);
 	}
+	
+	// 예약된 좌석
+	@ResponseBody
+	@RequestMapping(value= {"/seat"}, method = RequestMethod.POST)
+	public ArrayList<HashMap<String, String>> seat(@RequestParam String sd_code){
+		return mm.seat(sd_code);
+
+	}
+	
 }

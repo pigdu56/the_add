@@ -669,6 +669,11 @@ dt, dd { float: left; }
 		});
 		
 		$(':checkbox[name="seat"]').click(function(){
+			adult = $(':radio[name="adult"]:checked').val();
+			young = $(':radio[name="young"]:checked').val();
+			kids = $(':radio[name="kids"]:checked').val();
+			sum = Number(adult) + Number(young) + Number(kids);
+			
 			checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
 			if (checkboxBoxes.length > sum) {
 				this.checked = false;
