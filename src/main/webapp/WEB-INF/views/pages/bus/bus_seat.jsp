@@ -101,7 +101,7 @@ input[class="che"]+label {
                   </tbody>
                </table>
             </div>
-            <br><br>
+            
             <!-- 예매 창 -->
             <div class="col-sm-5 bus">
             <img src="${pageContext.request.contextPath}/static/img/bus/seat_logo.png" style="width:100%;">
@@ -122,9 +122,10 @@ input[class="che"]+label {
                      <td>${bus_ticket.get("arr")}</td>
                   </tr>
                </table>
-               <div class="bus">
+               
                <table class="table text-center"  style="font-size: 15px;">
                	  <tr>
+               	  	 <td></td>
                	  	 <td></td>
                      <td></td>
                	  </tr>
@@ -133,36 +134,42 @@ input[class="che"]+label {
                         value="${bus_ticket.get('bus_seq')}">
                                                 버스 회사
                      </td>
-                     
+                     <td></td>
                      <td>${bus_ticket.get("bus")}</td>
                   </tr>
                   <tr>
                      <td></td>
                      <td></td>
+                     <td></td>
                   </tr>
                   <tr>
                      <td>${bus_ticket.get("grade")}</td>
+                     <td></td>
                      <td>${bus_ticket.get("charge")}</td>
                   </tr>
                   <tr>
                      <td></td>
                      <td></td>
+                     <td></td>
                   </tr>
                   <tr>
                      <td>운임 비용</td>
+                     <td></td>
                      <td id="charge">
                         <input type="text" name="charge_seat"
-                        value="" id="test" size="10px;" readonly="readonly" class="btn" style="font-size: 15px;">원
+                        value="" id="test" size="5px;" readonly="readonly" class="btn" style="font-size: 15px;">원
                      </td>
                   </tr>
                   <tr>
+                     <td></td>
                      <td></td>
                      <td></td>
                   </tr>
                   <tr>
                      <td style="font-size: 15px;">결제</td>
-                     <td id="m_payment_td"><input type="text" placeholder="결제금액 입력" id="m_payment" 
-                        class="btn" size="10px;" style="font-size: 15px;">원
+                     <td></td>
+                     <td id="m_payment_td"><input type="text" placeholder="금액 입력" id="m_payment" 
+                        class="btn" size="5px;" style="font-size: 15px;">원
                      </td>
                   </tr>
                   <tr>
@@ -170,13 +177,19 @@ input[class="che"]+label {
                      <td></td>
                   </tr>
                   <tr>
-                     <td colspan="2">
+                     <td colspan="3">
                         <input type="submit" id="submit" value="예매하기"
                         class="btn btn-block btsky" disabled="disabled" style="font-size: 15px;">
                      </td>
                   </tr>
                </table>
-               </div>
+               <!-- 좌석 수  -->
+               <table class="table" style='font-size: 15px;'>
+                   <tr>
+                    	<td id="seat_nam" style="text-align: right;"></td>
+                   </tr>
+               </table>
+               
             </div>
             <!-- 안쪽 공백 -->
             <div class="col-sm-1"></div>
@@ -201,10 +214,10 @@ input[class="che"]+label {
       $("#m_payment_td").empty();  // 입력 금액 td 지우기
       $("#charge").append(
          "<input type='text' name='charge_seat'"
-         + "value='" + charge * check +"' id='payment' readonly='readonly' size='10px;' class='btn' style='font-size: 15px;'>원"
+         + "value='" + charge * check +"' id='payment' readonly='readonly' size='5px;' class='btn' style='font-size: 15px;'>원"
       );
       $("#m_payment_td").append(
-         "<input type='text' placeholder='결제금액 입력' id='m_payment' size='10px;' class='btn'  style='font-size: 15px;'>원"      
+         "<input type='text' placeholder='금액 입력' id='m_payment' size='5px;' class='btn'  style='font-size: 15px;'>원"      
       );
       
       // 체크박스를 클릭할 때 예매 버튼 막기
@@ -245,7 +258,11 @@ input[class="che"]+label {
              // 등급을 받아와서 등급별로 다른 checkbox를 뿌림
              // 일반 고속 등급 뿌리기
              if(${bus_ticket.get("grade") eq "고속"} || ${bus_ticket.get("grade") eq "심야고속"}){
-                
+                // 남은 좌석 가져오기
+            	$("#seat_nam").empty();
+                $("#seat_nam").append(
+                		"<p>남은 좌석 수 / " + (28 - data.length) + "</p>"	
+                		);                
                 for(var i=1; i<=45; i++){
                    // 체크 여부를 알기위한 boolean
                    var check = false;
@@ -297,7 +314,14 @@ input[class="che"]+label {
                 
              // 우등 좌석 뿌리기
              }else if(${bus_ticket.get("grade") eq "우등"} || ${bus_ticket.get("grade") eq "심야우등"}){
-                
+            	
+            	 console.log(data.length);
+            	// 남은 좌석 가져오기
+             	$("#seat_nam").empty();
+                $("#seat_nam").append(
+                 		"<p>남은 좌석 수 / " + (28 - data.length) + "</p>"
+                 		);
+            	 
                 for(var i=1; i<=28; i++){
                    // 체크 여부를 알기위한 boolean type 변수  true-예약 좌석
                    var check = false;
@@ -347,7 +371,13 @@ input[class="che"]+label {
                 
              // 프리미엄 좌석 뿌리기
              }else{
-                console.log("프리미엄");
+                
+            	// 남은 좌석 가져오기
+              	$("#seat_nam").empty();
+                $("#seat_nam").append(
+                		"<p>남은 좌석 수 / " + (28 - data.length) + "</p>"
+                  		);
+            	 
                 for(var i=1; i<=21; i++){
                    // 체크 여부를 알기위한 boolean
                    var check = false;
