@@ -94,6 +94,25 @@ ul>li {
  #time_choice > li{
  	list-style:none;
  }
+ #sel_c > li{
+ 	text-align:center;
+ 	padding-left:18px;
+ }
+ #sel_c h4{
+ 	margin-bottom:0;
+ }
+ .red_chocie{
+ 	background-color:red;
+ 	color:white;
+ }
+ #time_choice{
+ 	padding-left:0;
+ 	text-align:left;
+ }
+ .ts{
+ 	margin-right:50px;
+ 	font-size:20px;
+ }
 </style>
 	<div class="container">
 		<div class="row">
@@ -122,7 +141,7 @@ ul>li {
 						<td class="col-sm-3">
 							<ul class="re_select" id="c_choice">
 								<li class="c_list">천안터미널 CGV <input type="hidden" name="c_name" value="천안터미널 CGV"></li>
-								<li class="c_list">천안역 CGV <input type="hidden" name="c_name" value="천안 CGV"></li>
+								<li class="c_list">천안역 CGV <input type="hidden" name="c_name" value="천안역 CGV"></li>
 								<li class="c_list">천안 펜타포트 CGV <input type="hidden" name="c_name" value="천안 펜타포트"></li>
 							</ul>
 						</td>
@@ -206,10 +225,11 @@ ul>li {
 
 							</ul>
 						</td>
-						<td class="col-sm-4">
-							<ul id="time_choice">
+						<td class="col-sm-4" id='time_zone'>
+							<h5 style="text-align:left;"><b><img src='${pageContext.request.contextPath}/static/img/movie/ts_r.png'> 조조||심야 &nbsp;<img src='${pageContext.request.contextPath}/static/img/movie/ts_b.png'>  일반</b></h5>
+							<div id="time_choice">
 							
-							</ul>
+							</div>
 						</td>
 					</tr>
 				</table>
@@ -232,7 +252,7 @@ ul>li {
 								</li>
 							</ul>
 						</th>
-						<th class="col-sm-2 box_th">
+						<th class="col-sm-2 box_th" >
 							<ul class="row" id="sel_c">
 								<li style="padding-left:35px;"><h3 class="box_title">극장선택</h3></li>
 							</ul>	
@@ -280,7 +300,6 @@ $( document ).ready(function() {
 		mv_check=true;
 		mv_name = $(this).find("input").val();
 		if(c_check && sd_check){
-			alert("영화 : "+mv_li.text()+" 영화관 : "+c_li.text()+" 날짜 "+ sd_dates);
 			$.ajax({
 	            url : "${pageContext.request.contextPath}/movie/time",
 	            type : "post",
@@ -292,12 +311,132 @@ $( document ).ready(function() {
 	            success : function(data) {
             		$("#time_choice").empty();
 	            	if(data == ""){
-		            	$("#time_choice").append("<h4>상영시간이 없습니다. <br>다른날짜를 선택해주세요.</h4>");
+	            		$.ajax({
+	    		            url : "${pageContext.request.contextPath}/movie/mv_c_check",
+	    		            type : "post",
+	    		            data : {
+	    		               "c_name" : c_name,
+	    		               "mv_name" : mv_name
+	    		            },                 
+	    		            success : function(data) {
+	    		            	if(data == ""){
+	    		            		alert("해당영화는 선택하신 극장에서 상영하지않습니다.");
+	    		            		$.ajax({
+	    					            url : "${pageContext.request.contextPath}/movie/tc",
+	    					            type : "post",
+	    					            data : {
+	    					               "mv_title_kr" : mv_name
+	    					            },                
+	    					            success : function(data) {
+	    					            	$("#c_choice").empty();
+	    					            	$("#sel_mv").empty();
+	    					            	$("#sel_poster").empty();
+	    					            	for(var a in data){
+	    					            		$("#c_choice").append("<li class='c_list'>"+data[a].C_NAME+"<input type='hidden' name='c_name' value='"+data[a].C_NAME+"'></li>");	
+	    					            	}
+	    					            	$("#sel_poster").append("<li><img src='"+data[0].MV_IMG+"' style='height:100px;'></li>");
+	    					            	$("#sel_mv").append("<li><input type='hidden' name='mv_code' value='"+ data[0].MV_CODE 
+	    					            			+ "'/><input type='hidden' name='mv_title_kr' value='"+ mv_name +"'/><h4>" + mv_name 
+	    					            			+ "</h4><li>&nbsp;</li><li><h5>"+data[0].RT_RATING+"</h5></li>");
+	    					            	$("#sel_c").empty();
+	    					            	$("#sel_c").append("<li style='padding-left:35px;'><h3 class='box_title'>극장선택</h3></li>");
+	    					            	$("#sel_tt").empty();
+	    					            },
+	    					            error : function(jqXHR, textStatus, errorThrown, error) {
+	    					               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+	    					                     + error);
+	    					            }
+	    							}); 		
+	    		            	}else{
+	    		            		$("#time_choice").append("<h4>상영시간이 없습니다. <br>다른날짜를 선택해주세요.</h4>");
+	    		            		$.ajax({
+	    					            url : "${pageContext.request.contextPath}/movie/tc",
+	    					            type : "post",
+	    					            data : {
+	    					               "mv_title_kr" : mv_name
+	    					            },                
+	    					            success : function(data) {
+	    					            	$("#c_choice").empty();
+	    					            	$("#sel_mv").empty();
+	    					            	$("#sel_poster").empty();
+	    					            	for(var a in data){
+	    					            		$("#c_choice").append("<li class='c_list'>"+data[a].C_NAME+"<input type='hidden' name='c_name' value='"+data[a].C_NAME+"'></li>");	
+	    					            	}
+	    					            	$("#sel_poster").append("<li><img src='"+data[0].MV_IMG+"' style='height:100px;'></li>");
+	    					            	$("#sel_mv").append("<li><input type='hidden' name='mv_code' value='"+ data[0].MV_CODE 
+	    					            			+ "'/><input type='hidden' name='mv_title_kr' value='"+ mv_name +"'/><h4>" + mv_name 
+	    					            			+ "</h4><li>&nbsp;</li><li><h5>"+data[0].RT_RATING+"</h5></li>");
+	    					            	$("#sel_c").empty();
+	    					            	$("#sel_c").append("<li style='padding-left:35px;'><h3 class='box_title'>극장선택</h3></li>");
+	    					            	$("#sel_tt").empty();
+	    					            },
+	    					            error : function(jqXHR, textStatus, errorThrown, error) {
+	    					               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+	    					                     + error);
+	    					            }
+	    					           	});
+	    		            	}
+	    		            },
+	    		            error : function(jqXHR, textStatus, errorThrown, error) {
+	    		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+	    		                     + error);
+	    		            }
+	    				});
 	            	}else{
-		            	$("#time_choice").append("<li style='text-align:left;'><h4>"+data[0].TT_NAME+"</h4></li>");
-		            	for(var tt in data){
-		            		$("#time_choice").append("<li style='border:2px solid black'>"+data[tt].T_TIME+"</li>");	
-		            	}	
+	            		$.ajax({
+	    		            url : "${pageContext.request.contextPath}/movie/tc",
+	    		            type : "post",
+	    		            data : {
+	    		               "mv_title_kr" : mv_name
+	    		            },                
+	    		            success : function(data) {
+	    		            	$("#sel_mv").empty();
+	    		            	$("#sel_poster").empty();
+	    		            	$("#sel_poster").append("<li><img src='"+data[0].MV_IMG+"' style='height:100px;'></li>");
+	    		            	$("#sel_mv").append("<li><input type='hidden' name='mv_code' value='"+ data[0].MV_CODE 
+	    		            			+ "'/><input type='hidden' name='mv_title_kr' value='"+ mv_name +"'/><h4>" + mv_name 
+	    		            			+ "</h4><li>&nbsp;</li><li><h5>"+data[0].RT_RATING+"</h5></li>");
+	    		            },
+	    		            error : function(jqXHR, textStatus, errorThrown, error) {
+	    		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+	    		                     + error);
+	    		            }
+	    				});
+	            		
+	            		$("#sel_tt").empty();
+	    				$("#sel_tt").append("<li><h5>"+sd_dates+"</h5></li>");
+	            		$("#time_choice").append("<h4 style='text-align:left;'>"+data[0].TT_NAME+"</h4>");
+		            	var tt = data[0].TT_NAME;
+	            		$(data).each(function(index, item){
+	            			var hhh = (item.T_TIME).substring(0,2);
+        					var ccc =':';
+        					var mmm = (item.T_TIME).substring(2,4);
+        					var hhmm = hhh+ccc+mmm;
+	            			if(item.TT_NAME != tt){
+	            				if(item.T_TIME <1100 || item.T_TIME > 2200){
+	            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+		            				$("#time_choice").append("<b class='ts' id='ts_red' style='border:3px solid red'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
+	            				}else{
+	            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+		            				$("#time_choice").append("<b class='ts' style='border:3px solid black'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
+	            				}
+	            				
+	            			}else{
+	            				if(item.T_TIME <1100 || item.T_TIME > 2200){
+	            					$("#time_choice").append("<b class='ts' id='ts_red' style='border:3px solid red'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
+	            					if(index == 2 || index == 5 || index == 8 || index == 12 || index == 14 || index== 17){
+	            						$("#time_choice").append("<br><br>")
+	            					}
+	            				}else{
+	            					$("#time_choice").append("<b class='ts' style='border:3px solid black'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");	
+	            					if(index == 2 || index == 5 || index == 8 || index == 12 || index == 14 || index== 17){
+	            						$("#time_choice").append("<br><br>")
+	            					}
+	            				}
+		            			
+		            		}
+		            		tt = item.TT_NAME;
+		            	});	
 	            	}
 	            },
 	            error : function(jqXHR, textStatus, errorThrown, error) {
@@ -307,7 +446,6 @@ $( document ).ready(function() {
 			});
 		}else if(!sd_check || !c_check){
 			if(!sd_check && !c_check){
-				alert("날짜와 영화관을 선택해주세요.");
 				$.ajax({
 		            url : "${pageContext.request.contextPath}/movie/tc",
 		            type : "post",
@@ -332,7 +470,6 @@ $( document ).ready(function() {
 		            }
 				});
 			}else if(!c_check){
-				alert("영화관을 선택해주세요.");
 				$.ajax({
 		            url : "${pageContext.request.contextPath}/movie/tc",
 		            type : "post",
@@ -344,7 +481,6 @@ $( document ).ready(function() {
 		            	$("#sel_mv").empty();
 		            	$("#sel_poster").empty();
 		            	for(var a in data){
-		            		alert(data[a].C_NAME);
 		            		$("#c_choice").append("<li class='c_list'>" + data[a].C_NAME + "<input type='hidden' name='c_name' value='"+data[a].C_NAME+"'></li>");	
 		            	}
 		            	$("#sel_poster").append("<li><img src='"+data[0].MV_IMG+"' style='height:100px;'></li>");
@@ -371,9 +507,7 @@ $( document ).ready(function() {
 		            			break;
 		            		}
 		            	}
-		            	if(cn_check){
-		            		alert("날짜를 선택해주세요.");
-		            	}else{
+		            	if(!cn_check){
 		            		alert("선택하신 영화는 해당 극장에 상영하지않습니다. 다시 선택해주세요.");
 		            		$("#c_choice").empty();
 		            		$("#sel_c").empty();
@@ -403,7 +537,6 @@ $( document ).ready(function() {
 		c_name=$(this).find("input").val();
 		$(c_li).addClass("check_choice");
 		if(mv_check && sd_check){
-			alert("영화 : "+mv_name+" 영화관 : "+c_name+" 날짜 "+ sd_dates);
 			$.ajax({
 	            url : "${pageContext.request.contextPath}/movie/time",
 	            type : "post",
@@ -415,12 +548,99 @@ $( document ).ready(function() {
 	            success : function(data) {
             		$("#time_choice").empty();
 	            	if(data == ""){
-		            	$("#time_choice").append("<h4>상영시간이 없습니다. <br>다른날짜를 선택해주세요.</h4>");
+	            		$.ajax({
+	    		            url : "${pageContext.request.contextPath}/movie/mv_c_check",
+	    		            type : "post",
+	    		            data : {
+	    		               "c_name" : c_name,
+	    		               "mv_name" : mv_name
+	    		            },                 
+	    		            success : function(data) {
+	    		            	if(data == ""){
+	    		            		alert("해당극장은 선택하신 영화를 상영하지않습니다.");
+	    		            		$.ajax({
+	    		    		            url : "${pageContext.request.contextPath}/movie/mv_c",
+	    		    		            type : "post",
+	    		    		            data : {
+	    		    		               "c_name" : c_name
+	    		    		            },                 
+	    		    		            success : function(data) {
+	    		    		            	$("#mv_choice").empty();
+	    		    		            	$("#sel_c").empty();
+	    		    		            	$("#sel_poster").empty();
+	    		    		            	$("#sel_mv").empty();
+	    		    		            	$("#sel_mv").append("<li><h3 class='box_title'>영화선택</h3></li>");
+	    		    		            	for(var a in data){
+	    		    		            		$("#mv_choice").append("<li class='m_list' style='text-align:left;'><h4 style='margin-left: 20px;'><img src='${pageContext.request.contextPath}/static/img/movie/"+data[a].RT_IMG+"' style='width: 30px;'>"+data[a].MV_TITLE_KR+"</h4><input type='hidden' name='mv_name' value='"+data[a].MV_TITLE_KR+"'></li>");	
+	    		    		            	}
+	    		    		            	$("#sel_c").append("<li><input type='hidden' name='c_name' value='" + c_name + "'/><h4>" + c_name + "</h4></li>");
+	    		    		            },
+	    		    		            error : function(jqXHR, textStatus, errorThrown, error) {
+	    		    		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+	    		    		                     + error);
+	    		    		            }
+	    		    				});     		 		
+	    		            	}else{
+	    		            		$("#time_choice").append("<h4>상영시간이 없습니다. <br>다른날짜를 선택해주세요.</h4>"); 
+	    		            		$("#sel_c").empty();
+	    		            		$("#sel_c").append("<li><input type='hidden' name='c_name' value='" + c_name + "'/><h4>" + c_name + "</h4></li>");
+	    		            	}
+	    		            },
+	    		            error : function(jqXHR, textStatus, errorThrown, error) {
+	    		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+	    		                     + error);
+	    		            }
+	    				});
 	            	}else{
-		            	$("#time_choice").append("<li style='text-align:left;'><h4>"+data[0].TT_NAME+"</h4></li>");
-		            	for(var tt in data){
-		            		$("#time_choice").append("<li style='border:2px solid black'>"+data[tt].T_TIME+"</li>");	
-		            	}	
+	            		$.ajax({
+	    		            url : "${pageContext.request.contextPath}/movie/mv_c",
+	    		            type : "post",
+	    		            data : {
+	    		               "c_name" : c_name
+	    		            },                 
+	    		            success : function(data) {
+	    		            	$("#sel_c").empty();
+	    		            	$("#sel_c").append("<li><input type='hidden' name='c_name' value='" + c_name + "'/><h4>" + c_name + "</h4></li>");
+	    		            },
+	    		            error : function(jqXHR, textStatus, errorThrown, error) {
+	    		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+	    		                     + error);
+	    		            }
+	    				});
+	            		$("#sel_tt").empty();
+	    				$("#sel_tt").append("<li><h5>"+sd_dates+"</h5></li>");
+	            		$("#time_choice").append("<h4 style='text-align:left;'>"+data[0].TT_NAME+"</h4>");
+		            	var tt = data[0].TT_NAME;
+	            		$(data).each(function(index, item){
+	            			var hhh = (item.T_TIME).substring(0,2);
+        					var ccc =':';
+        					var mmm = (item.T_TIME).substring(2,4);
+        					var hhmm = hhh+ccc+mmm;
+	            			if(item.TT_NAME != tt){
+	            				if(item.T_TIME <1100 || item.T_TIME > 2200){
+	            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+		            				$("#time_choice").append("<b class='ts' id='ts_red' style='border:3px solid red'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
+	            				}else{
+	            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+		            				$("#time_choice").append("<b class='ts' style='border:3px solid black'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
+	            				}
+	            				
+	            			}else{
+	            				if(item.T_TIME <1100 || item.T_TIME > 2200){
+	            					$("#time_choice").append("<b class='ts' id='ts_red' style='border:3px solid red'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
+	            					if(index == 2 || index == 5 || index == 8 || index == 12 || index == 14 || index== 17){
+	            						$("#time_choice").append("<br><br>")
+	            					}
+	            				}else{
+	            					$("#time_choice").append("<b class='ts' style='border:3px solid black'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");	
+	            					if(index == 2 || index == 5 || index == 8 || index == 12 || index == 14 || index== 17){
+	            						$("#time_choice").append("<br><br>")
+	            					}
+	            				}
+		            			
+		            		}
+		            		tt = item.TT_NAME;
+		            	});	
 	            	}
 	            },
 	            error : function(jqXHR, textStatus, errorThrown, error) {
@@ -430,7 +650,6 @@ $( document ).ready(function() {
 			});
 		}else if(!mv_check || !sd_check){
 			if(!mv_check && !sd_check){
-				alert("영화와 날짜를 선택해주세요.");
 				$.ajax({
 		            url : "${pageContext.request.contextPath}/movie/mv_c",
 		            type : "post",
@@ -443,7 +662,7 @@ $( document ).ready(function() {
 		            	for(var a in data){
 		            		$("#mv_choice").append("<li class='m_list' style='text-align:left;'><h4 style='margin-left: 20px;'><img src='${pageContext.request.contextPath}/static/img/movie/"+data[a].RT_IMG+"' style='width: 30px;'>"+data[a].MV_TITLE_KR+"</h4><input type='hidden' name='mv_name' value='"+data[a].MV_TITLE_KR+"'></li>");	
 		            	}
-		            	$("#sel_c").append("<li style='padding-left:35px;'><input type='hidden' name='c_name' value='" + c_name + "'/><h4>" + c_name + "</h4></li>");
+		            	$("#sel_c").append("<li><input type='hidden' name='c_name' value='" + c_name + "'/><h4>" + c_name + "</h4></li>");
 		            },
 		            error : function(jqXHR, textStatus, errorThrown, error) {
 		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
@@ -475,11 +694,9 @@ $( document ).ready(function() {
 			            		$("#mv_choice").append("<li class='c_list' style='text-align:left;'><h4 style='margin-left: 20px;'><img src='${pageContext.request.contextPath}/static/img/movie/"+data[a].RT_IMG+"' style='width: 30px;'>"+data[a].MV_TITLE_KR+"</h4><input type='hidden' name='mv_name' value="+data[a].MV_TITLE_KR+"></li>");	
 			            	}
 			            	mv_check=false;
-		            	}else{
-		            		alert("날짜를 선택해주세요.");
 		            	}
 		            	$("#sel_c").empty();
-	            		$("#sel_c").append("<li style='padding-left:35px;'><input type='hidden' name='c_name' value='" + c_name + "'/><h4>"+c_name+"</h4></li>");
+	            		$("#sel_c").append("<li><input type='hidden' name='c_name' value='" + c_name + "'/><h4>"+c_name+"</h4></li>");
 		            },
 		            error : function(jqXHR, textStatus, errorThrown, error) {
 		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
@@ -487,7 +704,6 @@ $( document ).ready(function() {
 		            }
 				});          
 			}else{
-				alert("영화를 선택해주세요.");
 				$.ajax({
 		            url : "${pageContext.request.contextPath}/movie/mv_c",
 		            type : "post",
@@ -500,7 +716,7 @@ $( document ).ready(function() {
 		            	for(var a in data){
 		            		$("#mv_choice").append("<li class='c_list' style='text-align:left;'><h4 style='margin-left: 20px;'><img src='${pageContext.request.contextPath}/static/img/movie/"+data[a].RT_IMG+"' style='width: 30px;'>"+data[a].MV_TITLE_KR+"</h4><input type='hidden' name='mv_name' value="+data[a].MV_TITLE_KR+"></li>");	
 		            	}
-		            	$("#sel_c").append("<li style='padding-left:35px;'><h4>"+c_name+"</h4></li>");
+		            	$("#sel_c").append("<li><h4>"+c_name+"</h4></li>");
 		            },
 		            error : function(jqXHR, textStatus, errorThrown, error) {
 		               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
@@ -525,7 +741,6 @@ $( document ).ready(function() {
 			$("#red_check").removeClass("red");
 		}
 		if(mv_check && c_check){
-			alert("영화 : "+mv_name+" 영화관 : "+c_name+" 날짜 "+ sd_dates);
 			$.ajax({
 	            url : "${pageContext.request.contextPath}/movie/time",
 	            type : "post",
@@ -541,10 +756,39 @@ $( document ).ready(function() {
 	            	}else{
 	            		$("#sel_tt").empty();
 	    				$("#sel_tt").append("<li><h5>"+sd_dates+"</h5></li>");
-	            		$("#time_choice").append("<li style='text-align:left;'><h4>"+data[0].TT_NAME+"</h4></li>");
-		            	for(var tt in data){
-		            		$("#time_choice").append("<li style='border:2px solid black'>"+data[tt].T_TIME+"<input type='hidden' id='time_name' name ='time_name' value='"+data[tt].T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+data[tt].TT_NAME+"'></li>");	
-		            	}
+	            		$("#time_choice").append("<h4 style='text-align:left;'>"+data[0].TT_NAME+"</h4>");
+		            	var tt = data[0].TT_NAME;
+	            		$(data).each(function(index, item){
+	            			var hhh = (item.T_TIME).substring(0,2);
+        					var ccc =':';
+        					var mmm = (item.T_TIME).substring(2,4);
+        					var hhmm = hhh+ccc+mmm;
+	            			if(item.TT_NAME != tt){
+	            				if(item.T_TIME <1100 || item.T_TIME > 2200){
+	            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+		            				$("#time_choice").append("<b class='ts' id='ts_red' style='border:3px solid red'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
+	            				}else{
+	            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+		            				$("#time_choice").append("<b class='ts' style='border:3px solid black'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
+	            				}
+	            				
+	            			}else{
+	            				if(item.T_TIME <1100 || item.T_TIME > 2200){
+	            					$("#time_choice").append("<b class='ts' id='ts_red' style='border:3px solid red'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
+	            					if(index == 2 || index == 5 || index == 8 || index == 12 || index == 14 || index== 17){
+	            						$("#time_choice").append("<br><br>")
+	            					}
+	            				}else{
+	            					$("#time_choice").append("<b class='ts' style='border:3px solid black'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");	
+	            					if(index == 2 || index == 5 || index == 8 || index == 12 || index == 14 || index== 17){
+	            						$("#time_choice").append("<br><br>")
+	            					}
+	            				}
+		            			
+		            		}
+		            		tt = item.TT_NAME;
+		            	});
+	            		
 	            	}
 	            },
 	            error : function(jqXHR, textStatus, errorThrown, error) {
@@ -554,29 +798,31 @@ $( document ).ready(function() {
 			});
 		}else if(!mv_check || !c_check){
 			if(!mv_check && !c_check){
-				alert("영화와 영화관을 선택해주세요.");
 				$("#sel_c").empty();
 				$("#sel_tt").empty();
 				$("#sel_tt").append("<li><h5>"+sd_dates+"</h5></li>");
 			}else if(!c_check){
-				alert("영화관을 선택해주세요.");
 				$("#sel_c").empty();
 				$("#sel_tt").empty();
 				$("#sel_tt").append("<li><h5>"+sd_dates+"</h5></li>");
 			}else{
-				alert("영화를 선택해주세요.");
 				$("#sel_tt").empty();
 				$("#sel_tt").append("<li><h5>"+sd_dates+"</h5></li>");
 			}
 		}
 	});
 	//상영관, 시간 클릭
-	$(document).on("click", "#time_choice li", function() {
-		$("#time_choice li").removeClass("check_choice");
+	$(document).on("click", "#time_choice .ts", function() {
+		$("#time_choice .ts").removeClass("check_choice");
+		$("#time_choice .ts").removeClass("red_chocie");
 		time_li=$(this);
-		time_li.addClass("check_choice");
 		tt_name = $(this).find("#tt_name").val();
 		time_name = $(this).find("#time_name").val();
+		if(time_name < 1100 || time_name > 2200){
+			time_li.addClass("red_chocie");
+		}else{
+			time_li.addClass("check_choice");
+		}
 		$("#sel_tt").empty();
 		$("#sel_tt").append("<li><h5>"+sd_dates+"</h5></li><li><h5>"+tt_name+"</h5></li><li><h6>"+time_name+"</h6></li>");
 		$("#go_btn").empty();
