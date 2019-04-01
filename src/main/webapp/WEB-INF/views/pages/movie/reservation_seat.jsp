@@ -261,15 +261,13 @@ input[class="x"]+label{
 #seat_info > li {
 	min-height:30px;
 }
-#choice_mv{
+.choice{
 	padding-left:0;
 }
-#choice_mv > #sel_poster{
+.choice > #sel_poster{
 	padding-left:0;
 }
-#choice_c{
-	padding-left:0;
-}
+
 dt, dd { float: left; }
 .on {float: none;}
 </style>
@@ -468,7 +466,7 @@ dt, dd { float: left; }
 								<img class="btn-img" src="${pageContext.request.contextPath}/static/img/movie/left_mv.png">
 							</button>
 						
-							<th class="col-sm-2 box_th" id="choice_mv">
+							<th class="col-sm-2 box_th choice">
 								<ul class="col-sm-6" id="sel_poster">
 									<li><img src='${sd_list.MV_IMG}' style='height:100px;'></li>
 								</ul>
@@ -481,7 +479,7 @@ dt, dd { float: left; }
 							</ul>
 							</th>
 							<th class="col-sm-2 box_th">
-								<ul id="choice_c">
+								<ul class="choice">
 									<li class="box_title" style="color:white">
 										<h4><b>${sd_list.C_NAME}</b></h4>
 										<h5>${mv_list.sd_day}</h5>
@@ -492,7 +490,9 @@ dt, dd { float: left; }
 								
 							</th>
 							<th class="col-sm-2 box_th">
-								<h3 class="box_title">좌석선택</h3>
+								<ul class="choice">
+									<li><h3 class="box_title">좌석선택</h3></li>
+								</ul>
 							</th>
 							<th class="col-sm-2 box_th">
 								<h3 class="box_title">결제</h3>
