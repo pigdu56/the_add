@@ -282,13 +282,16 @@ dt, dd { float: left; }
 									<h6><b>성인</b></h6>
 								</div>
 								<div class="col-sm-10" id="adult">
-									<input checked="checked" type="radio" class="wh_0" id="no_0" name="adult" value="0"  /><label for="no_0"></label>								
-									<input type="radio" class="wh_1" id="no_1" name="adult" value="1" /><label for="no_1"></label>
-									<input type="radio" class="wh_2" id="no_2" name="adult" value="2" /><label for="no_2"></label>
-									<input type="radio" class="wh_3" id="no_3" name="adult" value="3" /><label for="no_3"></label>
-									<input type="radio" class="wh_4" id="no_4" name="adult" value="4" /><label for="no_4"></label>
-									<input type="radio" class="wh_5" id="no_5" name="adult" value="5" /><label for="no_5"></label>
-									<input type="radio" class="wh_6" id="no_6" name="adult" value="6" /><label for="no_6"></label>
+									<c:forEach var="ad" begin="0" end="6" varStatus="a_status" >
+										<c:choose>
+											<c:when test="${a_status.index == 0}">
+												<input type="radio" id="ad_${ad}" class="wh_${ad}" name="adult" value="${ad}" checked="checked"/><label for="yo_${ad}"></label>
+											</c:when>
+											<c:otherwise>
+												<input type="radio" id="ad_${ad}" class="wh_${ad}" name="adult" value="${ad}" /><label for="ad_${ad}"></label>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
 								</div>
 							</li>
 							
@@ -297,13 +300,16 @@ dt, dd { float: left; }
 									<h6><b>청소년</b></h6>
 								</div>
 								<div class="col-sm-10" id="young">
-									<input type="radio" id="yo_0" class="wh_0" name="young" value="0" checked="checked"/><label for="yo_0"></label>								
-									<input type="radio" id="yo_1" class="wh_1" name="young" value="1" /><label for="yo_1"></label>
-									<input type="radio" id="yo_2" class="wh_2" name="young" value="2" /><label for="yo_2"></label>
-									<input type="radio" id="yo_3" class="wh_3" name="young" value="3" /><label for="yo_3"></label>
-									<input type="radio" id="yo_4" class="wh_4" name="young" value="4" /><label for="yo_4"></label>
-									<input type="radio" id="yo_5" class="wh_5" name="young" value="5" /><label for="yo_5"></label>
-									<input type="radio" id="yo_6" class="wh_6" name="young" value="6" /><label for="yo_6"></label>
+									<c:forEach var="yo" begin="0" end="6" varStatus="y_status" >
+										<c:choose>
+											<c:when test="${y_status.index == 0}">
+												<input type="radio" id="yo_${yo}" class="wh_${yo}" name="young" value="${yo}" checked="checked"/><label for="yo_${yo}"></label>
+											</c:when>
+											<c:otherwise>
+												<input type="radio" id="yo_${yo}" class="wh_${yo}" name="young" value="${yo}" /><label for="yo_${yo}"></label>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
 								</div>
 							</li>
 							
@@ -312,17 +318,21 @@ dt, dd { float: left; }
 									<h6><b>어린이</b></h6>
 								</div>
 								<div class="col-sm-10">
-									<input type="radio" id="ki_0" class="wh_0" name="kids" value="0" checked="checked"/><label for="ki_0"></label>								
-									<input type="radio" id="ki_1" class="wh_1" name="kids" value="1" /><label for="ki_1"></label>
-									<input type="radio" id="ki_2" class="wh_2" name="kids" value="2" /><label for="ki_2"></label>
-									<input type="radio" id="ki_3" class="wh_3" name="kids" value="3" /><label for="ki_3"></label>
-									<input type="radio" id="ki_4" class="wh_4" name="kids" value="4" /><label for="ki_4"></label>
-									<input type="radio" id="ki_5" class="wh_5" name="kids" value="5" /><label for="ki_5"></label>
-									<input type="radio" id="ki_6" class="wh_6" name="kids" value="6" /><label for="ki_6"></label>
+									<c:forEach var="ki" begin="0" end="6" varStatus="k_status" >
+										<c:choose>
+											<c:when test="${k_status.index == 0}">
+												<input type="radio" id="ki_${ki}" class="wh_${ki}" name="kids" value="${ki}" checked="checked"/><label for="ki_${ki}"></label>
+											</c:when>
+											<c:otherwise>
+												<input type="radio" id="ki_${ki}" class="wh_${ki}" name="kids" value="${ki}" /><label for="ki_${ki}"></label>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
 								</div>
 							</li>					
 						</ul>
 					</td>
+					
 					<td class="col-sm-6">
 						<div style="padding-top : 15px;">
 							<dl style="font-size: 16px;">
