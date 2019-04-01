@@ -11,7 +11,6 @@
 <link rel="stylesheet"
    href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
-   
    #want2{
     position:relative;
     width:80%;

@@ -27,6 +27,8 @@
 
 </head>
 <style>
+  body {
+   font-family: Verdana, sans-serif;}
 #want3{
 position:relative;
 width:80%;
