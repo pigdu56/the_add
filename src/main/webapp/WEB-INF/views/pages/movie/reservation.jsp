@@ -568,6 +568,7 @@ $( document ).ready(function() {
 			}
 		}
 	});
+	//상영관, 시간 클릭
 	$(document).on("click", "#time_choice li", function() {
 		$("#time_choice li").removeClass("check_choice");
 		time_li=$(this);
