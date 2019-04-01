@@ -332,13 +332,22 @@ dt, dd { float: left; }
 								<dd class="on"><font color="red">${sd_list['TT_SEAT']-seat_count}</font> / ${sd_list['TT_SEAT']}</dd>
 							</dl>
 							<dl style="font-size: 24px;">
-								<dt><fmt:parseDate value="${mv_list['sd_day']}" var="noticePostDate" pattern="yyyyMMdd"/>
-									<fmt:formatDate value="${noticePostDate}" pattern="yyyy.MM.dd"/> &nbsp;</dt>
-								<dt><fmt:parseDate value="${mv_list['t_time']}" var="s_time" pattern="HHmm"/>
-									<fmt:formatDate value="${s_time}" pattern="HH:mm"/> &nbsp; ~ </dt>
+								<dt>
+									<fmt:parseDate value="${mv_list['sd_day']}" var="noticePostDate" pattern="yyyyMMdd"/>
+									<fmt:formatDate value="${noticePostDate}" pattern="yyyy.MM.dd"/> &nbsp;
+									<div id="week" style="float: right;"></div>
+									<input type="hidden" id="day" value="<fmt:formatDate value="${noticePostDate}" pattern="yyyy.MM.dd"/>">
+								</dt>
+								<dt>&nbsp;
+									<fmt:parseDate value="${mv_list['t_time']}" var="s_time" pattern="HHmm"/>
+									<fmt:formatDate value="${s_time}" pattern="HH:mm"/> &nbsp; ~ &nbsp;
+									<input type="hidden" id="st_time" value="<fmt:formatDate value="${s_time}" pattern="HH:mm"/>"/>
+								</dt>
 									
-								<dt><fmt:parseDate value="${mv_list['MV_ST']}" var="st" pattern="mm"/>
-									<fmt:formatDate value="${st}" pattern="HH:mm"/></dt>
+								<dt>
+									<input type="hidden" id="ed_time" value="${sd_list['MV_ST']}"/>
+									<div id="et"></div>
+								</dt>
 							</dl>
 						</div>
 					</td>
@@ -377,12 +386,12 @@ dt, dd { float: left; }
 															</c:if>															
 														</c:forEach>
 														<c:choose>
-															<c:when test="${true eq bl}"> --%>
+															<c:when test="${true eq bl}">
 																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
-															<%--</c:when>
-															<c:otherwise>
+															</c:when>
+															<c:otherwise> --%>
 																<input type="checkbox" class="seat_1" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
-															</c:otherwise>
+															<%--</c:otherwise>
 														</c:choose> --%>
 													</c:when>
 													<%-- <c:when test="${j eq 2}">
@@ -608,6 +617,24 @@ dt, dd { float: left; }
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		// 시간
+		var day = $("#day").val();
+		var st_time = $("#st_time").val();
+		var end_time = $("#ed_time").val();
+		var st_day = day+" "+st_time;
+		var D_Day = new Date(st_day);
+		D_Day.setMinutes(D_Day.getMinutes()+ end_time);
+		
+		var week = ['일', '월', '화', '수', '목', '금', '토'];
+		var dayOfWeek = week[D_Day.getDay()];
+		document.getElementById("week").innerHTML="("+dayOfWeek+")";
+		var Hours = D_Day.getHours();
+		Hours = Hours > 9? Hours : '0' + Hours;
+		var minutes = D_Day.getMinutes();
+		minutes = minutes > 9 ? minutes : '0' + minutes;
+		document.getElementById("et").innerHTML=(Hours +":"+ minutes);
+		
+		// 좌석
 		var nomal = $(':radio[name="nomal"]:checked').val();
 		var young = $(':radio[name="nomal"]:checked').val();
 		var kids = $(':radio[name="nomal"]:checked').val();
