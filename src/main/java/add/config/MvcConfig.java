@@ -55,6 +55,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		sqlSessionFactory = new SqlSessionFactoryBean();
 		sqlSessionFactory.setDataSource(ds);
 		sqlSessionFactory.setTypeAliasesPackage("add.maps");
+		sqlSessionFactory.setTypeAliasesPackage("add.movie.maps");
+		sqlSessionFactory.setTypeAliasesPackage("add.bus_annomaps");
 		return (SqlSessionFactory) sqlSessionFactory.getObject();
 	}
 
