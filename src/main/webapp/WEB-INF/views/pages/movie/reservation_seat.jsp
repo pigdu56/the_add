@@ -270,6 +270,10 @@ input[class="x"]+label{
 #choice_c{
 	padding-left:0;
 }
+.pay{
+	color:white;
+	line-height: 20px;
+}
 dt, dd { float: left; }
 .on {float: none;}
 </style>
@@ -474,8 +478,7 @@ dt, dd { float: left; }
 								</ul>
 								<ul class="col-sm-6" id="sel_mv">
 								<li class="box_title">
-									<h4><b style="color:white">${sd_list.MV_TITLE_KR}</b></h4>
-									<br>
+									<h4><b style="color:white">${sd_list.MV_TITLE_KR}</b></h4>									
 									<h6><b style="color:white">${sd_list.RT_RATING}</b></h6>
 								</li>
 							</ul>
@@ -495,7 +498,12 @@ dt, dd { float: left; }
 								<h3 class="box_title">좌석선택</h3>
 							</th>
 							<th class="col-sm-2 box_th">
-								<h3 class="box_title">결제</h3>
+								<h5 class="pay">
+									성 &nbsp; 인 : <div id="no" style="float: right; width: 80px;"></div><br/>
+									청소년 : <div id="yo" style="float: right; width: 80px;"></div><br/>
+									어린이 : <div id="ki" style="float: right; width: 80px;"></div><br/>
+									<b style="color:red;">합 &nbsp; 계 : </b><div id="r_price" style="float: right; width: 80px; color:red;"></div><br/>
+								</h5>
 							</th>
 							<th class="col-sm-2" id="go_btn">
 								<c:url var="go_pay" value="/movie/"/>
@@ -548,7 +556,7 @@ dt, dd { float: left; }
 		var sum = Number(adult) + Number(young) + Number(kids);
 		var checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
 
-		var price = (Number(adult)* ${sd_list['P_PRICE']}) + (Number(young)* ${sd_list['P_PRICE']}) + (Number(kids)* ${sd_list['P_PRICE']});
+		var price = (Number(adult)* ${sd_list['P_PRICE']}) + (Number(young)* (${sd_list['P_PRICE']}-2000)) + (Number(kids)* (${sd_list['P_PRICE']}-4000));
 		$('input[name="r_price"]').val(price);
 		
 		
@@ -567,6 +575,10 @@ dt, dd { float: left; }
 			kids = $(':radio[name="kids"]:checked').val();
 			sum = Number(adult) + Number(young) + Number(kids);
 			checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
+			price = (Number(adult)* ${sd_list['P_PRICE']}) + (Number(young)* (${sd_list['P_PRICE']}-2000)) + (Number(kids)* (${sd_list['P_PRICE']}-4000));
+			$('input[name="r_price"]').val(price);
+			document.getElementById("no").innerHTML=((Number(adult)* ${sd_list['P_PRICE']}));
+			document.getElementById("r_price").innerHTML=price;
 			
 			if(sum == 0){
 				$(':checkbox[name="seat"]').attr("disabled", "disabled");
@@ -606,7 +618,13 @@ dt, dd { float: left; }
 			kids = $(':radio[name="kids"]:checked').val();
 			sum = Number(adult) + Number(young) + Number(kids);
 			checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
-					
+			
+			document.getElementById("yo").innerHTML=((Number(young)* (${sd_list['P_PRICE']}-2000)));
+			document.getElementById("r_price").innerHTML=price;
+			
+			price = (Number(adult)* ${sd_list['P_PRICE']}) + (Number(young)* (${sd_list['P_PRICE']}-2000)) + (Number(kids)* (${sd_list['P_PRICE']}-4000));
+			$('input[name="r_price"]').val(price);
+			
 			if(sum == 0){
 				$(':checkbox[name="seat"]').attr("disabled", "disabled");
 			} else {
@@ -640,6 +658,12 @@ dt, dd { float: left; }
 			kids = $(':radio[name="kids"]:checked').val();
 			sum = Number(adult) + Number(young) + Number(kids);
 			checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
+			price = (Number(adult)* ${sd_list['P_PRICE']}) + (Number(young)* (${sd_list['P_PRICE']}-2000)) + (Number(kids)* (${sd_list['P_PRICE']}-4000));
+			$('input[name="r_price"]').val(price);
+			
+			document.getElementById("ki").innerHTML=((Number(kids)* (${sd_list['P_PRICE']}-4000)));
+			document.getElementById("r_price").innerHTML=price;
+
 			
 			if(sum == 0){
 				$(':checkbox[name="seat"]').attr("disabled", "disabled");
@@ -688,6 +712,6 @@ dt, dd { float: left; }
 				$("#go_pay").empty();
 				$("#go_pay").append("<img class='btn-img' src='${pageContext.request.contextPath}/static/img/movie/right_pay.png'>");
 			}
-		});	
+		});
 	});
 </script>
