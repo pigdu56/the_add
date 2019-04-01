@@ -137,6 +137,7 @@ ul>li {
 								<fmt:formatDate value="${now}" type="date" pattern="MM" var="mon" />${mon}</li>
 								<c:forEach var="i" items="${daylist}">
 									<c:choose>
+										<c:when test="${i.dates > 23 }">
 										<c:when test="${i.dates eq 01}">
 											<li>
 												<c:choose>
@@ -175,6 +176,7 @@ ul>li {
 													</c:otherwise>
 												</c:choose>
 											</li>
+										</c:when>
 										</c:when>
 										<c:otherwise>
 											<li class="sd_dates">
