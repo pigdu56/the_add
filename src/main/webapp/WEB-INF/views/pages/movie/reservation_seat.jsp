@@ -492,6 +492,7 @@ dt, dd { float: left; }
 							<th class="col-sm-2 box_th">
 								<ul class="choice">
 									<li><h3 class="box_title">좌석선택</h3></li>
+									
 								</ul>
 							</th>
 							<th class="col-sm-2 box_th">
