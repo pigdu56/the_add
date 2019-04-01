@@ -47,7 +47,6 @@ input[class="che"]+label {
    		border: 1px solid white;
    	}
    	
-   	
    	.driver{
    		background-image:
 		url('${pageContext.request.contextPath}/static/img/bus/driver.png');
@@ -59,6 +58,10 @@ input[class="che"]+label {
    	.seat_num{
    		font_size: 15px;
    	}
+   	.font{
+   		font_size: 35px;
+   	}
+   	
 </style>
 
 </head>
@@ -85,7 +88,7 @@ input[class="che"]+label {
 				<div class="row">
 				
 				<!-- 안쪽 공백 -->
-				<div class="col-sm-1 bg-primary"></div>
+				<div class="col-sm-1"></div>
 				
 				<!-- 버스 좌석 창 -->
 				<div class="col-sm-5 bus" style="border:1px solid black; border-radius: 35px;">
@@ -96,7 +99,7 @@ input[class="che"]+label {
 					</div>
 					
 					<!-- 버스 좌석 추가 테이블 -->
-					<table class="table text-center seat_num">
+					<table class="table text-center">
 						<tbody id="seat">
 							
 						</tbody>
@@ -104,8 +107,8 @@ input[class="che"]+label {
 				</div>
 				
 				<!-- 예매 창 -->
-				<div class="col-sm-5 bus" style="border: 1px solid black;">
-					<table class="table table-borderless text-center">
+				<div class="col-sm-5 bus">
+					<table class="table text-center" style='font-size: 15px;'>
 						<tr>
 							<td>${bus_ticket.get("dep_ter")}</td>
 							<td>
@@ -121,39 +124,60 @@ input[class="che"]+label {
 							<td>${bus_ticket.get("arr")}</td>
 						</tr>
 					</table>
-				
-					<table class="table table-border-white text-center ">
+					
+					<div class="bus">
+					<table class="table table-borderless text-center"  style="font-size: 15px;">
 						<tr>
-							<th><input type="hidden" name="bus_seq" id="bus_seq"
-								value="${bus_ticket.get('bus_seq')}"></th>
-							<th>${bus_ticket.get("bus")}</th>
+							<td><input type="hidden" name="bus_seq" id="bus_seq"
+								value="${bus_ticket.get('bus_seq')}">
+								버스 회사
+							</td>
+							<td>${bus_ticket.get("bus")}</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
 						</tr>
 						<tr>
 							<td>${bus_ticket.get("grade")}</td>
 							<td>${bus_ticket.get("charge")}</td>
 						</tr>
 						<tr>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
 							<td>운임 비용</td>
 							<td id="charge">
 								<input type="text" name="charge_seat"
-								value="" id="test" readonly="readonly" class="btn btn-primary">원
+								value="" id="test" readonly="readonly" class="btn btn-primary" style="font-size: 15px;">원
 							</td>
 						</tr>
 						<tr>
-							<td>결제</td>
-							<td id="m_payment_td"><input type="text" placeholder="결제금액 입력" id="m_payment" class="btn btn-warning">원</td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td style="font-size: 15px;">결제</td>
+							<td id="m_payment_td"><input type="text" placeholder="결제금액 입력" id="m_payment" 
+								class="btn btn-warning"  style="font-size: 15px;">원
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
 						</tr>
 						<tr>
 							<td colspan="2">
 								<input type="submit" id="submit" value="예매하기"
-								class="btn btn-primary btn-block" disabled="disabled">
+								class="btn btn-primary btn-block" disabled="disabled" style="font-size: 15px;">
 							</td>
 						</tr>
 					</table>
-					
+					</div>
 				</div>
 				<!-- 안쪽 공백 -->
-				<div class="col-sm-1 bg-primary"></div>
+				<div class="col-sm-1"></div>
 				</div>
 				</div>
 				</div>
@@ -164,9 +188,8 @@ input[class="che"]+label {
    </form>
 </body>
 <script>
-	// 체크박스 개수를 가져와 가격에 * 하기
-
 	
+	// 체크박스 개수를 가져와 가격에 * 하기
 	function check(frm){
 		// 체크된 체크박스개수 가져오기
 		var check = $("input:checkbox[class=nochecked]:checked").length;
@@ -176,13 +199,13 @@ input[class="che"]+label {
 		$("#m_payment_td").empty();  // 입력 금액 td 지우기
 		$("#charge").append(
 			"<input type='text' name='charge_seat'"
-			+ "value='" + charge * check +"' id='payment' readonly='readonly' class='btn btn-primary'> 원"
+			+ "value='" + charge * check +"' id='payment' readonly='readonly' class='btn btn-primary' style='font-size: 15px;'>원"
 		);
 		$("#m_payment_td").append(
-			"<input type='text' placeholder='결제금액 입력' id='m_payment' class='btn btn-warning'> 원"		
+			"<input type='text' placeholder='결제금액 입력' id='m_payment' class='btn btn-warning'  style='font-size: 15px;'>원"		
 		);
 		
-		// 체크박스를 클릭할 때 예맵 버튼 막기
+		// 체크박스를 클릭할 때 예매 버튼 막기
 		$("#submit").attr("disabled", "disabled");
 		
 		// 운임비용하고 결제금액 입력이 같을 경우 실행 
@@ -216,7 +239,7 @@ input[class="che"]+label {
              "bus_seq" : $("#bus_seq").val()
           },
           success : function(data){
-            
+             
              // 등급을 받아와서 등급별로 다른 checkbox를 뿌림
              // 일반 고속 등급 뿌리기
              if(${bus_ticket.get("grade") eq "고속"} || ${bus_ticket.get("grade") eq "심야고속"}){
@@ -272,7 +295,7 @@ input[class="che"]+label {
                 
              // 우등 좌석 뿌리기
              }else if(${bus_ticket.get("grade") eq "우등"} || ${bus_ticket.get("grade") eq "심야우등"}){
-                console.log("우등");
+                
                 for(var i=1; i<=28; i++){
                    // 체크 여부를 알기위한 boolean type 변수  true-예약 좌석
                    var check = false;
@@ -372,15 +395,13 @@ input[class="che"]+label {
                        
                     }
              }
-             
-             
-          }, error : function(jqXHR, textStatus, errorThrown, error) {
-             alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
-                   + error);
+         
           }
          
        });
     });
+ 
+ 
  /* ********************* 체크박스  ********************* */
 
 </script>
