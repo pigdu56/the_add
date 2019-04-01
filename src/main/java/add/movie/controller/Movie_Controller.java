@@ -121,7 +121,7 @@ public class Movie_Controller {
 		mv.addObject("seat_count", mm.sc(sd_code));
 		mv.addObject("seat", mm.seat(sd_code));	
 		mv.setViewName("reservation_seat");
-		System.out.println(mv);
+		
 		return mv;
 	}
 	
