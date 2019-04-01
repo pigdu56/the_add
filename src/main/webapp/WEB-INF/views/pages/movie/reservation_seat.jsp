@@ -261,6 +261,15 @@ input[class="x"]+label{
 #seat_info > li {
 	min-height:30px;
 }
+#choice_mv{
+	padding-left:0;
+}
+#choice_mv > #sel_poster{
+	padding-left:0;
+}
+#choice_c{
+	padding-left:0;
+}
 dt, dd { float: left; }
 .on {float: none;}
 </style>
@@ -285,7 +294,7 @@ dt, dd { float: left; }
 									<c:forEach var="ad" begin="0" end="6" varStatus="a_status" >
 										<c:choose>
 											<c:when test="${a_status.index == 0}">
-												<input type="radio" id="ad_${ad}" class="wh_${ad}" name="adult" value="${ad}" checked="checked"/><label for="yo_${ad}"></label>
+												<input type="radio" id="ad_${ad}" class="wh_${ad}" name="adult" value="${ad}" checked="checked"/><label for="ad_${ad}"></label>
 											</c:when>
 											<c:otherwise>
 												<input type="radio" id="ad_${ad}" class="wh_${ad}" name="adult" value="${ad}" /><label for="ad_${ad}"></label>
@@ -379,177 +388,47 @@ dt, dd { float: left; }
 					<div class="row">
 						<div class="col-sm-2"></div>
 						<div class="col-sm-8">
-							<table id="s_table">								
-								<c:set var="alphabet" value="A,B,C,D,E,F" /> 
-								<c:forTokens var="i" items="${alphabet}" delims=",">
+							<table id="s_table">
+							<c:set var="alphabet" value="A,B,C,D,E,F" /> 
+							<c:forTokens var="i" items="${alphabet}" delims=",">		
+								<tr>
+								<c:forEach var='j' begin='1' end='9' varStatus="index">
+									<c:set var="doneLoop" value="false" />
+									<c:set var="s_name" value='${i}${j}' />
+									<c:if test="${index.first}"><td><b>${i}</b>&nbsp;&nbsp;&nbsp;</td></c:if> 
+									<c:forEach var="seat" items="${seat}">
+										 <c:if test="${not doneLoop}">
+											<c:if test="${s_name eq seat.S_NAME}">
+												<c:set var="doneLoop" value="true" />
+											</c:if> 
+										</c:if>
+									</c:forEach>
+									<c:choose>
+										<c:when test="${doneLoop == true}">
+											<td><input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label></td>
+											<c:if test="${j eq  2 || j eq 7}">
+												<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+											</c:if>
+										</c:when>
+										<c:otherwise>
+											<td><input type="checkbox" class="seat_${j}" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label></td>
+											<c:if test="${j eq  2 || j eq 7}">
+												<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+											</c:if>
+										</c:otherwise>
+									</c:choose>
+									<c:if test="${index.last}"><td>&nbsp;&nbsp;&nbsp;<b>${i}</b></td></c:if>
+								</c:forEach>
+								</tr>
+								<c:if test="${i eq 'C'}">
 									<tr>
-										<c:forEach var="j" begin="1" end="9" varStatus="index">
-										<c:if test="${index.first}"><td><b>${i}</b>&nbsp;&nbsp;&nbsp;</td></c:if> 
-											<td>
-												<c:set var="s_name" value="${i}${j}"/>
-												<c:choose>
-													<c:when test="${j eq 1}">					
-														<c:set var="bl" value="false" />
-														<%-- <c:forEach var=st items="${seat}">
-															<c:if test="${s_name eq st.s_name}">
-																<c:set var="bl" value="true" />														
-															</c:if>															
-														</c:forEach>
-														<c:choose>
-															<c:when test="${true eq bl}">
-																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
-															</c:when>
-															<c:otherwise> --%>
-																<input type="checkbox" class="seat_1" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
-															<%--</c:otherwise>
-														</c:choose> --%>
-													</c:when>
-													<%-- <c:when test="${j eq 2}">
-														<c:set var="bl" value="false" />
-														<c:forEach var=st items="${seat}">
-															<c:if test="${s_name eq st.s_name}">
-																<c:set var="bl" value="true" />														
-															</c:if>															
-														</c:forEach>
-														<c:choose>
-															<c:when test="${true eq bl}">
-																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
-															</c:when>
-															<c:otherwise>
-																<input type="checkbox" class="seat_2" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
-															</c:otherwise>
-														</c:choose>
-													</c:when>
-													<c:when test="${j eq 3}">
-														<c:set var="bl" value="false" />
-														<c:forEach var=st items="${seat}">
-															<c:if test="${s_name eq st.s_name}">
-																<c:set var="bl" value="true" />														
-															</c:if>															
-														</c:forEach>
-														<c:choose>
-															<c:when test="${true eq bl}">
-																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
-															</c:when>
-															<c:otherwise>
-																<input type="checkbox" class="seat_3" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
-															</c:otherwise>
-														</c:choose>	
-													</c:when>
-													<c:when test="${j eq 4}">
-														<c:set var="bl" value="false" />
-														<c:forEach var=st items="${seat}">
-															<c:if test="${s_name eq st.s_name}">
-																<c:set var="bl" value="true" />														
-															</c:if>															
-														</c:forEach>
-														<c:choose>
-															<c:when test="${true eq bl}">
-																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
-															</c:when>
-															<c:otherwise>
-																<input type="checkbox" class="seat_4" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
-															</c:otherwise>
-														</c:choose>
-													</c:when>
-													<c:when test="${j eq 5}">
-														<c:set var="bl" value="false" />
-														<c:forEach var=st items="${seat}">
-															<c:if test="${s_name eq st.s_name}">
-																<c:set var="bl" value="true" />														
-															</c:if>															
-														</c:forEach>
-														<c:choose>
-															<c:when test="${true eq bl}">
-																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
-															</c:when>
-															<c:otherwise>
-																<input type="checkbox" class="seat_5" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
-															</c:otherwise>
-														</c:choose>
-													</c:when>
-													<c:when test="${j eq 6}">
-														<c:set var="bl" value="false" />
-														<c:forEach var=st items="${seat}">
-															<c:if test="${s_name eq st.s_name}">
-																<c:set var="bl" value="true" />														
-															</c:if>															
-														</c:forEach>
-														<c:choose>
-															<c:when test="${true eq bl}">
-																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
-															</c:when>
-															<c:otherwise>
-																<input type="checkbox" class="seat_6" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
-															</c:otherwise>
-														</c:choose>
-													</c:when>
-													<c:when test="${j eq 7}">
-														<c:set var="bl" value="false" />
-														<c:forEach var=st items="${seat}">
-															<c:if test="${s_name eq st.s_name}">
-																<c:set var="bl" value="true" />														
-															</c:if>															
-														</c:forEach>
-														<c:choose>
-															<c:when test="${true eq bl}">
-																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
-															</c:when>
-															<c:otherwise>
-																<input type="checkbox" class="seat_7" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
-															</c:otherwise>
-														</c:choose>
-													</c:when>
-													<c:when test="${j eq 8}">
-														<c:set var="bl" value="false" />
-														<c:forEach var=st items="${seat}">
-															<c:if test="${s_name eq st.s_name}">
-																<c:set var="bl" value="true" />														
-															</c:if>															
-														</c:forEach>
-														<c:choose>
-															<c:when test="${true eq bl}">
-																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
-															</c:when>
-															<c:otherwise>
-																<input type="checkbox" class="seat_8" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
-															</c:otherwise>
-														</c:choose>
-													</c:when>
-													<c:otherwise>
-														<c:set var="bl" value="false" />
-														<c:forEach var=st items="${seat}">
-															<c:if test="${s_name eq st.s_name}">
-																<c:set var="bl" value="true" />														
-															</c:if>															
-														</c:forEach>
-														<c:choose>
-															<c:when test="${true eq bl}">
-																<input type="checkbox" class="x" name="seat" id="${s_name}" value="${s_name}" disabled="disabled"><label for="${s_name}"></label>
-															</c:when>
-															<c:otherwise>
-																<input type="checkbox" class="seat_9" name="seat" id="${s_name}" value="${s_name}"><label for="${s_name}"></label>
-															</c:otherwise>
-														</c:choose>
-													</c:otherwise> --%>																	
-												</c:choose>																								
-											</td> 
-											
-										<c:if test="${j eq 3}">
-											<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-										</c:if>
-										<c:if test="${j eq 6}">
-											<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-										</c:if>
-										<c:if test="${index.last}"><td>&nbsp;&nbsp;&nbsp;<b>${i}</b></td></c:if>
-										</c:forEach>
+										<td>&nbsp;</td>
 									</tr>
-									<c:if test="${i eq 'C'}">
-										<tr>
-											<td>&nbsp;</td>
-										</tr>
-									</c:if>
-								</c:forTokens>									
+									<tr>
+										<td>&nbsp;</td>
+									</tr>	
+								</c:if>
+								</c:forTokens>
 							</table>
 						</div>
 						<div class="col-sm-2"></div>						
@@ -589,11 +468,28 @@ dt, dd { float: left; }
 								<img class="btn-img" src="${pageContext.request.contextPath}/static/img/movie/left_mv.png">
 							</button>
 						
-							<th class="col-sm-2 box_th">
-								<h3 class="box_title">${mv_list['mv_title_kr']}</h3>
+							<th class="col-sm-2 box_th" id="choice_mv">
+								<ul class="col-sm-6" id="sel_poster">
+									<li><img src='${sd_list.MV_IMG}' style='height:100px;'></li>
+								</ul>
+								<ul class="col-sm-6" id="sel_mv">
+								<li class="box_title">
+									<h4><b style="color:white">${sd_list.MV_TITLE_KR}</b></h4>
+									<br>
+									<h6><b style="color:white">${sd_list.RT_RATING}</b></h6>
+								</li>
+							</ul>
 							</th>
 							<th class="col-sm-2 box_th">
-								<h3 class="box_title">${mv_list['c_name']}</h3>
+								<ul id="choice_c">
+									<li class="box_title" style="color:white">
+										<h4><b>${sd_list.C_NAME}</b></h4>
+										<h5>${mv_list.sd_day}</h5>
+										<h5>${mv_list.tt_name}</h5>
+										<h5>${mv_list.t_time}</h5>
+									</li>
+								</ul>
+								
 							</th>
 							<th class="col-sm-2 box_th">
 								<h3 class="box_title">좌석선택</h3>
@@ -780,8 +676,12 @@ dt, dd { float: left; }
 			
 			if(checkboxBoxes.length == sum && sum != 0){
 				$("#go_pay").attr('disabled', false);
+				$("#go_pay").empty();
+				$("#go_pay").append("<img class='btn-img' src='${pageContext.request.contextPath}/static/img/movie/right_pay_red.png'>");
 			} else {
 				$("#go_pay").attr('disabled', true);
+				$("#go_pay").empty();
+				$("#go_pay").append("<img class='btn-img' src='${pageContext.request.contextPath}/static/img/movie/right_pay.png'>");
 			}
 		});	
 	});
