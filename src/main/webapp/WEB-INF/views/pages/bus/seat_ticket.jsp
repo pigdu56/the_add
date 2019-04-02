@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,50 +28,100 @@
 
 </head>
 <style>
-  body {
-   font-family: Verdana, sans-serif;}
 #want3{
 position:relative;
 width:80%;
 left:8%;
 }
+#qr{
+position:relative;
+left:3%;
+width:100%;
+}
+.ticket th{
+background-color:skyblue;
+
+}
+#right{
+position:relative;
+left:3%;
+width:15%;
+}
+.ticket{
+text-align:center;
+}
+.ticket td{
+width:30%;
+}
 </style>
 <body>
+<div class="container">
+
+
 <img src="${pageContext.request.contextPath}/static/img/bus/s3.png" id="want3">
-<table class="table" style="font-size:13px;">
-	<tr>
-		<th>스케쥴 번호</th>
-		<th>회원 번호</th>
-		<th>회원 아이디</th>
-		<th>날짜</th>
-		<th>출발</th>
-		<th>도착</th>
-		<th>출발 시각</th>
-		<th>도착 시각</th>
-		<th>버스 번호</th>
-		<th>버스회사</th>
-		<th>운임요금</th>
-		<th>등급</th>
-		<th>좌석 번호</th>
-	</tr>
-	<c:forEach var="i" items="${buy_list}">
-		<tr>
-			<td>${i.S_CODE}</td>
-			<td>${i.M_NUM}</td>
-			<td>${i.M_ID}</td>
-			<td>${i.S_DAY}</td>
-			<td>${i.DEP_TER}</td>
-			<td>${i.ARR_TER}</td>
-			<td>${i.S_DEP}</td>
-			<td>${i.S_ARR}</td>
-			<td>${i.S_CODE}</td>
-			<td>${i.C_NAME}</td>
-			<td>${i.S_CHARGE}</td>
-			<td>${i.G_NAME}</td>
-			<td>${i.B_SEATNUM}</td>
-		</tr>
-	</c:forEach>
+<br><br><br>
+
+<div class="row">
+<div class="col-sm-2"></div>
+<div class="col-sm-8">
+<div class="row">
+<c:forEach var="i" items="${buy_list}" varStatus = "j">
+<div class="col-sm-6" style="border-left:solid 1px gray; border-right:solid 1px gray; padding: 0 !important;">
+<table class="table ticket">
+<tr>
+<th style="font-size:15px;">
+	${fn:substring(i.S_DAY, 0, 4)}/${fn:substring(i.S_DAY, 4, 6)}/${fn:substring(i.S_DAY, 6, 8)}
+</th>
+<th style="font-size:20px; color:white;">승차권</th>
+<th style="font-size:15px;"> (${i.M_ID}님)</th>
+</tr>
+<tr>
+</tr>
+<tr>
+<td></td>
+<td><img src="${pageContext.request.contextPath}/static/img/bus/qr.png" id="qr"></td>
+<td></td>
+</tr>
+<tr>
+<td style="color:#0FA3B9;font-size:15px;border-bottom:solid 1px white;"><b>출발</b></td>
+<td style="border-bottom:solid 1px white;"><img src="${pageContext.request.contextPath}/static/img/bus/right (4).png" id="right"></td>
+<td style="color:#0FA3B9;font-size:15px; border-bottom:solid 1px white;"><b>도착</b></td>
+</tr>
+<tr>
+<td style="font-size:17px; border-bottom:solid 1px white;" ><b>${fn:substring(i.DEP_TER,0,2)}</b></td>
+<td style="border-bottom:solid 1px white;"></td>
+<td  style="font-size:17px; border-bottom:solid 1px white;"><b>${i.ARR_TER}</b></td>
+</tr>
+
+<tr>
+<td style="font-size:15px;">${fn:substring(i.S_DEP,0,2)} 시 ${fn:substring(i.S_DEP,2,4)} 분</td>
+<td></td>
+<td style="font-size:15px;">${fn:substring(i.S_ARR,0,2)} 시 ${fn:substring(i.S_ARR,2,4)} 분</td>
+</tr>
+
+<tr>
+<td style="font-size:15px;color:#0FA3B9;border-bottom:solid 1px white;"><b>등급</b></td>
+<td style="font-size:15px;color:#0FA3B9;border-bottom:solid 1px white;">&nbsp;&nbsp;&nbsp;<b>버스번호</b></td>
+<td style="font-size:15px;color:#0FA3B9;border-bottom:solid 1px white;"><b>버스좌석</b></td>
+</tr>
+
+<tr>
+<td style="font-size:16px;"><b>${i.G_NAME}</b></td>
+<td style="font-size:17px;">&nbsp;&nbsp;&nbsp;<b>${i.S_CODE}</b></td>
+<td style="font-size:17px;"><b>${i.B_SEATNUM}</b></td>
+</tr>
 </table>
+<div style="background-color:skyblue;">&nbsp;</div>
+<div style="background-color:skyblue;">&nbsp;</div>
+</div>
+	<c:if test ="${j.index % 2 == 1}">
+		<div class="col-sm-12">&nbsp;</div>
+	</c:if>
 	
+</c:forEach>
+</div>
+</div>
+<div class="col-sm-2"></div>
+</div>
+</div>
 </body>
-</html>

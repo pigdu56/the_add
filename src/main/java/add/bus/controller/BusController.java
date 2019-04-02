@@ -31,6 +31,11 @@ public class BusController {
 		return "bus_about";
 	}
 	
+	@RequestMapping(value = { "/buspractice" }, method = RequestMethod.GET)
+	public String busparctice() {
+		return "buspractice";
+	}
+	
 	@RequestMapping(value = { "/ticketing" }, method = RequestMethod.GET)
 	public String ticketing(ModelMap m) {
 		m.addAttribute("dolist", amap.getApiDo());
