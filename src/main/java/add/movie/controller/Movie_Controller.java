@@ -113,17 +113,15 @@ public class Movie_Controller {
 	@RequestMapping(value= {"/reservation_seat"}, method=RequestMethod.GET)
 	public ModelAndView getSeat(@RequestParam HashMap<String, String> map) {
 		ModelAndView mv = new ModelAndView();
-		//System.out.println("map : " + map);
 		String sd_code = mm.SDC(map);
 		map.put("sd_code", sd_code);
-		//System.out.println("sd_code : " + sd_code);
 		
 		mv.addObject("mv_list",map);
 		mv.addObject("sd_list", mm.sd(sd_code));
+		mv.addObject("seat", mm.seat(sd_code));
 		mv.addObject("seat_count", mm.sc(sd_code));
 		mv.setViewName("reservation_seat");
 		
-		System.out.println(mv);
 		return mv;
 	}
 	
@@ -314,4 +312,16 @@ public class Movie_Controller {
  	   
 		return "redirect:/movie/main";
 	}
+   
+   @RequestMapping(value = {"/pay"}, method = RequestMethod.POST)
+   public ModelAndView pay(@RequestParam HashMap<String, String> map) {
+	   ModelAndView mv =new ModelAndView();
+	   
+	   mv.addObject("ms_list", map);
+	   mv.addObject("mv_info", mm.sd(map.get("sd_code")));
+	   mv.setViewName("pay");
+	   System.out.println(mv);
+	   
+	   return mv;
+   }
 }
