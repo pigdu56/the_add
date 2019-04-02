@@ -441,7 +441,7 @@ dt, dd { float: left; }
 											<c:forEach var="seat" items="${seat}">
 												<c:if test="${not doneLoop}">
 													<c:if test="${s_name eq seat.S_NAME}">
-														<c:set var="doneLoop" value="true" />
+														<c:set var="doneLoop" value="true" />.
 													</c:if>
 												</c:if>
 											</c:forEach>

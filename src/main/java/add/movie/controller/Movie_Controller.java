@@ -120,6 +120,7 @@ public class Movie_Controller {
 		
 		mv.addObject("mv_list",map);
 		mv.addObject("sd_list", mm.sd(sd_code));
+		mv.addObject("seat", mm.seat(sd_code));
 		mv.addObject("seat_count", mm.sc(sd_code));
 		mv.setViewName("reservation_seat");
 		
