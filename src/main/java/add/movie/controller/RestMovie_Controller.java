@@ -3,6 +3,10 @@ package add.movie.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -79,5 +83,22 @@ public class RestMovie_Controller {
 		return mm.seat(sd_code);
 
 	}
+	
+	// 동시 접속 제한
+	@ResponseBody
+	@RequestMapping(value= {"/multiUser"}, method = RequestMethod.POST)
+	public int multiUser(@RequestParam(value= "s_name[]") ArrayList<String> s_name,@RequestParam(value="sd_code") String sd_code, HttpServletRequest rq) {
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+		System.out.println("s_name : " + s_name + "sd_code : " + sd_code );
+		HttpSession s = rq.getSession();
+		String user = (String) s.getAttribute("LoginUser");
+		System.out.println(user);
+		
+		
+		
+		
+		return 0;
+	}
+	
 	
 }

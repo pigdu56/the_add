@@ -456,8 +456,9 @@ dt, dd { float: left; }
 												</c:when>
 												<c:otherwise>
 													<td><input type="checkbox" class="seat_${j}"
-														name="seat" id="${s_name}" value="${s_name}"><label
-														for="${s_name}"></label></td>
+														name="seat" id="${s_name}" value="${s_name}" onClick="item('${s_name}');" /><label for="${s_name}"></label>
+														
+														</td>
 													<c:if test="${j eq  2 || j eq 7}">
 														<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 													</c:if>
@@ -563,8 +564,8 @@ dt, dd { float: left; }
 							<th class="col-sm-2" id="go_btn">
 								<c:url var="go_pay" value="/movie/pay" />
 								<form action="${go_pay}" method="post">
-									<input type="hidden" name="sd_code"value="${sd_list['SD_CODE']}" />
-									<input type="hidden" name="mv_code"value="${mv_list['mv_code']}" />
+									<input type="hidden" name="sd_code" id="sd_code" value="${sd_list['SD_CODE']}" />
+									<input type="hidden" name="mv_code" value="${mv_list['mv_code']}" />
 									<input type="hidden" name="mv_title_kr" value="${mv_list['mv_title_kr']}" />
 									<input type="hidden" name="c_name" value="${mv_list['c_name']}" />
 									<input type="hidden" name="tt_name" value="${mv_list['tt_name']}" />
@@ -755,46 +756,72 @@ dt, dd { float: left; }
 			
 			saveKidsId = $(this).attr("id");
 		});
-		
-		$(':checkbox[name="seat"]').click(function(){
-			adult = $(':radio[name="adult"]:checked').val();
-			young = $(':radio[name="young"]:checked').val();
-			kids = $(':radio[name="kids"]:checked').val();
-			sum = Number(adult) + Number(young) + Number(kids);
-			checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
-			
-			if (checkboxBoxes.length > sum) {
-				this.checked = false;
-			}
-			
-			if(checkboxBoxes.length == 0){
-				$("#c_seat").empty();
-				$("#h_inp").empty();
-				$("#c_seat").append("<h3 class='box_title'>좌석선택</h3>");
-			} else if(checkboxBoxes.length > 0 && checkboxBoxes.length <= sum){
-				$("#c_seat").empty();
-				$("#h_inp").empty();
-				$("#c_seat").append("<h5 class='pay' style='font-size: 18px; text-align: center;'> 좌 &nbsp; 석 ");
-				$('input:checkbox[name="seat"]').each(function() {
-					if($('input:checkbox[name="seat"]').is(":checked") ==  true){ 	 
-				    	 if(this.checked){  		
-				    		$("#c_seat").append("<span>"+this.value + " </span>");
-				    		$("#h_inp").append("<input type='hidden' name='s_name"+this.value+"' value='"+ this.value +"' />")
-						}
-					}
-				});	
-				$("#c_seat").append("</h5>");
-			}
-			
-			if(checkboxBoxes.length >= sum && sum != 0){
-				$("#go_pay").attr('disabled', false);
-				$("#go_pay").empty();
-				$("#go_pay").append("<img class='btn-img' src='${pageContext.request.contextPath}/static/img/movie/right_pay_red.png'>");
-			} else {
-				$("#go_pay").attr('disabled', true);
-				$("#go_pay").empty();
-				$("#go_pay").append("<img class='btn-img' src='${pageContext.request.contextPath}/static/img/movie/right_pay.png'>");
-			}
-		});
 	});
 </script>
+
+<!-- 좌석 선택 시 -->
+<script type="text/javascript">
+	var s_names = [];
+	
+	function item(s_na){
+		var s_s = s_na;
+		adult = $(':radio[name="adult"]:checked').val();
+		young = $(':radio[name="young"]:checked').val();
+		kids = $(':radio[name="kids"]:checked').val();
+		sum = Number(adult) + Number(young) + Number(kids);
+		checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
+		
+		if (checkboxBoxes.length > sum) {
+			alert('지정된 인원 수 초과입니다.');
+			$("#"+ s_na).attr("checked",false); 
+		}
+		
+		if(checkboxBoxes.length >= sum && sum != 0){
+			$("#go_pay").attr('disabled', false);
+			$("#go_pay").empty();
+			$("#go_pay").append("<img class='btn-img' src='${pageContext.request.contextPath}/static/img/movie/right_pay_red.png'>");
+		} else {
+			$("#go_pay").attr('disabled', true);
+			$("#go_pay").empty();
+			$("#go_pay").append("<img class='btn-img' src='${pageContext.request.contextPath}/static/img/movie/right_pay.png'>");
+		}
+		
+		if(checkboxBoxes.length == 0){
+			$("#c_seat").empty();
+			$("#h_inp").empty();
+			$("#c_seat").append("<h3 class='box_title'>좌석선택</h3>");
+		} else if(checkboxBoxes.length > 0 && checkboxBoxes.length <= sum){
+			$("#c_seat").empty();
+			$("#h_inp").empty();
+			$("#c_seat").append("<h5 class='pay' style='font-size: 18px; text-align: center;'> 좌 &nbsp; 석 ");
+			$('input:checkbox[name="seat"]').each(function() {
+				if(this.checked ==  true){ 	
+		    		$("#c_seat").append("<span>"+ s_s + " </span>");
+		    		$("#h_inp").append("<input type='hidden' name='s_name"+ s_s +"' value='"+ s_s +"' />")
+		    		s_names.push(s_s);
+		    		
+		    		$.ajax({
+		    			url : "${pageContext.request.contextPath}/movie/multiUser",
+			            type : "post",
+			            data : {
+			            	'sd_code' : $("#sd_code").val(),
+			            	's_name' : s_names
+			            },                
+			            success : function(data) {
+
+			            },
+			            error : function(jqXHR, textStatus, errorThrown, error) {
+			               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+			                     + error);
+			            }
+
+		    		});				    
+		    		s_names.splice(checkboxBoxes.length, s_names.length);	
+					$("#c_seat").append("</h5>");
+
+					return false;
+				}
+			});	
+		}
+	}
+	</script>
