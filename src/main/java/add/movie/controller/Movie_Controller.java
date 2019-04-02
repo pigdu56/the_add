@@ -314,4 +314,12 @@ public class Movie_Controller {
  	   
 		return "redirect:/movie/main";
 	}
+   
+   @RequestMapping(value = {"/pay"}, method = RequestMethod.GET)
+   public ModelAndView pay(@RequestParam HashMap<String, String> map) {
+	   ModelAndView mv =new ModelAndView();
+	   mv.addObject("ms_list", map);
+	   mv.setViewName("pay");
+	   return mv;
+   }
 }
