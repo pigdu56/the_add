@@ -264,7 +264,7 @@
                 // 남은 좌석 가져오기
             	$("#seat_nam").empty();
                 $("#seat_nam").append(
-                		"<p>남은 좌석 수 / " + (28 - data.length) + "</p>"	
+                		"<p>남은 좌석 수 / " + (45 - data.length) + "</p>"	
                 		);                
                 for(var i=1; i<=45; i++){
                    // 체크 여부를 알기위한 boolean
@@ -378,7 +378,7 @@
             	// 남은 좌석 가져오기
               	$("#seat_nam").empty();
                 $("#seat_nam").append(
-                		"<p>남은 좌석 수 / " + (28 - data.length) + "</p>"
+                		"<p>남은 좌석 수 / " + (21 - data.length) + "</p>"
                   		);
             	 
                 for(var i=1; i<=21; i++){

@@ -116,8 +116,7 @@ width:30%;
 </div>
 	<c:if test ="${j.index % 2 == 1}">
 		<div class="col-sm-12">&nbsp;</div>
-	</c:if>
-	
+	</c:if>	
 </c:forEach>
 </div>
 </div>
@@ -125,3 +124,4 @@ width:30%;
 </div>
 </div>
 </body>
+
