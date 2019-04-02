@@ -100,7 +100,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 	// Interceptor 경로 지정
 	 @Override
     public void addInterceptors(InterceptorRegistry registry) {
-		 registry.addInterceptor(new Ic()).addPathPatterns("/movie/**").addPathPatterns("/bus/**").addPathPatterns("/food/**").addPathPatterns("/ship/**").addPathPatterns("/real/**").addPathPatterns("/tour/**").addPathPatterns("/trip/**");
+		 registry.addInterceptor(new Ic()).addPathPatterns("/movie/**").addPathPatterns("/bus/**").addPathPatterns("/real/**");
     }
 	 
 
