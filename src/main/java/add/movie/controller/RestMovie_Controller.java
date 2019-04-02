@@ -3,8 +3,8 @@ package add.movie.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,9 @@ public class RestMovie_Controller {
 	
 	@Autowired
 	MovieMappable mm;
+	
+	@Autowired
+	ServletContext context;
 	
 	//ajax 영화정보가져오기
 	@ResponseBody
@@ -87,109 +90,50 @@ public class RestMovie_Controller {
 	// 동시 접속 제한
 	@ResponseBody
 	@RequestMapping(value= {"/multiUser"}, method = RequestMethod.POST)
-	public int multiUser(@RequestParam(value= "s_name[]") ArrayList<String> s_name, @RequestParam(value="sd_code") String sd_code, HttpServletRequest rq) {
+	public int multiUser(@RequestParam(value= "s_name") String s_name, @RequestParam(value="sd_code") String sd_code, HttpServletRequest rq) {
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-		HashMap<String, String> map = null;
-		
-		System.out.println("s_name : " + s_name + "sd_code : " + sd_code );
+		HashMap<String, String> map = new HashMap<String, String>();
 		HttpSession s = rq.getSession();
+		context = rq.getServletContext();
+		System.out.println("s_name : " + s_name + ", sd_code : " + sd_code);
 		String user = (String) s.getAttribute("LoginUser");
-		System.out.println(user);
-		
-		ArrayList<HashMap<String, String>> s_list = (ArrayList<HashMap<String, String>>) s.getAttribute("VS");
-		boolean check = false;
-		System.out.println("s_list : " + s_list);
-		
-		
-		
-		if(s_list == null) {			
-			for(String str : s_name) {
-				check = true;
-				//System.out.println("dfds : " + check);
-				map = new HashMap<String, String>();
-				map.put("user", user);
-				map.put("sd_code", sd_code);
-				map.put("s_name", str);
-				//System.out.println(map);
-				list.add(map);
-				//System.out.println("list2 : " + list);
-			}
-			s.setAttribute("VS", list);
-		} else {
+		ArrayList<HashMap<String, String>> s_list = (ArrayList<HashMap<String, String>>) context.getAttribute("VS");
 
+		int result = 0;
+		int rs = 0;
+		
+		if(s_list != null) {
 			for(HashMap<String, String> m : s_list) {
-				if(m.get("user").equals(user)) {
-					if(m.get("sd_code").equals(sd_code)) {
-						for(String str : s_name) {
-							if(m.get("s_name").equals(str) == false) {
-								check = true;
-								map = new HashMap<String, String>();
-								map.put("user", user);
-								map.put("sd_code", sd_code);
-								map.put("s_name", str);
-								list.add(map);
-								//System.out.println("list3 : " + list);
-							}
-						}
-						s.setAttribute("VS", list);
-					} else {
-						for(String str : s_name) {
-							if(m.get("s_name").equals(str) == false) {
-								check = true;
-								map = new HashMap<String, String>();
-								map.put("user", user);
-								map.put("sd_code", sd_code);
-								map.put("s_name", str);
-								list.add(map);
-								//System.out.println("list4 : " + list);
-							}
-						}
-						s.setAttribute("VS", list);
-					}
+				if(m.get("sd_code").equals(sd_code) && m.get("s_name").equals(s_name) && !m.get("user").equals(user)) {
+					result = 1;
+				} else if(m.get("sd_code").equals(sd_code) && m.get("s_name").equals(s_name) && m.get("user").equals(user)){					
+					rs = 2;
 				} else {
-					//System.out.println("dsfsf");
-					if(m.get("sd_code").equals(sd_code)) {
-						for(String str : s_name) {
-							if(m.get("s_name").equals(str) == false) {
-								check = true;
-								map = new HashMap<String, String>();
-								map.put("user", user);
-								map.put("sd_code", sd_code);
-								map.put("s_name", str);
-								list.add(map);
-								//System.out.println("list5 : " + list);
-							}
-						}
-						s.setAttribute("VS", s_list);
-					} else {
-						for(String str : s_name) {
-							if(m.get("s_name").equals(str) == false) {
-								check = true;
-								map = new HashMap<String, String>();
-								map.put("user", user);
-								map.put("sd_code", sd_code);
-								map.put("s_name", str);
-								list.add(map);
-								//System.out.println("list6 : " + list);
-							}
-						}
-						s.setAttribute("VS", list);
-					}
+					list.add(m);
 				}
 			}
+		} 
+		
+		if(result == 0 && s_list != null && rs == 0) {
+			map.put("user", user);
+			map.put("sd_code", sd_code);
+			map.put("s_name", s_name);
+			list.add(map);
+			
+			context.setAttribute("VS", list);
+		} else if(result == 0 && s_list == null && rs == 0) {
+			map.put("user", user);
+			map.put("sd_code", sd_code);
+			map.put("s_name", s_name);
+			list.add(map);
+			
+			context.setAttribute("VS", list);
+		} else if(rs == 2) {
+			result = rs;
+			context.setAttribute("VS", list);
 		}
 		
-		if(check == true) {
-			System.out.println("check : " + check);
-			System.out.println("VS : " + s.getAttribute("VS"));
-			return 0;
-		} else if(check == false) {
-			System.out.println("check : " + check);
-			System.out.println("VS : " + s.getAttribute("VS"));
-			return 1;
-		}
-		
-		return 0;
+		System.out.println(context.getAttribute("VS"));
+		return result;
 	}
-		
 }
