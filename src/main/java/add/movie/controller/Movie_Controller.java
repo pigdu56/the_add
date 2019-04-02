@@ -315,10 +315,11 @@ public class Movie_Controller {
 		return "redirect:/movie/main";
 	}
    
-   @RequestMapping(value = {"/pay"}, method = RequestMethod.GET)
+   @RequestMapping(value = {"/pay"}, method = RequestMethod.POST)
    public ModelAndView pay(@RequestParam HashMap<String, String> map) {
 	   ModelAndView mv =new ModelAndView();
 	   mv.addObject("ms_list", map);
+	   mv.addObject("mv_info", mm.sd(map.get("sd_code")));
 	   mv.setViewName("pay");
 	   return mv;
    }
