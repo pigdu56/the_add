@@ -64,4 +64,16 @@ public interface AnnoMaps {
 		// 예약후에 예약한 내역 가져오기
 		@Select("SELECT * FROM BUY_LIST WHERE M_NUM = #{m_num} AND S_CODE = #{s_code} ORDER BY B_SEATNUM DESC, S_CODE DESC")
 		public ArrayList<HashMap<String, String>> buy_list(@Param("m_num") String m_num, @Param("s_code") String s_code);
+		
+		// 전체 좌석 한 컬럼으로 합쳐서 나오게 하기(admin)
+		@Select("SELECT * FROM MEMBER_BUY_LIST ORDER BY S_DAY DESC, S_CODE DESC")
+		public ArrayList<HashMap<String, String>> admin_buy_list();
+		
+		// 선택시 그 사람 정보 티켓 뿌리기(admin)
+		@Select("SELECT * FROM BUY_LIST WHERE B_CODE = #{b_code}")
+		public ArrayList<HashMap<String, String>> member_buy_list(@Param("b_code") String b_code);
+		
+		// 유저 전체 구매 리스트
+		@Select("SELECT * FROM MEMBER_BUY_LIST WHERE M_NUM = #{m_num}")
+		public ArrayList<HashMap<String, String>> user_buy_list(@Param("m_num") String m_num);
 }

@@ -63,7 +63,7 @@ width:30%;
 <div class="col-sm-2"></div>
 <div class="col-sm-8">
 <div class="row">
-<c:forEach var="i" items="${buy_list}" varStatus = "j">
+<c:forEach var="i" items="${member_buy_impormation}" varStatus = "j">
 <div class="col-sm-6" style="border-left:solid 1px gray; border-right:solid 1px gray; padding: 0 !important;">
 <table class="table ticket">
 <tr>

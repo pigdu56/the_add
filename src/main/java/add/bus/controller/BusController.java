@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,12 +38,14 @@ public class BusController {
 		return "buspractice";
 	}
 	
+	// 버스 검색
 	@RequestMapping(value = { "/ticketing" }, method = RequestMethod.GET)
 	public String ticketing(ModelMap m) {
 		m.addAttribute("dolist", amap.getApiDo());
 		return "ticketing";
 	}
 	
+	// 버스 좌석
 	@RequestMapping(value= {"/bus_seat"}, method = RequestMethod.POST)
 	public String ajaxSeat(ModelMap m, @RequestParam HashMap<String, String> map) {
 		m.addAttribute("bus_ticket", map);
@@ -49,6 +53,7 @@ public class BusController {
 		return "bus_seat";
 	}
 	
+	// 예약
 	@RequestMapping(value= {"/seat_ticket"}, method = RequestMethod.POST)
 	public String seat_ticket(ModelMap m, @RequestParam("b_seatnum") ArrayList<String> ss,@RequestParam HashMap<String, String> map) {
 		// 예약 인서트(회원번호 추가해야함)
@@ -66,5 +71,27 @@ public class BusController {
 			m.addAttribute("buy_list", amap.buy_list(map.get("member_num"), map.get("bus_seq")));
 		}
 		return "seat_ticket";
+	}
+	
+	// 관리자 모드 예약 리스트
+	@RequestMapping(value= {"/admin_list"})
+	public String admin_buy_list(ModelMap m) {
+		m.addAttribute("admin_buy_list", amap.admin_buy_list());
+		return "admin_list";
+	}
+	
+	// 클릭시 그 정보에 대한 표 나오게 하기
+	@RequestMapping(value= {"/buy_view"})
+	public String buy_view(ModelMap m, @RequestParam("b_code") String b_code) {
+		m.addAttribute("member_buy_impormation" ,amap.member_buy_list(b_code));
+		return "buy_view";
+	}
+	
+	// 멤버의 예약 리스트
+	@RequestMapping(value= {"/member_buylist"})
+	public String member_buylist(HttpSession s, ModelMap m) {
+		String m_num = (String) s.getAttribute("LoginNum");
+		m.addAttribute("user_list", amap.user_buy_list(m_num));
+		return "member_buylist";
 	}
 }

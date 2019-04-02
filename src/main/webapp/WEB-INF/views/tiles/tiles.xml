@@ -125,9 +125,19 @@
 		<put-attribute name="body" value="/WEB-INF/views/pages/bus/seat_ticket.jsp" />
 	</definition>
 	
-	<!-- Bus Practice -->
-	<definition name="buspractice" extends="bus">
-		<put-attribute name="body" value="/WEB-INF/views/pages/bus/buspractice.jsp" />
+	<!-- Admin buy_list -->
+	<definition name="admin_list" extends="bus">
+		<put-attribute name="body" value="/WEB-INF/views/pages/bus/admin_list.jsp" />
+	</definition>
+	
+	<!-- Admin buy_VIEW -->
+	<definition name="buy_view" extends="bus">
+		<put-attribute name="body" value="/WEB-INF/views/pages/bus/buy_view.jsp" />
+	</definition>
+	
+	<!-- member buy_VIEW -->
+	<definition name="member_buylist" extends="bus">
+		<put-attribute name="body" value="/WEB-INF/views/pages/bus/member_buylist.jsp" />
 	</definition>
 	
 	<!-- trip -->
