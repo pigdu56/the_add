@@ -15,6 +15,7 @@
 }
 #mv_info{
 	background-color:#F2F0E5;
+	min-height:522px;
 }
 #total_pay{
 	border:2px solid #1D1D1C;
@@ -33,7 +34,7 @@
 	background-color:#FFFFFF;
 }
 #in_title{
-	background-color:#F0EBD2;
+	background-color:#F2F0E5;
 }
 #pay_in{
 	background-color:#443128;
@@ -45,50 +46,121 @@
 	background-color:#443128;
 	border:2px solid #443128;	
 }
+#mv_infos{
+	padding:0;
+}
+#mv_infos > li{
+	list-style:none;
+}
+.c_info{
+	padding:0;
+}
+.c_info > li{
+	list-style:none;
+}
+#pay_right{
+	background-color:#FFFFFF;;
+}
 </style>
+<c:url var="ticket" value="/movie/ticket"/>
+<form action="${ticket}" method="post">
 <div class="container">
 	<h2 style="text-align:center;">결제 페이지</h2>
 	<div class="row">
 		<div class="col-sm-8" id="mv_info">
 			<table class="table table-borderless" id="info_table">
 				<tr class="row pay_title">
-					<th class="col">선택하신 영화 정보</th>
-				</tr>
-				<tr class="row">
-					<td class="col-sm-4">${ms_list.MV_IMG}</td>
-					<td class="col-sm-8">
-						<ul>
-							<li><h3>${ms_list.MV_TITLE_KR}</h3></li>
-							<li></li>
-						</ul>
-					</td>
-				</tr>
-				<tr class="row pay_title">
 					<th class="col">선택하신 상영관 정보</th>
 				</tr>
 				<tr class="row">
-					<td class="col-sm-3"></td>
+					<td class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-3">
+								<ul class="c_info">
+									<li><h4>상영관 정보 : </h4></li>
+									<li><h4>시간&nbsp;&nbsp;&nbsp;&nbsp;정보 : </h4></li>
+									<li><h4>선택&nbsp;&nbsp;&nbsp;&nbsp;좌석 :</h4></li>
+								</ul>
+							</div>
+							<div class="col-sm-9">
+								<ul class="c_info">
+									<li><h4>${ms_list.c_name} [${ms_list.tt_name}]</h4></li>
+									<li>
+										<h4>
+											<fmt:parseDate value="${ms_list.sd_day}" pattern="YYYYMMdd" var="dates"/>
+											<fmt:formatDate value="${dates}" pattern="YYYY.MM.dd" var="sd_day" />
+											<fmt:parseDate value="${ms_list.t_time}" pattern="HHmm" var="times"/>
+											<fmt:formatDate value="${times}" pattern="HH:mm" var="t_time" />
+											<b>${sd_day} ${ms_list.week} ${t_time} ~ ${ms_list.end_time}</b>
+										</h4>
+									</li>
+									<li>
+										<h4>
+										<c:forEach var="i" items="${s_names}" varStatus="status">
+											<c:choose>
+												<c:when test="${status.last}">
+													<b>${i.s_name}</b>
+												</c:when>
+												<c:otherwise>
+													<b>${i.s_name}, </b>
+												</c:otherwise>
+											</c:choose>
+											<input type="hidden" name="s_name${i.s_name}" value="${i.s_name}">
+										</c:forEach>
+										</h4>
+									</li>
+								</ul>
+							</div>
+						</div>
+						
+					</td>
+				</tr>
+				<tr class="row pay_title">
+					<th class="col">선택하신 영화 정보</th>
+				</tr>
+				<tr class="row">
+					<td class="col-sm-4"><img src="${mv_info.MV_IMG}" style="height:280px;"></td>
+					<td class="col-sm-8">
+						<ul id="mv_infos">
+							<li><h3><img style="width:30px;" src="${pageContext.request.contextPath}/static/img/movie/${mv_info.RT_IMG}">${ms_list.mv_title_kr}</h3></li>
+							<li><h4 style="color:gray">${mv_info.MV_TITLE_EN}</h4></li>
+							<li><h5>장르 : ${mv_info.G_NAME}</h5></li>
+							<li><h5>감독 : ${mv_info.DT_NAME }</h5></li>
+							<li><h5>배우 : ${mv_info.A_NAME}</h5></li>
+						</ul>
+					</td>
 				</tr>
 			</table>
 		</div>
-		<div class="col-sm-4">
+		<div class="col-sm-4" id="pay_right">
 			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-10">
+				<div class="col-sm-12">
+					<table class="table">
+						<tr class="pay_title">
+							<th>결제 정보</th>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
 					<table class="table" id="total_pay">
 					<tr class="total_title" id="total">
 						<th><h3>결제 하실 금액</h3></th>
 					</tr>
 					<tr class="total_title" id="tt_pay">
-						<th><h3>10,000</h3><input type="hidden" id="all_pay" name="all_pay" value="10000"></th>
+						<th>
+							<fmt:parseNumber value="${ms_list.r_price}" var="price"/>
+							 <fmt:formatNumber value="${price}" pattern="#,###" var="all_price"/>
+							<h3>${all_price}원</h3>
+							<input type="hidden" id="all_pay" name="all_pay" value="${ms_list.r_price}">
+						</th>
 					</tr>
 				</table>
 				</div>
-				<div class="col-sm-1"></div>
 			</div>
 			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-10">
+				<div class="col-sm-12">
 					<table class="table" id="pay_insert">
 					<tr class="total_title" id="in_title">
 						<th><h3>금액 입력</h3></th>
@@ -98,21 +170,21 @@
 					</tr>
 				</table>
 				</div>
-				<div class="col-sm-1"></div>
 			</div>
 			<div class="row">
-				<div class="col-sm-1"></div>
-				<div class="col-sm-10">
+				<div class="col-sm-12">
+					<input type="hidden" name="r_price" value="${ms_list.r_price}">
+					<input type="hidden" name="sd_code" value="${ms_list.sd_code}">
 					<button class="btn btn-block btn-warning" id="submit"><h3>결제완료</h3></button>
 					<p class="alert alert-warning" id="price-success" style="margin:0; font-size:15px;">결제 버튼을 눌러주세요.</p>
 					<p class="alert alert-danger" id="price-danger" style="margin:0; font-size:15px;">결제 금액을 똑같이 입력하세요.</p>    			      			
 				</div>
-				<div class="col-sm-1"></div>
 			</div>
 			
 		</div>
 	</div>
 </div>
+</form>
 <script>
 $(function(){
     $("#price-success").hide();

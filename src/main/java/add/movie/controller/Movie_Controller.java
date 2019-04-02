@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -316,12 +318,52 @@ public class Movie_Controller {
    @RequestMapping(value = {"/pay"}, method = RequestMethod.POST)
    public ModelAndView pay(@RequestParam HashMap<String, String> map) {
 	   ModelAndView mv =new ModelAndView();
-	   
+	   System.out.println();
+	   ArrayList<HashMap<String, String>> alhm = new ArrayList<HashMap<String, String>>();
+	   HashMap<String, String> hm = null;
+	   for(char ch = 'A';ch < 'G'; ch++) {
+		   for(int i=1;i<10;i++) {
+			   String a = Integer.toString(i);
+			   String s_name = ch+a;
+			   if(s_name.equals(map.get("s_name"+s_name))) {
+				  hm = new HashMap<String, String>();
+				  hm.put("s_name", s_name);
+				  alhm.add(hm);
+			   }
+		   }
+	   }
+	   mv.addObject("s_names", alhm);
 	   mv.addObject("ms_list", map);
 	   mv.addObject("mv_info", mm.sd(map.get("sd_code")));
 	   mv.setViewName("pay");
-	   System.out.println(mv);
+	   return mv;
+   }
+   
+   @RequestMapping(value = {"/ticket"}, method = RequestMethod.POST)
+   public ModelAndView ticket(@RequestParam HashMap<String, String> map, HttpSession s) {
+	   ModelAndView mv = new ModelAndView();
+	   ArrayList<HashMap<String, String>> alhm = new ArrayList<HashMap<String, String>>();
+	   HashMap<String, String> hm = null;
+	   String m_num = (String) s.getAttribute("LoginNum");
+	   System.out.println(map);
+	   for(char ch = 'A';ch < 'G'; ch++) {
+		   for(int i=1; i < 10; i++) {
+			   String a = Integer.toString(i);
+			   String s_name = ch+a;
+			   if(s_name.equals(map.get("s_name"+s_name))) {
+				   hm = new HashMap<String, String>();
+				   hm.put("m_num", m_num);
+				   hm.put("sd_code", map.get("sd_code"));
+				   hm.put("s_name", s_name);
+				   hm.put("r_price", map.get("r_price"));
+				   alhm.add(hm);
+			   }
+		   }
+	   }
 	   
+	   System.out.println(alhm);
+	   mv.addObject("r_list", alhm); 
+	   mv.setViewName("ticket");
 	   return mv;
    }
 }

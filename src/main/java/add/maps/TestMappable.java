@@ -32,6 +32,10 @@ public interface TestMappable {
 	@Select("SELECT M_ID FROM MEMBER WHERE M_ID = #{userId}")
 	public String idSearch(@Param("userId") String userId);
 	
+	//회원코드 가져오기
+	@Select("SELECT M_NUM FROM MEMBER WHERE M_ID = #{userId}")
+	public String M_code(@Param("userId") String userId);
+	
 	// 패스워드
 	@Select("SELECT M_PWD FROM MEMBER WHERE M_ID = #{userId} and M_PWD = #{userPw}")
 	public String pwdSearch(@Param("userId") String userId, @Param("userPw") String userPw);

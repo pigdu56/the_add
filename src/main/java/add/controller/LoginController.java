@@ -68,7 +68,7 @@ public class LoginController {
 				if(userPw.equals(testMappable.pwdSearch(userId, userPw))) {
 					session = rq.getSession();
 					session.setAttribute("LoginUser", userId);
-
+					session.setAttribute("LoginNum", testMappable.M_code(userId));
 					return "home";
 				} else {
 					System.out.println("패스워드 불일치");
