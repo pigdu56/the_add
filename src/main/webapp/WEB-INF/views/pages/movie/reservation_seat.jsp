@@ -561,7 +561,7 @@ dt, dd { float: left; }
 								</h5>
 							</th>
 							<th class="col-sm-2" id="go_btn">
-								<c:url var="go_pay" value="/movie/" />
+								<c:url var="go_pay" value="/movie/pay" />
 								<form action="${go_pay}" method="post">
 									<input type="hidden" name="mv_code"value="${mv_list['mv_code']}" />
 									<input type="hidden" name="mv_title_kr" value="${mv_list['mv_title_kr']}" />
