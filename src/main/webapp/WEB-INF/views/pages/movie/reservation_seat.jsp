@@ -799,6 +799,7 @@ dt, dd { float: left; }
 		    		$("#c_seat").append("<span>"+ s_s + " </span>");
 		    		$("#h_inp").append("<input type='hidden' name='s_name"+ s_s +"' value='"+ s_s +"' />")
 		    		s_names.push(s_s);
+		    		console.log(s_names);
 		    		
 		    		$.ajax({
 		    			url : "${pageContext.request.contextPath}/movie/multiUser",
@@ -808,7 +809,7 @@ dt, dd { float: left; }
 			            	's_name' : s_names
 			            },                
 			            success : function(data) {
-
+							alert(data);
 			            },
 			            error : function(jqXHR, textStatus, errorThrown, error) {
 			               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
