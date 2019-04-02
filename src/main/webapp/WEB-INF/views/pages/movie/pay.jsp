@@ -175,6 +175,7 @@
 				<div class="col-sm-12">
 					<input type="hidden" name="r_price" value="${ms_list.r_price}">
 					<input type="hidden" name="sd_code" value="${ms_list.sd_code}">
+					<input type="hidden" name="end_time" value="${ms_list.end_time}">
 					<button class="btn btn-block btn-warning" id="submit"><h3>결제완료</h3></button>
 					<p class="alert alert-warning" id="price-success" style="margin:0; font-size:15px;">결제 버튼을 눌러주세요.</p>
 					<p class="alert alert-danger" id="price-danger" style="margin:0; font-size:15px;">결제 금액을 똑같이 입력하세요.</p>    			      			

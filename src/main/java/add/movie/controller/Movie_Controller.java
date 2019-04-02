@@ -362,6 +362,8 @@ public class Movie_Controller {
 	   }
 	   
 	   System.out.println(alhm);
+	   
+	   mv.addObject("mv_info", mm.sd(map.get("sd_code")));
 	   mv.addObject("r_list", alhm); 
 	   mv.setViewName("ticket");
 	   return mv;
