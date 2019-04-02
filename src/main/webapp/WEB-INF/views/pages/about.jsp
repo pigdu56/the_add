@@ -62,11 +62,11 @@ body{font-family: 'Gothic A1', sans-serif;}
 	<table id="tb3">
 		<tr>
 			<td><img
-				src="${pageContext.request.contextPath}/static/img/rent (2).png"
-				style="width: 180px;" id="bus"></td>
-			<td><p style="font-size: 25px; color: #FFD966;">&nbsp;&nbsp;Rental Program</p>
-				<p style="font-size: 15px;">&nbsp;&nbsp;개발자:박지훈,이관희</p>
-				<p style="font-size: 15px;">&nbsp;&nbsp;가전, 가구, 헬스 제품을 렌탈하는 사이트입니다</p>
+				src="${pageContext.request.contextPath}/static/img/back.png"
+				style="width: 130px;" id="bus"></td>
+			<td><p style="font-size: 25px; color: #FFD966;">&nbsp;&nbsp;Real Property Program</p>
+				<p style="font-size: 15px;">&nbsp;&nbsp;개발자:장백훈,박민용 </p>
+				<p style="font-size: 15px;">&nbsp;&nbsp;부동산 정보를 조회 할 수 있는 프로그램입니다.</p>
 				</td>
 		</tr>
 	</table>
@@ -74,30 +74,5 @@ body{font-family: 'Gothic A1', sans-serif;}
 	<br>
 	<br>
 	<br>
-	<br>
-	<br>
-
-
-		<table id="tb6">
-		<tr>
-			<td style="text-align: right;"><p
-					style="font-size: 25px; color: #FFD966;">Real Property Program
-					&nbsp;&nbsp;</p>
-				<p style="font-size: 15px;">개발자:장백훈,박민용 &nbsp;&nbsp;</p>
-				<p style="font-size: 15px;">부동산 정보를 조회 할 수 있는
-					프로그램입니다.&nbsp;&nbsp;</p></td>
-			<td><img
-				src="${pageContext.request.contextPath}/static/img/back.png"
-				style="width: 130px;" id="bus"></td>
-		</tr>
-	</table>
-
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
 	
-
-
 </body>

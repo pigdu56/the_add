@@ -20,13 +20,16 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 		<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center"
 			style="background-color: black; color: white; width: 25%;">
 
+<i class="glyphicon glyphicon-align-justify w3-xxlarge" id="show2"
+					style="float: left; display: black;" onclick="clickshow2()"></i>
+				<br><br><br>
 			<c:url value="/home" var="main" />
 			<img src="${pageContext.request.contextPath}/static/img/wmenulogo.png"
-				style="width: 70%; margin-left: -30px;"
+				style="width:75%;"
 				onclick="location.href='${main}'">
+				<pre style="background-color:black; border:none;">
+				</pre>
 
-				<i class="glyphicon glyphicon-align-justify w3-xxlarge" id="show2"
-					style="float: left; display: black;" onclick="clickshow2()"></i>
 				<a href="${main}" class="w3-bar-item w3-button w3-middle w3-hover-black"
 					style="font-size: 15px;">
 				<img src="${pageContext.request.contextPath}/static/img/mhome.png"
@@ -53,14 +56,6 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 					style="width: 50px; height: 30%;"><br>
 			</a>
 		
-			
-			<c:url value="/trip/timg" var="trip" />
-			<a href="${trip}" class="w3-bar-item w3-button w3-middle w3-hover-black "
-				style="font-size: 13px;">
-				<img src="${pageContext.request.contextPath}/static/img/mrental.png"
-				style="width: 55px; height: 30%;"><br>
-			</a>
-			
 			<a href="#contact"
 				class="w3-bar-item w3-button w3-middle w3-hover-black"
 				style="font-size: 13px;"> <img
