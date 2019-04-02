@@ -318,7 +318,6 @@ public class Movie_Controller {
    @RequestMapping(value = {"/pay"}, method = RequestMethod.POST)
    public ModelAndView pay(@RequestParam HashMap<String, String> map) {
 	   ModelAndView mv =new ModelAndView();
-	   System.out.println();
 	   ArrayList<HashMap<String, String>> alhm = new ArrayList<HashMap<String, String>>();
 	   HashMap<String, String> hm = null;
 	   for(char ch = 'A';ch < 'G'; ch++) {
@@ -362,9 +361,9 @@ public class Movie_Controller {
 	   }
 	   
 	   System.out.println(alhm);
-	   
+	   mv.addObject("seat_num", alhm);
 	   mv.addObject("mv_info", mm.sd(map.get("sd_code")));
-	   mv.addObject("r_list", alhm); 
+	   mv.addObject("r_list", map); 
 	   mv.setViewName("ticket");
 	   return mv;
    }
