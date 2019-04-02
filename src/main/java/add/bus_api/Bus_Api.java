@@ -66,9 +66,6 @@ public class Bus_Api {
       urlBuilder.append("&" + URLEncoder.encode("depPlandTime", "UTF-8") + "="
             + URLEncoder.encode(depPlandTime, "UTF-8")); /* 날짜 */
       // 버스등급 0일 경우 모든 등급이 나오고, 아닐 경우 그 등급만 나오게 설정
-      
-
-//   busGradeId = Objects.isNull(busGradeId) || busGradeId  == "" ? "100" : busGradeId;
 
       URL url;
       url = new URL(urlBuilder.toString());

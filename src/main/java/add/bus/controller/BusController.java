@@ -42,7 +42,7 @@ public class BusController {
 		return "ticketing";
 	}
 	
-	@RequestMapping(value= {"/bus_seat"}, method = RequestMethod.GET)
+	@RequestMapping(value= {"/bus_seat"}, method = RequestMethod.POST)
 	public String ajaxSeat(ModelMap m, @RequestParam HashMap<String, String> map) {
 		m.addAttribute("bus_ticket", map);
 		m.addAttribute("member_num", String.valueOf(amap.memberNum(String.valueOf(((HashMap)m.get("bus_ticket")).get("id")))));

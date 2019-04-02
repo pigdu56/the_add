@@ -145,7 +145,7 @@
 
  <!-- ************************ 폼 and 등급  ************************ -->
  <c:url value="/bus/bus_seat" var="bus_seat"/>
- <form action="${bus_seat}" method="get">
+ <form action="${bus_seat}" method="post">
  <hr style="position:relative;left:10%;width:80%;">
  <br><br>
  <div class="row">
@@ -216,6 +216,9 @@
       </form> 
        </div>
  <script>
+ 
+ 
+ 
 //포맷 함수
  function leadingZeros(n, digits) {
       var zero = '';
@@ -304,6 +307,7 @@
                 }
              })
           });
+    /*************************** api ajax ***************************/
     $("#search").bind(
             "click",
             function() {
@@ -348,6 +352,7 @@
                                + "<td class='col-sm-2'><img src='${pageContext.request.contextPath}/static/img/bus/right (4).png' id='right2'></td>"
                                + "<td class='col-sm-5'><input type='text' name='arr_ter' class='btn btn-block text-center yap2' value='" + data[0].ARR_TER + "' readonly='readonly'></b></td></tr></table>"
                                );
+                         
                          // 검색한 날짜
                          if(todayYMD == data[0].SCHE_DAY){
                             $("#search_day").append(
@@ -406,11 +411,8 @@
                            arrival_minute = arrival.substring(2,4) + "분"
                      
                            Number(todayHM)
-                           // 컴퓨터에 시간을 받아와 시간이 지난 것들이 안나오게 하기
-                           if(data[i].BUS_SEATNAM == 0){
-                              
-                           }
                            
+                           // 컴퓨터에 시간을 받아와 시간이 지난 것들이 안나오게 하기
                            if(todayHM < start ){
                               $("#result").append(
                                   "<tr><td style='display:none;'>" + data[i].SCHE_CODE + "</td>"

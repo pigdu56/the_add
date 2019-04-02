@@ -62,6 +62,6 @@ public interface AnnoMaps {
 		public int memberNum(@Param("id") String id);
 		
 		// 예약후에 예약한 내역 가져오기
-		@Select("SELECT * FROM BUY_LIST WHERE M_NUM = #{m_num} AND S_CODE = #{s_code}")
+		@Select("SELECT * FROM BUY_LIST WHERE M_NUM = #{m_num} AND S_CODE = #{s_code} ORDER BY B_SEATNUM DESC, S_CODE DESC")
 		public ArrayList<HashMap<String, String>> buy_list(@Param("m_num") String m_num, @Param("s_code") String s_code);
 }

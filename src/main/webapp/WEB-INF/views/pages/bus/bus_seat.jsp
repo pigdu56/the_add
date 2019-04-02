@@ -66,7 +66,7 @@
 
 </head>
 
-<body>
+<body oncontextmenu="return false"> 
    
    <c:url value="/bus/seat_ticket" var="seat_ticket"/>
    <form action="${seat_ticket}" method="post">
@@ -182,7 +182,7 @@
                   <tr>
                      <td colspan="3">
                         <input type="submit" id="submit" value="예매하기"
-                        class="btn btn-block btsky" disabled="disabled" style="font-size: 15px;">
+                        class="btn btn-block btsky" disabled="disabled" style="font-size: 15px;" onclick="buy_alert()">
                      </td>
                   </tr>
                </table>
@@ -206,8 +206,23 @@
    </form>
 </body>
 <script>
+	
+function noEvent() {
+	if (event.keyCode == 116) {
+		event.keyCode= 2;
+		return false;
+	}else if(event.ctrlKey && (event.keyCode==78 || event.keyCode == 82)){
+		return false;
+	}
+	}
+	document.onkeydown = noEvent;
+	
+	
+	function buy_alert(){
+		 alert("예매가 완료되었습니다.");
+	}
    
-   // 체크박스 개수를 가져와 가격에 * 하기
+    // 체크박스 개수를 가져와 가격에 * 하기
    function check(frm){
       // 체크된 체크박스개수 가져오기
       var check = $("input:checkbox[class=nochecked]:checked").length;
@@ -244,9 +259,6 @@
             }
          })
    }
-   
-   
-   
    
    
  $(document).ready(function(){
