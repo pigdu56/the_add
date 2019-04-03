@@ -846,7 +846,6 @@ dt, dd { float: left; }
 						$("#go_pay").attr('disabled', true);
 						$("#go_pay").append("<img class='btn-img' src='${pageContext.request.contextPath}/static/img/movie/right_pay.png'>");
 					} else if( data == 0 ){
-						alert(s_s);
 						$("#h_inp").append("<input type='hidden' name='s_name"+ s_s +"' value='"+ s_s +"' />");
 					}
 					
