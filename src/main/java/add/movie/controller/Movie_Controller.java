@@ -109,9 +109,7 @@ public class Movie_Controller {
 		String m_num = mm.userId(user);
 
 		p.rePaging(m_num, pnum, rq);
-		System.out.println("dddd");
 		list = mm.rev_l(user, pnum);
-		System.out.println(list);
 
 		mv.addObject("rev_l", list);
 		mv.setViewName("re_list");
