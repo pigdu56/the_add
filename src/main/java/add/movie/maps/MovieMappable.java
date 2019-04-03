@@ -73,7 +73,7 @@ public interface MovieMappable {
 	public ArrayList<HashMap<String, String>> time(HashMap<String, String> map);
 	
 	// 영화 스케쥴 코드 조회
-	@Select("SELECT SD_CODE FROM MV_V_S WHERE MV_TITLE_KR = #{mv_title_kr} AND C_NAME=#{c_name} AND SD_DAY = #{sd_day, jdbcType = INTEGER} AND T_TIME = #{t_time}")
+	@Select("SELECT SD_CODE FROM MV_V_S WHERE MV_TITLE_KR = #{mv_title_kr} AND C_NAME=#{c_name} AND TT_NAME = #{tt_name} AND SD_DAY = #{sd_day, jdbcType = INTEGER} AND T_TIME = #{t_time}")
 	public String SDC(HashMap<String, String> map);
 	
 	// 스케쥴 조회
@@ -89,7 +89,7 @@ public interface MovieMappable {
 	public int sc(String sd_code);
 	
 	// 예매
-	@Insert(value = "{CALL MV_P_RE(#{u_id}, #{sd_code}, #{r_price}, #{s_name})}")
+	@Insert(value = "{CALL MV_P_RE(#{u_id}, #{sd_code, jdbcType = INTEGER}, #{r_price, jdbcType = INTEGER}, #{s_name})}")
 	@Options(statementType = StatementType.CALLABLE)
 	public void re(HashMap<String, String> m);
-}
+}	
