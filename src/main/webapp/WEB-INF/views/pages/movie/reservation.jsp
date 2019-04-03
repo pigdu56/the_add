@@ -113,6 +113,7 @@ ul>li {
  .no_click{
  	margin-right:50px;
  	font-size:20px;
+ 	color:gray;
  }
 </style>
 	<div class="container">
