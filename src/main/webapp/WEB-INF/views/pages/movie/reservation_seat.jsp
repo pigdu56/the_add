@@ -797,6 +797,7 @@ dt, dd { float: left; }
 							$("#c_seat").append("<span>"+ s_names + " </span>");
 							$("#c_seat").append("</h5>");
 						}
+						$("#h_inp").removeAttr("<input type='hidden' name='s_name"+ s_s +"' value='"+ s_s +"' />");
 						$("#go_pay").empty();
 						$("#go_pay").attr('disabled', true);
 						$("#go_pay").append("<img class='btn-img' src='${pageContext.request.contextPath}/static/img/movie/right_pay.png'>");
@@ -824,64 +825,48 @@ dt, dd { float: left; }
 			$("#go_pay").append("<img class='btn-img' src='${pageContext.request.contextPath}/static/img/movie/right_pay.png'>");
 		}
 		
-		if(checkboxBoxes.length == 0){
-			$("#c_seat").empty();
-			$("#h_inp").empty();
-			$("#c_seat").append("<h3 class='box_title'>좌석선택</h3>");
-		} else if(checkboxBoxes.length > 0 && checkboxBoxes.length <= sum){
-			$("#c_seat").empty();
-			$("#h_inp").empty();
-			$("#c_seat").append("<h5 class='pay' style='font-size: 18px; text-align: center;'> 좌 &nbsp; 석 ");
-			
-			
-			
-			$('input:checkbox[name="seat"]').each(function() {
-				if(this.checked == true){ 	
-					s_names.push(s_s);
-					console.log(s_name);
-					$("#c_seat").append("<span>"+ s_names + " </span>");
-		    		$("#h_inp").append("<input type='hidden' name='s_name"+ s_s +"' value='"+ s_names +"' />")
-		    		
-		    		$.ajax({
-		    			url : "${pageContext.request.contextPath}/movie/multiUser",
-			            type : "post",
-			            data : {
-			            	'sd_code' : $("#sd_code").val(),
-			            	's_name' : s_name
-			            },                
-			            success : function(data) {
-							console.log(data);
-							if(data == 1){
-								s_names.splice(s_names.indexOf("s_s"),1);
-								alert('좌석이 이미 예약 되었습니다.');
-								if(checkboxBoxes.length == 0){
-									$("#c_seat").empty();
-									$("#h_inp").empty();
-									$("#c_seat").append("<h3 class='box_title'>좌석선택</h3>");
-								} else if(checkboxBoxes.length > 0 && checkboxBoxes.length <= sum){
-									$("#c_seat").empty();
-									$("#h_inp").empty();
-									$("#c_seat").append("<h5 class='pay' style='font-size: 18px; text-align: center;'> 좌 &nbsp; 석 ");
-									$("#c_seat").append("<span>"+ s_names + " </span>");
-								}
-								$("#"+ s_na).attr("checked",false);
-								$("#"+ s_na).removeClass('seat_'+s_na.substr(1)).addClass('x').attr("disable", "disable");
-								$("#go_pay").empty();
-								$("#go_pay").attr('disabled', true);
-								$("#go_pay").append("<img class='btn-img' src='${pageContext.request.contextPath}/static/img/movie/right_pay.png'>");
-							} 							
-			            },
-			            error : function(jqXHR, textStatus, errorThrown, error) {
-			               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
-			                     + error);
-			            }
-		    		});				    
-		    		s_names.splice(checkboxBoxes.length, s_names.length);	
-					$("#c_seat").append("</h5>");
-
-					return false;
-				} 
-			});	
-		}
+		if($("#"+ s_s).is(":checked")){ 	
+			s_names.push(s_s);
+			console.log(s_name);
+    		$.ajax({
+    			url : "${pageContext.request.contextPath}/movie/multiUser",
+	            type : "post",
+	            data : {
+	            	'sd_code' : $("#sd_code").val(),
+	            	's_name' : s_name
+	            },                
+	            success : function(data) {
+					console.log(data);
+					if(data == 1){
+						s_names.splice(s_names.indexOf("s_s"),1);
+						alert('좌석이 이미 예약 되었습니다.');
+						$("#"+ s_na).attr("checked",false);
+						$("#"+ s_na).removeClass('seat_'+s_na.substr(1)).addClass('x').attr("disable", "disable");
+						$("#go_pay").empty();
+						$("#go_pay").attr('disabled', true);
+						$("#go_pay").append("<img class='btn-img' src='${pageContext.request.contextPath}/static/img/movie/right_pay.png'>");
+					} else if( data == 0){
+						$("#h_inp").append("<input type='hidden' name='s_name"+ s_s +"' value='"+ s_s +"' />");
+					}
+					
+					if(checkboxBoxes.length == 0){
+						$("#c_seat").empty();
+						$("#h_inp").empty();
+						$("#c_seat").append("<h3 class='box_title'>좌석선택</h3>");
+					} else if(checkboxBoxes.length > 0 && checkboxBoxes.length <= sum){
+						$("#c_seat").empty();
+						$("#h_inp").empty();
+						$("#c_seat").append("<h5 class='pay' style='font-size: 18px; text-align: center;'> 좌 &nbsp; 석 ");
+						$("#c_seat").append("<span>"+ s_names + " </span>");
+						$("#c_seat").append("</h5>");
+					}
+					
+	            },
+	            error : function(jqXHR, textStatus, errorThrown, error) {
+	               alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
+	                     + error);
+	            }
+    		});	
+		} 
 	}
-	</script>
+</script>
