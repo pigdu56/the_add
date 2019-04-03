@@ -61,15 +61,15 @@ public interface MovieMappable {
 	public ArrayList<HashMap<String, String>> mv_select(String today);
 		
 	// 영화 선택 후 영화관
-	@Select("SELECT MV_CODE, MV_TITLE_KR, RT_RATING, MV_IMG, C_NAME FROM MV_V_S WHERE MV_TITLE_KR = #{mv_title_kr} GROUP BY MV_CODE, MV_TITLE_KR, MV_IMG, RT_RATING, C_NAME")
-	public ArrayList<HashMap<String, String>> tc(String mv_title_kr);
+	@Select("SELECT MV_CODE, MV_TITLE_KR, RT_RATING, MV_IMG, C_NAME FROM MV_V_S WHERE MV_TITLE_KR = #{mv_title_kr} AND SD_DAY >= #{today, jdbcType=INTEGER} GROUP BY MV_CODE, MV_TITLE_KR, MV_IMG, RT_RATING, C_NAME")
+	public ArrayList<HashMap<String, String>> tc(HashMap<String, String> mv_title_kr);
 	
 	// 영화관 선택 후 영화
-	@Select("SELECT MV_CODE, MV_TITLE_KR, RT_IMG FROM MV_V_S WHERE C_NAME=#{c_name} GROUP BY MV_CODE, MV_TITLE_KR, RT_IMG")
-	public ArrayList<HashMap<String, String>> mv_sel(String c_name);
+	@Select("SELECT MV_CODE, MV_TITLE_KR, RT_IMG FROM MV_V_S WHERE C_NAME=#{c_name} AND SD_DAY >= #{today, jdbcType=INTEGER} GROUP BY MV_CODE, MV_TITLE_KR, RT_IMG")
+	public ArrayList<HashMap<String, String>> mv_sel(HashMap<String, String> c_name);
 	
 	//영화 영화관 선택 후 비교
-	@Select("SELECT MV_CODE, MV_TITLE_KR, RT_IMG FROM MV_V_S WHERE C_NAME=#{c_name} AND MV_TITLE_KR = #{mv_name} GROUP BY MV_CODE, MV_TITLE_KR, RT_IMG")
+	@Select("SELECT MV_CODE, MV_TITLE_KR, RT_IMG FROM MV_V_S WHERE C_NAME=#{c_name} AND MV_TITLE_KR = #{mv_title_kr} AND SD_DAY >= #{today, jdbcType=INTEGER} GROUP BY MV_CODE, MV_TITLE_KR, RT_IMG")
 	public ArrayList<HashMap<String, String>> mv_c_sel(HashMap<String, String> map);
 	
 	// 영화, 영화관, 날짜 선택 시
