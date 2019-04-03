@@ -131,7 +131,6 @@ public class RestMovie_Controller {
 			result = rs;
 			context.setAttribute("VS", list);
 		}
-		System.out.println("VS : " + context.getAttribute("VS"));
 		return result;
 	}
 }
