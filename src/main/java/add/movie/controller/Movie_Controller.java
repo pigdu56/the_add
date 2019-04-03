@@ -69,11 +69,10 @@ public class Movie_Controller {
 	@RequestMapping(value= {"/movie_list/{pnum}"}, method=RequestMethod.GET)
 	public ModelAndView movie_list(@PathVariable(value="pnum") Integer pnum, HttpServletRequest r) {
 		ModelAndView mv = new ModelAndView();
-		System.out.println("pnum : " + pnum);
 		p.moviePaging(pnum, r);
-		mv.addObject("list", mm.movie_list());
+		mv.addObject("list", mm.movie_list(pnum));
 		mv.setViewName("movie_list");
-		
+		System.out.println(mv);
 		return mv;
 	}
 	

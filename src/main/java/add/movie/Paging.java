@@ -22,7 +22,6 @@ public class Paging {
 		r.setAttribute("rcounts", mm.mv_page().get("CT"));
 		// 전체페이지 개수	
 		String epage = String.valueOf(mm.mv_page().get("CC"));
-		System.out.println("cc : " + epage);
 		int all_epage = Integer.parseInt(epage);
 		r.setAttribute("all_epage", all_epage);
 		r.setAttribute("pcounts", epage);

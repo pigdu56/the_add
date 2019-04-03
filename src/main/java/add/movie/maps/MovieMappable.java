@@ -40,8 +40,8 @@ public interface MovieMappable {
 	public ArrayList<HashMap<String, String>> boxList();
 	
 	// 영화 리스트
-	@Select("SELECT ROWNUM R, MV.* FROM MV_V_MV MV ORDER BY MV.MV_CODE ASC")
-	public ArrayList<HashMap<String, String>> movie_list();
+	@Select("SELECT * FROM MV_V_MV_R WHERE F_PAGIN(R, #{pnum, jdbcType=INTEGER}, 5) = 1")
+	public ArrayList<HashMap<String, String>> movie_list(int pnum);
 	
 	// 영화 상세 정보
 	@Select("SELECT * FROM MV_V_MV WHERE MV_CODE = #{mv_code}")
