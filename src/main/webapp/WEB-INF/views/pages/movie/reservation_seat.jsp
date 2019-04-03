@@ -845,7 +845,8 @@ dt, dd { float: left; }
 						$("#go_pay").empty();
 						$("#go_pay").attr('disabled', true);
 						$("#go_pay").append("<img class='btn-img' src='${pageContext.request.contextPath}/static/img/movie/right_pay.png'>");
-					} else if( data == 0){
+					} else if( data == 0 ){
+						alert(s_s);
 						$("#h_inp").append("<input type='hidden' name='s_name"+ s_s +"' value='"+ s_s +"' />");
 					}
 					
@@ -855,7 +856,6 @@ dt, dd { float: left; }
 						$("#c_seat").append("<h3 class='box_title'>좌석선택</h3>");
 					} else if(checkboxBoxes.length > 0 && checkboxBoxes.length <= sum){
 						$("#c_seat").empty();
-						$("#h_inp").empty();
 						$("#c_seat").append("<h5 class='pay' style='font-size: 18px; text-align: center;'> 좌 &nbsp; 석 ");
 						$("#c_seat").append("<span>"+ s_names + " </span>");
 						$("#c_seat").append("</h5>");
@@ -869,4 +869,19 @@ dt, dd { float: left; }
     		});	
 		} 
 	}
+</script>
+<script>
+// 새로고침 방지
+function noEvent() {
+	if (event.keyCode == 116) {
+		event.keyCode= 2;
+		return false;
+	}
+	else if(event.ctrlKey && (event.keyCode==78 || event.keyCode == 82)) {
+		return false;
+	}
+}
+
+document.onkeydown = noEvent;
+
 </script>

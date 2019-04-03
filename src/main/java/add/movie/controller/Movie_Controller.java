@@ -338,29 +338,36 @@ public class Movie_Controller {
 	   return mv;
    }
    
+   // 결제 완료
    @RequestMapping(value = {"/ticket"}, method = RequestMethod.POST)
    public ModelAndView ticket(@RequestParam HashMap<String, String> map, HttpSession s) {
 	   ModelAndView mv = new ModelAndView();
 	   ArrayList<HashMap<String, String>> alhm = new ArrayList<HashMap<String, String>>();
 	   HashMap<String, String> hm = null;
-	   String m_num = (String) s.getAttribute("LoginNum");
+	   String user = (String) s.getAttribute("LoginUser");
 	   System.out.println(map);
 	   for(char ch = 'A';ch < 'G'; ch++) {
 		   for(int i=1; i < 10; i++) {
 			   String a = Integer.toString(i);
 			   String s_name = ch+a;
+			   System.out.println(s_name);
 			   if(s_name.equals(map.get("s_name"+s_name))) {
 				   hm = new HashMap<String, String>();
-				   hm.put("m_num", m_num);
+				   hm.put("u_id", user);
 				   hm.put("sd_code", map.get("sd_code"));
 				   hm.put("s_name", s_name);
 				   hm.put("r_price", map.get("r_price"));
+				   System.out.println("hm : " + hm);
 				   alhm.add(hm);
 			   }
 		   }
 	   }
 	   
 	   System.out.println(alhm);
+	   for(HashMap<String, String> m : alhm ) {
+		   mm.re(m);
+	   }
+	   
 	   mv.addObject("seat_num", alhm);
 	   mv.addObject("mv_info", mm.sd(map.get("sd_code")));
 	   mv.addObject("r_list", map); 

@@ -95,7 +95,6 @@ public class RestMovie_Controller {
 		HashMap<String, String> map = new HashMap<String, String>();
 		HttpSession s = rq.getSession();
 		context = rq.getServletContext();
-		System.out.println("s_name : " + s_name + ", sd_code : " + sd_code);
 		String user = (String) s.getAttribute("LoginUser");
 		ArrayList<HashMap<String, String>> s_list = (ArrayList<HashMap<String, String>>) context.getAttribute("VS");
 
@@ -132,8 +131,7 @@ public class RestMovie_Controller {
 			result = rs;
 			context.setAttribute("VS", list);
 		}
-		
-		System.out.println(context.getAttribute("VS"));
+		System.out.println("VS : " + context.getAttribute("VS"));
 		return result;
 	}
 }

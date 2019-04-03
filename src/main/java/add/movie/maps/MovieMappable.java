@@ -84,7 +84,12 @@ public interface MovieMappable {
 	@Select("SELECT MV_CODE, MV_TITLE_KR, C_NAME, TT_NAME, SD_DAY, T_TIME, S_NAME FROM MV_V_RE WHERE SD_CODE = #{sd_code, jdbcType = INTEGER} ORDER BY S_NAME ASC")
 	public ArrayList<HashMap<String, String>> seat(@Param(value="sd_code") String sd_code);
 	
+	// 예약된 좌석 수
 	@Select("SELECT MV_F_SC(#{sd_code, jdbcType = INTEGER}) SC FROM DUAL")
 	public int sc(String sd_code);
 	
+	// 예매
+	@Insert(value = "{CALL MV_P_RE(#{u_id}, #{sd_code}, #{r_price}, #{s_name})}")
+	@Options(statementType = StatementType.CALLABLE)
+	public void re(HashMap<String, String> m);
 }
