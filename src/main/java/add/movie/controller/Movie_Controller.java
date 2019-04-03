@@ -348,25 +348,21 @@ public class Movie_Controller {
 	   ArrayList<HashMap<String, String>> alhm = new ArrayList<HashMap<String, String>>();
 	   HashMap<String, String> hm = null;
 	   String user = (String) s.getAttribute("LoginUser");
-	   System.out.println(map);
 	   for(char ch = 'A';ch < 'G'; ch++) {
 		   for(int i=1; i < 10; i++) {
 			   String a = Integer.toString(i);
 			   String s_name = ch+a;
-			   System.out.println(s_name);
 			   if(s_name.equals(map.get("s_name"+s_name))) {
 				   hm = new HashMap<String, String>();
 				   hm.put("u_id", user);
 				   hm.put("sd_code", map.get("sd_code"));
 				   hm.put("s_name", s_name);
 				   hm.put("r_price", map.get("r_price"));
-				   System.out.println("hm : " + hm);
 				   alhm.add(hm);
 			   }
 		   }
 	   }
-	   
-	   System.out.println(alhm);
+
 	   for(HashMap<String, String> m : alhm ) {
 		   mm.re(m);
 	   }
