@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import add.movie.Mongo;
 import add.movie.MovieJSONMain;
 import add.movie.NaverApi;
 import add.movie.Paging;
@@ -43,9 +42,6 @@ public class Movie_Controller {
 	
 	@Autowired
 	Paging p;
-	
-	@Autowired
-	Mongo mo;
 	
 	// 메인
 	@RequestMapping(value= {"/main"}, method=RequestMethod.GET)
@@ -423,12 +419,9 @@ public class Movie_Controller {
 	   for(HashMap<String, String> m : alhm ) {
 		   mm.re(m);
 	   }
-	   HashMap<String, String> mv_s = mm.sd(map.get("sd_code"));
-	   String gender = (String) s.getAttribute("LoginGender");
-	   mv_s.put("M_GENDER", gender);
-	   mo.insertMongo(mv_s);
+	   
 	   mv.addObject("seat_num", alhm);
-	   mv.addObject("mv_info", mv_s);
+	   mv.addObject("mv_info", mm.sd(map.get("sd_code")));
 	   mv.addObject("r_list", map); 
 	   mv.setViewName("ticket");
 	   return mv;

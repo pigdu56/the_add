@@ -69,7 +69,6 @@ public class LoginController {
 					session = rq.getSession();
 					session.setAttribute("LoginUser", userId);
 					session.setAttribute("LoginNum", testMappable.M_code(userId));
-					session.setAttribute("LoginGender", testMappable.M_gender(userId));
 					return "home";
 				} else {
 					System.out.println("패스워드 불일치");
