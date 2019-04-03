@@ -389,7 +389,7 @@ dt, dd { float: left; }
 										var="noticePostDate" pattern="yyyyMMdd" />
 									<fmt:formatDate value="${noticePostDate}" pattern="yyyy.MM.dd" />
 									&nbsp;
-									<div id="week" style="float: right;"></div>
+									<span id="week"></span>
 									<input type="hidden" id="day" value="<fmt:formatDate value="${noticePostDate}" pattern="yyyy.MM.dd"/>">
 								</dt>
 								<dt>
@@ -403,7 +403,7 @@ dt, dd { float: left; }
 
 								<dt>
 									<input type="hidden" id="ed_time" value="${sd_list['MV_ST']}" />
-									<div id="et"></div>
+									<span id="et"></span>
 								</dt>
 							</dl>
 						</div>
