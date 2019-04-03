@@ -26,5 +26,38 @@
 				</tr>
 			</c:forEach>
 		</tbody>
+		<tfoot style="text-align: center;">
+			<!-- 페이지 표시영역 -->
+			<tr id="paging">
+				<td colspan="6" class="lst">
+					<ul class="pagination">
+						<!-- 페이징 -->
+						<li class="page-item" id="p_first">
+							<c:if test="${1 <= group_npage}">
+								<a class="page-link" href="1"> << </a>
+							</c:if></li>
+						<li class="page-item">
+							<c:if test="${1 < group_npage}">
+								<a class="page-link" href="${group_npage-1}"><</a>
+							</c:if></li>
+						<li><c:forEach begin="${group_spage}" end="${group_epage}"
+								var="i" step="1">
+								<!--  -->
+								<c:if test="${i == param.pnum}">${i}</c:if>
+								<c:if test="${i != param.pnum}">
+									<a class="page-link" href="${i}">${i}</a>
+								</c:if>
+							</c:forEach></li>
+						<li class="page-item">
+							<c:if test="${group_npage < all_epage}">
+								<a class="page-link" href="${group_npage+1}">></a>
+							</c:if></li>
+						<li class="page-item"><c:if test="${group_npage < all_epage}">
+								<a class="page-link" href="${all_epage}">>></a>
+							</c:if></li>
+					</ul>
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 </div>

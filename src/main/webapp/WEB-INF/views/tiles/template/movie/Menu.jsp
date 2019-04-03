@@ -80,8 +80,8 @@
 					<div class="dropdown-menu d_menu">
 						<c:url value="/movie/registration" var="up" />
 		       			<a class="dropdown-item minis" href="${up}">영화상영등록</a>
-		       			<c:url value="/movie/registration" var="up" />
-	       				<a class="dropdown-item minis" href="${up}">영화상영등록</a>         		
+		       			<c:url value="/movie/rev_l_all/1" var="rev_l" />
+	       				<a class="dropdown-item minis" href="${rev_l}">예약 리스트</a>         		
 	     			</div>
 				</li>
 			</c:if>

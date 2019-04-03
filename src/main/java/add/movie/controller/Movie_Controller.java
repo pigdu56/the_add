@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import add.movie.Mongo;
 import add.movie.MovieJSONMain;
 import add.movie.NaverApi;
 import add.movie.Paging;
@@ -42,6 +43,9 @@ public class Movie_Controller {
 	
 	@Autowired
 	Paging p;
+	
+	@Autowired
+	Mongo mo;
 	
 	// 메인
 	@RequestMapping(value= {"/main"}, method=RequestMethod.GET)
@@ -67,9 +71,9 @@ public class Movie_Controller {
 	
 	// 영화 정보
 	@RequestMapping(value= {"/movie_list/{pnum}"}, method=RequestMethod.GET)
-	public ModelAndView movie_list(@PathVariable(value="pnum") Integer pnum, HttpServletRequest r) {
+	public ModelAndView movie_list(@PathVariable(value="pnum") Integer pnum, HttpServletRequest rq) {
 		ModelAndView mv = new ModelAndView();
-		p.moviePaging(pnum, r);
+		p.moviePaging(pnum, rq);
 		mv.addObject("list", mm.movie_list(pnum));
 		mv.setViewName("movie_list");
 		
@@ -77,15 +81,16 @@ public class Movie_Controller {
 	}
 	
 	// 관리자 예약 내역
-	@RequestMapping(value= {"/rev_l_all"}, method=RequestMethod.GET)
-	public ModelAndView re_list_all(HttpServletRequest rq) {
+	@RequestMapping(value= {"/rev_l_all/{pnum}"}, method=RequestMethod.GET)
+	public ModelAndView re_list_all(@PathVariable(value="pnum") Integer pnum, HttpServletRequest rq) {
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 		ModelAndView mv = new ModelAndView();
 		HttpSession s = rq.getSession();
 		String user = (String) s.getAttribute("LoginUser");
 		
 		if(user.equals("admin")) {
-			list = mm.rev_l_all();
+			p.reAllPaging(pnum, rq);
+			list = mm.rev_l_all(pnum);
 		}
 		
 		mv.addObject("rev_l", list);
@@ -95,14 +100,18 @@ public class Movie_Controller {
 	}
 	
 	// 예약 내역
-	@RequestMapping(value= {"/rev_l"}, method=RequestMethod.GET)
-	public ModelAndView re_list(HttpServletRequest rq) {
+	@RequestMapping(value= {"/rev_l/{pnum}"}, method=RequestMethod.GET)
+	public ModelAndView re_list(@PathVariable(value="pnum") Integer pnum, HttpServletRequest rq) {
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 		ModelAndView mv = new ModelAndView();
 		HttpSession s = rq.getSession();
 		String user = (String) s.getAttribute("LoginUser");
-		
-		list = mm.rev_l(user);
+		String m_num = mm.userId(user);
+
+		p.rePaging(m_num, pnum, rq);
+		System.out.println("dddd");
+		list = mm.rev_l(user, pnum);
+		System.out.println(list);
 
 		mv.addObject("rev_l", list);
 		mv.setViewName("re_list");
@@ -419,9 +428,12 @@ public class Movie_Controller {
 	   for(HashMap<String, String> m : alhm ) {
 		   mm.re(m);
 	   }
-	   
+	   HashMap<String, String> mv_s = mm.sd(map.get("sd_code"));
+	   String gender = (String) s.getAttribute("LoginGender");
+	   mv_s.put("M_GENDER", gender);
+	   mo.insertMongo(mv_s);
 	   mv.addObject("seat_num", alhm);
-	   mv.addObject("mv_info", mm.sd(map.get("sd_code")));
+	   mv.addObject("mv_info", mv_s);
 	   mv.addObject("r_list", map); 
 	   mv.setViewName("ticket");
 	   return mv;

@@ -57,7 +57,7 @@
 								class="glyphicon glyphicon-link">JOIN</i></a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="nav-item"><a class="nav-link" id="top_link" href="/the_add/movie/rev_l"><i
+						<li class="nav-item"><a class="nav-link" id="top_link" href="/the_add/movie/rev_l/1"><i
 								class="glyphicon glyphicon-user">${LoginUser}님</i></a></li>
 						<li class="nav-item"><a class="nav-link"  id="top_link"
 							style="cursor:pointer;" onclick="logout()"><i

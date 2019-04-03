@@ -328,7 +328,8 @@ $( document ).ready(function() {
 	            data : {
 	               "mv_title_kr" : mv_name,
 	               "c_name" : c_name,
-	               "sd_day" : sd_dates
+	               "sd_day" : sd_dates,
+	               "today" : todate
 	            },            
 	            success : function(data) {
             		$("#time_choice").empty();
@@ -338,7 +339,8 @@ $( document ).ready(function() {
 	    		            type : "post",
 	    		            data : {
 	    		               "c_name" : c_name,
-	    		               "mv_name" : mv_name
+	    		               "mv_title_kr" : mv_name,
+	    		               "today" : todate
 	    		            },                 
 	    		            success : function(data) {
 	    		            	if(data == ""){
@@ -347,7 +349,8 @@ $( document ).ready(function() {
 	    					            url : "${pageContext.request.contextPath}/movie/tc",
 	    					            type : "post",
 	    					            data : {
-	    					               "mv_title_kr" : mv_name
+	    					               "mv_title_kr" : mv_name,
+	    					               "today" : todate
 	    					            },                
 	    					            success : function(data) {
 	    					            	$("#c_choice").empty();
@@ -375,7 +378,8 @@ $( document ).ready(function() {
 	    					            url : "${pageContext.request.contextPath}/movie/tc",
 	    					            type : "post",
 	    					            data : {
-	    					               "mv_title_kr" : mv_name
+	    					               "mv_title_kr" : mv_name,
+	    					               "today" : todate
 	    					            },                
 	    					            success : function(data) {
 	    					            	$("#c_choice").empty();
@@ -409,7 +413,8 @@ $( document ).ready(function() {
 	    		            url : "${pageContext.request.contextPath}/movie/tc",
 	    		            type : "post",
 	    		            data : {
-	    		               "mv_title_kr" : mv_name
+	    		               "mv_title_kr" : mv_name,
+	    		               "today" : todate
 	    		            },                
 	    		            success : function(data) {
 	    		            	$("#sel_mv").empty();
@@ -437,7 +442,11 @@ $( document ).ready(function() {
 	            			if(item.TT_NAME != tt){
 	     						if(item.SD_DAY == todate){
 	     							if(current_time > item.T_TIME){
+	     								$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
 	     								$("#time_choice").append("<b class='no_click' style='text-decoration:line-through; border:3px solid gray'>"+hhmm);
+	     								if(index == 2 || index == 5 || index == 8 || index == 12 || index == 14 || index== 17){
+    	            						$("#time_choice").append("<br><br>")
+    	            					}
 	     							}else{
 	     								if(item.T_TIME <1100 || item.T_TIME > 2200){
 			            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
@@ -460,6 +469,9 @@ $( document ).ready(function() {
 	            				if(item.SD_DAY == todate){
 	            					if(current_time > item.T_TIME){
 	            						$("#time_choice").append("<b class='no_click' style='text-decoration:line-through; border:3px solid gray'>"+hhmm);
+	            						if(index == 2 || index == 5 || index == 8 || index == 12 || index == 14 || index== 17){
+    	            						$("#time_choice").append("<br><br>")
+    	            					}
 	            					}else{
 	            						if(item.T_TIME <1100 || item.T_TIME > 2200){
 	    	            					$("#time_choice").append("<b class='ts' id='ts_red' style='border:3px solid red'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
@@ -502,7 +514,8 @@ $( document ).ready(function() {
 		            url : "${pageContext.request.contextPath}/movie/tc",
 		            type : "post",
 		            data : {
-		               "mv_title_kr" : mv_name
+		               "mv_title_kr" : mv_name,
+		               "today" : todate
 		            },                
 		            success : function(data) {
 		            	$("#c_choice").empty();
@@ -526,7 +539,8 @@ $( document ).ready(function() {
 		            url : "${pageContext.request.contextPath}/movie/tc",
 		            type : "post",
 		            data : {
-		               "mv_title_kr" : mv_name
+		               "mv_title_kr" : mv_name,
+		               "today" : todate
 		            },                 
 		            success : function(data) {
 		            	$("#c_choice").empty();
@@ -549,7 +563,8 @@ $( document ).ready(function() {
 		            url : "${pageContext.request.contextPath}/movie/tc",
 		            type : "post",
 		            data : {
-		               "mv_title_kr" : mv_name
+		               "mv_title_kr" : mv_name,
+		               "today" : todate
 		            },                 
 		            success : function(data) {
 		            	var cn_check = false;
@@ -595,7 +610,8 @@ $( document ).ready(function() {
 	            data : {
 	               "mv_title_kr" : mv_name,
 	               "c_name" : c_name,
-	               "sd_day" : sd_dates
+	               "sd_day" : sd_dates,
+	               "today" : todate
 	            },            
 	            success : function(data) {
             		$("#time_choice").empty();
@@ -605,7 +621,8 @@ $( document ).ready(function() {
 	    		            type : "post",
 	    		            data : {
 	    		               "c_name" : c_name,
-	    		               "mv_name" : mv_name
+	    		               "mv_title_kr" : mv_name,
+	    		               "today" : todate
 	    		            },                 
 	    		            success : function(data) {
 	    		            	if(data == ""){
@@ -614,7 +631,8 @@ $( document ).ready(function() {
 	    		    		            url : "${pageContext.request.contextPath}/movie/mv_c",
 	    		    		            type : "post",
 	    		    		            data : {
-	    		    		               "c_name" : c_name
+	    		    		               "c_name" : c_name,
+	    		    		               "today" : todate
 	    		    		            },                 
 	    		    		            success : function(data) {
 	    		    		            	$("#mv_choice").empty();
@@ -648,7 +666,8 @@ $( document ).ready(function() {
 	    		            url : "${pageContext.request.contextPath}/movie/mv_c",
 	    		            type : "post",
 	    		            data : {
-	    		               "c_name" : c_name
+	    		               "c_name" : c_name,
+	    		               "today" : todate
 	    		            },                 
 	    		            success : function(data) {
 	    		            	$("#sel_c").empty();
@@ -671,7 +690,11 @@ $( document ).ready(function() {
 	            			if(item.TT_NAME != tt){
 	            				if(item.SD_DAY == todate){
 	     							if(current_time > item.T_TIME){
+	     								$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
 	     								$("#time_choice").append("<b class='no_click' style='text-decoration:line-through; border:3px solid gray'>"+hhmm);
+	     								if(index == 2 || index == 5 || index == 8 || index == 12 || index == 14 || index== 17){
+    	            						$("#time_choice").append("<br><br>")
+    	            					}
 	     							}else{
 	     								if(item.T_TIME <1100 || item.T_TIME > 2200){
 			            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
@@ -694,6 +717,9 @@ $( document ).ready(function() {
 	            				if(item.SD_DAY == todate){
 	            					if(current_time > item.T_TIME){
 	            						$("#time_choice").append("<b class='no_click' style='text-decoration:line-through; border:3px solid gray'>"+hhmm);
+	            						if(index == 2 || index == 5 || index == 8 || index == 12 || index == 14 || index== 17){
+    	            						$("#time_choice").append("<br><br>")
+    	            					}
 	            					}else{
 	            						if(item.T_TIME <1100 || item.T_TIME > 2200){
 	    	            					$("#time_choice").append("<b class='ts' id='ts_red' style='border:3px solid red'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
@@ -736,7 +762,8 @@ $( document ).ready(function() {
 		            url : "${pageContext.request.contextPath}/movie/mv_c",
 		            type : "post",
 		            data : {
-		               "c_name" : c_name
+		               "c_name" : c_name,
+		               "today" : todate
 		            },                 
 		            success : function(data) {
 		            	$("#mv_choice").empty();
@@ -756,7 +783,8 @@ $( document ).ready(function() {
 		            url : "${pageContext.request.contextPath}/movie/mv_c",
 		            type : "post",
 		            data : {
-		               "c_name" : c_name
+		               "c_name" : c_name,
+		               "today" : todate
 		            },                
 		            success : function(data) {
 		            	var mn_check = false;
@@ -790,7 +818,8 @@ $( document ).ready(function() {
 		            url : "${pageContext.request.contextPath}/movie/mv_c",
 		            type : "post",
 		            data : {
-		               "c_name" : c_name
+		               "c_name" : c_name,
+		               "today" : todate
 		            },                
 		            success : function(data) {
 		            	$("#mv_choice").empty();
@@ -829,7 +858,8 @@ $( document ).ready(function() {
 	            data : {
 	               "mv_title_kr" : mv_name,
 	               "c_name" : c_name,
-	               "sd_day" : sd_dates
+	               "sd_day" : sd_dates,
+	               "today" : todate
 	            },            
 	            success : function(data) {
             		$("#time_choice").empty();
@@ -848,7 +878,11 @@ $( document ).ready(function() {
 	            			if(item.TT_NAME != tt){
 	            				if(item.SD_DAY == todate){
 	     							if(current_time > item.T_TIME){
+	     								$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
 	     								$("#time_choice").append("<b class='no_click' style='text-decoration:line-through; border:3px solid gray'>"+hhmm);
+	     								if(index == 2 || index == 5 || index == 8 || index == 12 || index == 14 || index== 17){
+    	            						$("#time_choice").append("<br><br>")
+    	            					}
 	     							}else{
 	     								if(item.T_TIME <1100 || item.T_TIME > 2200){
 			            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
@@ -871,6 +905,9 @@ $( document ).ready(function() {
 	            				if(item.SD_DAY == todate){
 	            					if(current_time > item.T_TIME){
 	            						$("#time_choice").append("<b class='no_click' style='text-decoration:line-through; border:3px solid gray'>"+hhmm);
+	            						if(index == 2 || index == 5 || index == 8 || index == 12 || index == 14 || index== 17){
+    	            						$("#time_choice").append("<br><br>")
+    	            					}
 	            					}else{
 	            						if(item.T_TIME <1100 || item.T_TIME > 2200){
 	    	            					$("#time_choice").append("<b class='ts' id='ts_red' style='border:3px solid red'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
