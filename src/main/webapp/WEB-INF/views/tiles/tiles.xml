@@ -63,6 +63,11 @@
 		<put-attribute name="body" value="/WEB-INF/views/pages/movie/detail_view.jsp" />
 	</definition>
 	
+	<!-- movie_list -->
+	<definition name="movie_list" extends="movies">
+		<put-attribute name="body" value="/WEB-INF/views/pages/movie/movie_list.jsp" />
+	</definition>
+	
 	<!--관리자 영화 등록 페이지 -->
 	<definition name="registration" extends="movies">
 		<put-attribute name="body" value="/WEB-INF/views/pages/movie/registration.jsp" />

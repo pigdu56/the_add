@@ -39,6 +39,10 @@ public interface MovieMappable {
 	@Select("SELECT * FROM MV_V_MV WHERE MV_RNUM > 0 ORDER BY MV_RNUM ASC")
 	public ArrayList<HashMap<String, String>> boxList();
 	
+	// 영화 리스트
+	@Select("SELECT * FROM MV_V_MV")
+	public ArrayList<HashMap<String, String>> movie_list();
+	
 	// 영화 상세 정보
 	@Select("SELECT * FROM MV_V_MV WHERE MV_CODE = #{mv_code}")
 	public HashMap<String, String> mv_dt_sel(HashMap<String, String> m);
@@ -92,4 +96,8 @@ public interface MovieMappable {
 	@Insert(value = "{CALL MV_P_RE(#{u_id}, #{sd_code, jdbcType = INTEGER}, #{r_price, jdbcType = INTEGER}, #{s_name})}")
 	@Options(statementType = StatementType.CALLABLE)
 	public void re(HashMap<String, String> m);
+	
+	// 영화 페이징
+	@Select("SELECT * FROM MV_PAGE_MOVIE")
+	public HashMap<String, String> mv_page();
 }	

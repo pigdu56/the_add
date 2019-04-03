@@ -10,9 +10,11 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import add.movie.MovieJSONMain;
 import add.movie.NaverApi;
+import add.movie.Paging;
 import add.movie.maps.MovieMappable;
 
 @org.springframework.stereotype.Controller
@@ -36,6 +39,9 @@ public class Movie_Controller {
 	
 	@Autowired
 	MovieMappable mm;
+	
+	@Autowired
+	Paging p;
 	
 	// 메인
 	@RequestMapping(value= {"/main"}, method=RequestMethod.GET)
@@ -58,6 +64,18 @@ public class Movie_Controller {
 		System.out.println(mv);
 		return mv;
 	}
+	
+	// 영화 정보
+	@RequestMapping(value= {"/movie_list/{pnum}"}, method=RequestMethod.GET)
+	public ModelAndView movie_list(@PathVariable(value="pnum") Integer pnum, HttpServletRequest r) {
+		ModelAndView mv = new ModelAndView();
+		p.moviePaging(pnum, r);
+		mv.addObject("list", mm.movie_list());
+		mv.setViewName("movle_list");
+		
+		return mv;
+	}
+	
 	
 	//예약 페이지
 	@RequestMapping(value= {"/reservation"}, method=RequestMethod.GET)
@@ -318,6 +336,7 @@ public class Movie_Controller {
 		return "redirect:/movie/main";
 	}
    
+   // 결제
    @RequestMapping(value = {"/pay"}, method = RequestMethod.POST)
    public ModelAndView pay(@RequestParam HashMap<String, String> map) {
 	   ModelAndView mv =new ModelAndView();
