@@ -20,10 +20,12 @@ public class Paging {
 		r.setAttribute("gpage", (int)gpage);
 		// 전체글의 개수
 		r.setAttribute("rcounts", mm.mv_page().get("CT"));
-		// 전체페이지 개수
-		int all_epage = Integer.parseInt((mm.mv_page().get("CC")));
+		// 전체페이지 개수	
+		String epage = String.valueOf(mm.mv_page().get("CC"));
+		System.out.println("cc : " + epage);
+		int all_epage = Integer.parseInt(epage);
 		r.setAttribute("all_epage", all_epage);
-		r.setAttribute("pcounts", mm.mv_page().get("CC"));
+		r.setAttribute("pcounts", epage);
 		// 그룹의 시작페이지번호 : pnum(현재페이지)
 		// Math.floor : 소수점이하 절삭
 		int group_spage = (int)Math.floor((pnum-1)/gpage)*(int)gpage + 1;

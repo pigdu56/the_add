@@ -40,7 +40,7 @@ public interface MovieMappable {
 	public ArrayList<HashMap<String, String>> boxList();
 	
 	// 영화 리스트
-	@Select("SELECT * FROM MV_V_MV")
+	@Select("SELECT ROWNUM R, MV.* FROM MV_V_MV MV ORDER BY MV.MV_CODE ASC")
 	public ArrayList<HashMap<String, String>> movie_list();
 	
 	// 영화 상세 정보
@@ -99,5 +99,5 @@ public interface MovieMappable {
 	
 	// 영화 페이징
 	@Select("SELECT * FROM MV_PAGE_MOVIE")
-	public HashMap<String, String> mv_page();
+	public HashMap<String, Integer> mv_page();
 }	
