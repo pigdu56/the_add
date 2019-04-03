@@ -108,6 +108,7 @@ ul>li {
  .ts{
  	margin-right:50px;
  	font-size:20px;
+ 	cursor:pointer;
  }
  .no_click{
  	margin-right:50px;
