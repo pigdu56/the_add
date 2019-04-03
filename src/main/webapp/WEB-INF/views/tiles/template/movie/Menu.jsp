@@ -60,8 +60,7 @@
 				</a>
 			<div class="dropdown-menu d_menu">
        			<a class="dropdown-item minis" href="${pageContext.request.contextPath}/movie/reservation">영화예매</a>
-       			<a class="dropdown-item minis" href="">상영시간표</a>
-        		<a class="dropdown-item minis" href="">영화정보</a>
+        		<a class="dropdown-item minis" href="/the_add/movie/movie_list/1">영화정보</a>
      		</div>
 			</li>
 			<li class="nav-item dropdown">
@@ -79,8 +78,10 @@
 						<b>관리자</b>
 					</a>
 					<div class="dropdown-menu d_menu">
-					<c:url value="/movie/registration" var="up" />
-	       			<a class="dropdown-item minis" href="${up}">영화상영등록</a>        		
+						<c:url value="/movie/registration" var="up" />
+		       			<a class="dropdown-item minis" href="${up}">영화상영등록</a>
+		       			<c:url value="/movie/registration" var="up" />
+	       				<a class="dropdown-item minis" href="${up}">영화상영등록</a>         		
 	     			</div>
 				</li>
 			</c:if>

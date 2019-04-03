@@ -37,8 +37,6 @@
 			<li class="nav-item"><a class="nav-link" id="top_link"
 				href="${pageContext.request.contextPath}/bus/main"><b>Bus</b></a></li>
 			<li class="nav-item"><a class="nav-link" id="top_link"
-				href=""><b>Rental</b></a></li>
-			<li class="nav-item"><a class="nav-link" id="top_link"
 				href=""><b>Property</b></a></li>
 		</ul>
 		<div class="navbar-collapse justify-content-end"
@@ -59,7 +57,7 @@
 								class="glyphicon glyphicon-link">JOIN</i></a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="nav-item"><a class="nav-link" id="top_link" href=""><i
+						<li class="nav-item"><a class="nav-link" id="top_link" href="/the_add/movie/rev_l"><i
 								class="glyphicon glyphicon-user">${LoginUser}님</i></a></li>
 						<li class="nav-item"><a class="nav-link"  id="top_link"
 							style="cursor:pointer;" onclick="logout()"><i

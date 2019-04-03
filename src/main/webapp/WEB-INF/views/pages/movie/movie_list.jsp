@@ -8,7 +8,7 @@
 	th, td { border-bottom : 1px dashed gray; padding: 15px; }
 	.lst {border : none;}
 </style>
-<div class="container"  >
+<div class="container">
 	<strong style="text-align: center; font-size : 30px;">Movie</strong>
 	
 	<table>

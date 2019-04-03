@@ -45,7 +45,6 @@
 	</definition>
 	
 	<!-- 영화 예매 페이지 -->
-	
 	<definition name="movies" template="/WEB-INF/views/tiles/layouts/movieLayout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/tiles/template/movie/Header.jsp" />
 		<put-attribute name="title" value="movie" />
@@ -56,6 +55,11 @@
 	<!-- movie_main -->
 	<definition name="movie_main" extends="movies">
 		<put-attribute name="body" value="/WEB-INF/views/pages/movie/main.jsp" />
+	</definition>
+	
+	<!-- 예약 내역 -->
+	<definition name="re_list" extends="movies">
+		<put-attribute name="body" value="/WEB-INF/views/pages/movie/re_list.jsp" />
 	</definition>
 	
 	<!-- detail_view -->

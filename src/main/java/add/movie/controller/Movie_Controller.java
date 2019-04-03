@@ -72,7 +72,41 @@ public class Movie_Controller {
 		p.moviePaging(pnum, r);
 		mv.addObject("list", mm.movie_list(pnum));
 		mv.setViewName("movie_list");
-		System.out.println(mv);
+		
+		return mv;
+	}
+	
+	// 관리자 예약 내역
+	@RequestMapping(value= {"/rev_l_all"}, method=RequestMethod.GET)
+	public ModelAndView re_list_all(HttpServletRequest rq) {
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+		ModelAndView mv = new ModelAndView();
+		HttpSession s = rq.getSession();
+		String user = (String) s.getAttribute("LoginUser");
+		
+		if(user.equals("admin")) {
+			list = mm.rev_l_all();
+		}
+		
+		mv.addObject("rev_l", list);
+		mv.setViewName("re_list");
+		
+		return mv;
+	}
+	
+	// 예약 내역
+	@RequestMapping(value= {"/rev_l"}, method=RequestMethod.GET)
+	public ModelAndView re_list(HttpServletRequest rq) {
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+		ModelAndView mv = new ModelAndView();
+		HttpSession s = rq.getSession();
+		String user = (String) s.getAttribute("LoginUser");
+		
+		list = mm.rev_l(user);
+
+		mv.addObject("rev_l", list);
+		mv.setViewName("re_list");
+		
 		return mv;
 	}
 	

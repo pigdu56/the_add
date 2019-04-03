@@ -100,4 +100,12 @@ public interface MovieMappable {
 	// 영화 페이징
 	@Select("SELECT * FROM MV_PAGE_MOVIE")
 	public HashMap<String, Integer> mv_page();
+	
+	// 예약내역
+	@Select("SELECT * FROM MV_V_S_G WHERE M_ID = #{user}")
+	public ArrayList<HashMap<String, String>> rev_l(String user);
+	
+	// 관리자 전체 예약 내역
+	@Select("SELECT * FROM MV_V_S_G")
+	public ArrayList<HashMap<String, String>> rev_l_all();
 }	
