@@ -53,8 +53,8 @@ public interface MovieMappable {
 	public void mv_in(HashMap<String, String> m);
 	
 	// 개봉 영화 리스트
-	@Select("SELECT MV_CODE, MV_TITLE_KR, RT_IMG FROM MV_V_S GROUP BY MV_CODE, MV_TITLE_KR, RT_IMG")
-	public ArrayList<HashMap<String, String>> mv_select();
+	@Select("SELECT MV_CODE, MV_TITLE_KR, RT_IMG FROM MV_V_S WHERE SD_DAY >= #{today, jdbcType=INTEGER} GROUP BY MV_CODE, MV_TITLE_KR, RT_IMG")
+	public ArrayList<HashMap<String, String>> mv_select(String today);
 		
 	// 영화 선택 후 영화관
 	@Select("SELECT MV_CODE, MV_TITLE_KR, RT_RATING, MV_IMG, C_NAME FROM MV_V_S WHERE MV_TITLE_KR = #{mv_title_kr} GROUP BY MV_CODE, MV_TITLE_KR, MV_IMG, RT_RATING, C_NAME")

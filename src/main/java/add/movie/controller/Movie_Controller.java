@@ -63,9 +63,13 @@ public class Movie_Controller {
 	@RequestMapping(value= {"/reservation"}, method=RequestMethod.GET)
 	public ModelAndView reservation() {
 		ModelAndView mv = new ModelAndView();
+		Calendar c = Calendar.getInstance();
+		//오늘 날짜 구하기
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+		String today = fmt.format(c.getTime());
+		//요일 구하기
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
 		Date currentTime = new Date();
-		Calendar c = Calendar.getInstance();
 		ArrayList<HashMap<String, String>> daylist = new ArrayList<HashMap<String, String>>();
 		HashMap<String, String> daydate = null;
 		String day = null;
@@ -104,8 +108,7 @@ public class Movie_Controller {
 			daydate.put("days", day);
 			daylist.add(daydate);
 	    }
-	      
-	    mv.addObject("mv_list",mm.mv_select());
+	    mv.addObject("mv_list",mm.mv_select(today));
 	    mv.addObject("daylist", daylist);
 	    mv.setViewName("reservation");
 		return mv;
