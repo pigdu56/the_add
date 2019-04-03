@@ -27,10 +27,20 @@ public class Mongo {
 	
 	//예매완료 후 값 저장
 	public void insertMongo(HashMap<String, String> map) {
-		MongoCollection<Document> coll = mdb.getCollection("mv");
+		MongoCollection<Document> coll = mdb.getCollection("reservation");
 		Document doc = new Document();
 		Map<String, Object> ms = new HashMap<String, Object>();
 		List<Object> al = new ArrayList<Object>();		
+		String num = String.valueOf(map.get("m_num"));
+		int m_num = Integer.parseInt(num);
+		String time = String.valueOf(map.get("T_TIME"));
+		time = time.substring(0, 2);
+		int t_time = Integer.parseInt(time);
+		String gender = String.valueOf(map.get("M_GENDER"));
+		if(gender == null) {
+			gender = "0";
+		}
+		int m_gender = Integer.parseInt(gender);
 		String genre = map.get("G_NAME");
 		if(genre.contains(",")) {
 			String[] genres = genre.split(",");
@@ -40,24 +50,25 @@ public class Mongo {
 		}else {
 			al.add(genre);
 		}
-		String day = String.valueOf(map.get("SD_DAY"));
-		int sd_day = Integer.parseInt(day);
-		String time = String.valueOf(map.get("T_TIME"));
-		time = time.substring(0, 2);
-		int t_time = Integer.parseInt(time);
-		String gender = String.valueOf(map.get("M_GENDER"));
-		int m_gender = Integer.parseInt(gender);
-		doc.append("mv_title_kr", map.get("MV_TITLE_KR"));
-		doc.append("mv_title_en", map.get("MV_TITLE_EN"));
-		doc.append("rt_rating", map.get("RT_RATING"));
-		doc.append("genre", al);
-		doc.append("c_name", map.get("C_NAME"));
-		doc.append("sd_day", sd_day);
-		doc.append("t_time", t_time);
-		doc.append("sex", m_gender);
+		HashMap<String, Object> movie = new HashMap<String, Object>();
+		movie.put("mv_title_kr", map.get("MV_TITLE_KR"));
+		movie.put("rt_rating", map.get("RT_RATING"));
+		movie.put("genre", al);
 		
-		coll.insertOne(doc);
+		HashMap<String, Object> cinema = new HashMap<String, Object>();
+		cinema.put("c_name", map.get("C_NAME"));
+		cinema.put("movie", movie);
+		cinema.put("t_time", t_time);
 		
-		FindIterable<Document> a= coll.find();		
+		HashMap<String, Object> member = new HashMap<String, Object>();
+		member.put("m_num", m_num);
+		member.put("m_gender", m_gender);
+		member.put("cinema", cinema);
+		
+		doc.append("member", member);
+		
+		coll.insertOne(doc);		
 	}
+	
+	
 }

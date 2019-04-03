@@ -427,8 +427,13 @@ public class Movie_Controller {
 		   mm.re(m);
 	   }
 	   HashMap<String, String> mv_s = mm.sd(map.get("sd_code"));
+	   String m_num = (String) s.getAttribute("LoginNum");
 	   String gender = (String) s.getAttribute("LoginGender");
+	   if(gender == null) {
+		   gender="0";
+	   }	  
 	   mv_s.put("M_GENDER", gender);
+	   mv_s.put("m_num", m_num);
 	   mo.insertMongo(mv_s);
 	   mv.addObject("seat_num", alhm);
 	   mv.addObject("mv_info", mv_s);
