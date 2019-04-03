@@ -127,6 +127,8 @@
 							<li><h5>장르 : ${mv_info.G_NAME}</h5></li>
 							<li><h5>감독 : ${mv_info.DT_NAME }</h5></li>
 							<li><h5>배우 : ${mv_info.A_NAME}</h5></li>
+							<li><h5>줄거리</h5></li>	
+							<li>${mv_info.MV_STORY}</li>
 						</ul>
 					</td>
 				</tr>
