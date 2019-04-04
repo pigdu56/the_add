@@ -108,6 +108,11 @@
 		<put-attribute name="body" value="/WEB-INF/views/pages/movie/ticket.jsp" />
 	</definition>
 	
+	<!--예매 결제 페이지 -->
+	<definition name="preference" extends="movies">
+		<put-attribute name="body" value="/WEB-INF/views/pages/movie/preference.jsp" />
+	</definition>
+	
 	<!-- 버스 홈페이지 -->
 	<definition name="bus"
 		template="/WEB-INF/views/tiles/template/bus/defaultLayout.jsp">
