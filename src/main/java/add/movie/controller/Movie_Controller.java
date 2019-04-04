@@ -482,6 +482,7 @@ public class Movie_Controller {
 		   }				
 	   }else {
 		mo.insertGenre(mv_s, genre);
+		
 	   }
 	   mo.insertRating(mv_s);
 	   mv.addObject("seat_num", alhm);
