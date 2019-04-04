@@ -110,8 +110,12 @@ public interface MovieMappable {
 	public HashMap<String, Integer> re_page(@Param("m_num") String m_num);
 	
 	// 회원리스트 페이징
-	@Select("")
+	@Select("SELECT * FROM MV_PAGE_MEMBER")
 	public HashMap<String, Integer> m_page();
+	
+	// 회원 리스트
+	@Select("SELECT * FROM V_R_M WHERE F_PAGIN(R, 1, 15) = 1")
+	public ArrayList<HashMap<String, String>> m_list(); 
 	
 	// 회원 번호 찾기
 	@Select("SELECT M_NUM FROM MEMBER WHERE M_ID = #{user}")

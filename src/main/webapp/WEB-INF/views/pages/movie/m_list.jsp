@@ -4,48 +4,51 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
 	.container { margin-top : 20px; }
-	th,td,h2 { text-align: center; }
+	th,td,h2 { text-align: center; }]
 </style>
 
 <div class="container">
-	<c:if test="${'admin' eq LoginUser}">
-		<h3>Id : ${m_list.m_id}</h3>
-		<h3>Name : ${m_list.m_name}</h3>
-	</c:if>
 
-	<h2>예약 리스트</h2>
+	<h2>회원 리스트</h2>
 
 	<table class="table">
 		<thead>
 			<tr>
-				<th style="width: 8%">No</th>
-				<th style="width: 22%">Title</th>
-				<th style="width: 10%">Day</th>
-				<th style="width: 10%">Time</th>
-				<th style="width: 20%">Seat</th>
-				<th style="width: 10%">Price</th>
-				<th style="width: 10%">Id</th>
+				<th>No</th>
+				<th>NAME</th>
+				<th>ID</th>
+				<th>Birth</th>
+				<th>Gender</th>
+				<th>Phone</th>
+				<th>email</th>
+				<th></th>
 			</tr>
 		</thead>
-		<tbody id="t_list">
-			<c:forEach var="re" items="${rev_l}">
+		
+		<tbody>
+			<c:forEach var="i" items="${m_list}">
 				<tr>
-					<td>${re.R}</td>
-					<td>${re.MV_TITLE_KR}</td>
+					<td>${i.R}</td>
+					<td>${i.M_NAME}</td>
+					<td>${i.M_ID}</td>
+					<td>${i.M_BIRTH}</td>
+					<td><c:if test="${i.M_GENDER eq '1'}">남</c:if>
+					<c:if test="${i.M_GENDER eq '0'}">여</c:if> </td>
+					<td>${i.M_PHONE}</td>
+					<td>${i.M_EMAIL}</td>
 					<td>
-						<fmt:parseDate value="${re.SD_DAY}" var="sd_Day" pattern="yyyyMMdd" />
-						<fmt:formatDate value="${sd_Day}" pattern="yyyy.MM.dd" />
+						<c:url value="/movie/m_list/1" var="m" />
+						<form action="${m}" method="post">
+							<input type="hidden" name="m_id" value="${i.M_ID}" />
+							<input type="hidden" name="m_name" value="${i.M_NAME}" />
+							<button style="border : 0; background-color: transparent;">
+							<img src="${pageContext.request.contextPath}/static/img/movie/이동.png" style="width: 20px;"></button>
+						</form>
 					</td>
-					<td>
-						<fmt:parseDate value="${re.T_TIME}" var="t_time" pattern="HHmm" />
-						<fmt:formatDate value="${t_time}" pattern="HH:mm" />
-					</td>
-					<td>${re.S}</td>
-					<td><fmt:formatNumber pattern="###,###,###" value="${re.R_PRICE}" />원</td>
-					<td>${re.M_ID}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
+		
 		<tfoot style="text-align: center;">
 			<!-- 페이지 표시영역 -->
 			<tr id="paging">

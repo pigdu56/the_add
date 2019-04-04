@@ -105,12 +105,12 @@ public class Movie_Controller {
 	
 	// 회원 리스트
 	@RequestMapping(value = {"/m_list/{pnum}"}, method=RequestMethod.GET)
-	public ModelAndView m_list(@PathVariable(value="pnum") Integer pnum) {
+	public ModelAndView m_list(@PathVariable(value="pnum") Integer pnum,HttpServletRequest rq) {
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 		ModelAndView mv = new ModelAndView();
 		
-		
-		list = tm.selectTest();
+		p.mPaging(pnum, rq);
+		list = mm.m_list();
 		
 		mv.addObject("m_list", list);
 		mv.setViewName("m_list");

@@ -88,7 +88,7 @@ public class Paging {
 		r.setAttribute("group_epage", group_epage);
 	}
 	
-	// 예매 페이징 : 페이징처리
+	// 회원 페이징 : 페이징처리
 	public void mPaging(int pnum, HttpServletRequest r) {
 		//  페이지그룹의 갯수
 		double gpage = 5;  // 페이지 그룹의 개수
@@ -111,5 +111,7 @@ public class Paging {
 		// 마지막그룹 처리
 		group_epage =  group_epage > all_epage ?  all_epage : group_epage;
 		r.setAttribute("group_epage", group_epage);
-   }
+	}
+	
+	
 }
