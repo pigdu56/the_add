@@ -3,6 +3,7 @@ package add.movie.maps;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
@@ -129,5 +130,7 @@ public interface MovieMappable {
 	@Select("SELECT * FROM MV_V_SG_ALL WHERE F_PAGIN(R, #{pnum}, 15) = 1")
 	public ArrayList<HashMap<String, String>> rev_l_all(int pnum);
 
+	@Delete("DELETE FROM MV_SEAT WHERE R_CODE = #{r_code, jdbcType=INTEGER} AND S_NAME = ${seat, jdbcType=VARCHAR}")
+	public void r_del(String r_code, String seat);
 	
 }	

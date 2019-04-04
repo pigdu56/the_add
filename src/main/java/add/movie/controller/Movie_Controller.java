@@ -119,8 +119,8 @@ public class Movie_Controller {
 	}
 	
 	
-	// 예약 내역
-	@RequestMapping(value= {"/rev_l_s/{pnum}"}, method=RequestMethod.GET)
+	// 관리자용 예약 내역
+	@RequestMapping(value= {"/rev_l_s/{pnum}"}, method=RequestMethod.POST)
 	public ModelAndView re_list_s(@PathVariable(value="pnum") Integer pnum,@RequestParam HashMap<String, String> map, HttpServletRequest rq) {
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 		ModelAndView mv = new ModelAndView();
@@ -155,7 +155,6 @@ public class Movie_Controller {
 		
 		return mv;
 	}
-	
 	
 	//예약 페이지
 	@RequestMapping(value= {"/reservation"}, method=RequestMethod.GET)
@@ -491,4 +490,24 @@ public class Movie_Controller {
 	   mv.setViewName("ticket");
 	   return mv;
    }
+   
+   // 예약 취소
+   @RequestMapping(value= {"/del"}, method = RequestMethod.POST)
+   public String r_del(@RequestParam HashMap<String, String> map) {
+	   System.out.println(map);
+	   String r_code = map.get("r_code");
+	   String seat = map.get("seat");
+	   if(seat.contains(",")) {
+		   String[] seats = seat.split(",");
+		   for(String s : seats) {
+			   mm.r_del(r_code, s);
+		   }
+	   } else {
+		   mm.r_del(r_code, seat);
+	   }
+	   
+	   return "redirect:/movie/rev_l/1";
+   }
+   
+   
 }
