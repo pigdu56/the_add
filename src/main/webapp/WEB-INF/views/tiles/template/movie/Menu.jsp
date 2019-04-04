@@ -69,7 +69,8 @@
 				</a>
 				<div class="dropdown-menu d_menu">
        				<a class="dropdown-item minis" href="">박스오피스</a>
-        			<a class="dropdown-item minis" href="">선호도</a>
+       				<c:url value="/movie/preference" var="pre"/>
+        			<a class="dropdown-item minis" href="${pre}">선호도</a>
      			</div>
 			</li>
 			<c:if test="${'admin' eq LoginUser}">

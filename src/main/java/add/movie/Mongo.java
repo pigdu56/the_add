@@ -105,7 +105,6 @@ public class Mongo {
 			List<Document> pipeline = Arrays.asList(genreGroup);
 			AggregateIterable<Document> aggs = coll.aggregate(pipeline);
 			Iterator<Document> it = aggs.iterator();
-			System.out.println(it);
 			return it;
 		}
 	
