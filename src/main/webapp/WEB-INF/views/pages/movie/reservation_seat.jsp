@@ -614,6 +614,14 @@ dt, dd { float: left; }
 		document.getElementById("et").innerHTML=(Hours +":"+ minutes);
 		$('input[name="end_time"]').val(Hours +":"+ minutes);
 		
+		// 18세 영화 청소년 어린이 방지
+		var age = '${sd_list.RT_RATING}';
+		if(age == '청소년관람불가'){
+			alert('청소년관람불가 입니다!!!');
+			$(':radio[name="young"]').attr("disabled", "disabled");
+			$(':radio[name="kids"]').attr("disabled", "disabled");
+		}
+		
 		// 좌석
 		var adult = $(':radio[name="adult"]:checked').val();
 		var young = $(':radio[name="young"]:checked').val();
