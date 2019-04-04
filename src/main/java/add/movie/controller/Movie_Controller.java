@@ -113,7 +113,7 @@ public class Movie_Controller {
 		list = tm.selectTest();
 		
 		mv.addObject("m_list", list);
-		mv.setViewName("mv_list");
+		mv.setViewName("m_list");
 		
 		return mv;
 	}
@@ -473,7 +473,17 @@ public class Movie_Controller {
 	   }	  
 	   mv_s.put("M_GENDER", gender);
 	   mv_s.put("m_num", m_num);
-	   mo.insertMongo(mv_s);
+	   mo.insertCinema(mv_s);
+	   String genre = mv_s.get("G_NAME");
+	   if(genre.contains(",")) {
+		   String[] genres = genre.split(",");
+		   for(String g : genres) {					
+			   mo.insertGenre(mv_s, g);
+		   }				
+	   }else {
+		mo.insertGenre(mv_s, genre);
+	   }
+	   mo.insertRating(mv_s);
 	   mv.addObject("seat_num", alhm);
 	   mv.addObject("mv_info", mv_s);
 	   mv.addObject("r_list", map); 
