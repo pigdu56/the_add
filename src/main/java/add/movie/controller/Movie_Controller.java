@@ -464,25 +464,43 @@ public class Movie_Controller {
 	   for(HashMap<String, String> m : alhm ) {
 		   mm.re(m);
 	   }
+	   
 	   HashMap<String, String> mv_s = mm.sd(map.get("sd_code"));
 	   String m_num = (String) s.getAttribute("LoginNum");
 	   String gender = (String) s.getAttribute("LoginGender");
+	   
 	   if(gender == null) {
 		   gender="0";
-	   }	  
+	   }	
+	   
 	   mv_s.put("M_GENDER", gender);
 	   mv_s.put("m_num", m_num);
 	   mo.insertCinema(mv_s);
 	   String genre = mv_s.get("G_NAME");
+	   
 	   if(genre.contains(",")) {
 		   String[] genres = genre.split(",");
 		   for(String g : genres) {					
 			   mo.insertGenre(mv_s, g);
 		   }				
-	   }else {
-		mo.insertGenre(mv_s, genre);
-		
+	   } else {
+		   mo.insertGenre(mv_s, genre);
 	   }
+	   
+	   // 나이 계산
+	   Calendar cal = Calendar.getInstance();
+	   String birth = mm.age(user);
+	   
+	   // 현재 년도
+	   int to_year = cal.get(cal.YEAR);
+	   
+	   int year = Integer.parseInt(birth.substring(0, 4));
+	   int age = (to_year - year);
+	   
+	   int ag = (int) Math.floor(age/10);
+	   String mv_title_kr = mv_s.get("MV_TITLE_KR");
+	   
+	   mo.insertAge(mv_title_kr, ag);
 	   mo.insertRating(mv_s);
 	   mv.addObject("seat_num", alhm);
 	   mv.addObject("mv_info", mv_s);
@@ -497,6 +515,4 @@ public class Movie_Controller {
 	   mm.r_del(r_code);
 	   return "redirect:/movie/rev_l/1";
    }
-   
-   
 }

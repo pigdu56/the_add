@@ -59,6 +59,7 @@ public class Mongo {
 		doc.append("m_num", m_num);
 		coll.insertOne(doc);	
 	}
+	
 	//이용가 저장
 	public void insertRating(HashMap<String, String> map) {
 		MongoCollection<Document> coll = mdb.getCollection("rating");
@@ -69,6 +70,7 @@ public class Mongo {
 		doc.append("m_num", m_num);
 		coll.insertOne(doc);
 	}
+	
 	//장르선호도
 	public Iterator<Document> getGenre() {
 		MongoCollection<Document> coll = mdb.getCollection("genre");
@@ -82,6 +84,7 @@ public class Mongo {
 		System.out.println(it);
 		return it;
 	}
+	
 	//영화관선호
 	public Iterator<Document> getCinema() {
 		MongoCollection<Document> coll = mdb.getCollection("cinema");
@@ -95,18 +98,27 @@ public class Mongo {
 		System.out.println(it);
 		return it;
 	}
+	
 	//연령별선호
-		public Iterator<Document> getRating() {
-			MongoCollection<Document> coll = mdb.getCollection("rating");
-			//장르 group
-			Document genreGroup = new Document("$group", new Document(
-					"_id", "$rt_rating")
-					.append("count", new Document("$sum", 1)));
-			List<Document> pipeline = Arrays.asList(genreGroup);
-			AggregateIterable<Document> aggs = coll.aggregate(pipeline);
-			Iterator<Document> it = aggs.iterator();
-			return it;
-		}
+	public Iterator<Document> getRating() {
+		MongoCollection<Document> coll = mdb.getCollection("rating");
+		//장르 group
+		Document genreGroup = new Document("$group", new Document(
+				"_id", "$rt_rating")
+				.append("count", new Document("$sum", 1)));
+		List<Document> pipeline = Arrays.asList(genreGroup);
+		AggregateIterable<Document> aggs = coll.aggregate(pipeline);
+		Iterator<Document> it = aggs.iterator();
+		return it;
+	}
 	
-	
+	// 나이대 저장
+	public void insertAge(String mv_title_kr, int ag) {
+		MongoCollection<Document> coll = mdb.getCollection("age");
+		Document doc = new Document();
+		System.out.println(mv_title_kr);
+		doc.append("age", ag);
+		doc.append("mv_title_kr", mv_title_kr);
+		coll.insertOne(doc);
+	}
 }
