@@ -23,13 +23,24 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body>
+<style>
 
-	<table class="table text-center table-hover" style="font-size:15px;">
+.buy th{
+background-color:skyblue;
+}
+</style>
+
+
+
+<body>
+<div class="container">
+<p style="font-size:40px; text-align:center;">예매 목록</p>
+<div class="col-sm-12">
+	<table class="table text-center table-hover buy" style="font-size:15px;">
 	<tr>
 		<th>날짜</th>
-		<th>예약 번호</th>
-		<th>아이디</th>
+<!-- 		<th>예약 번호</th> -->
+		<th>이름</th>
 		<th>출발</th>
 		<th>도착</th>
 		<th>출발 시각</th>
@@ -38,13 +49,13 @@
 		<th>등급</th>
 		<th>가격</th>
 		<th>예약한 좌석</th>
-		<th>구매한 좌석 수</th>
+		<!-- <th>구매한 좌석 수</th> -->
 	</tr>
 	    <c:url value="/bus/buy_view" var="buy_view"/>
 		<c:forEach var="i" items="${user_list}">
 		<tr onclick="location.href='${buy_view}?b_code=${i.B_CODE}'"  style="cursor:pointer">
 			<td>${i.S_DAY}</td>
-			<td>${i.B_CODE}</td>
+<%-- 			<td>${i.B_CODE}</td> --%>
 			<td>${i.M_NAME}</td>
 			<td>${i.DEP_TER}</td>
 			<td>${i.ARR_TER}</td>
@@ -54,9 +65,10 @@
 			<td>${i.G_NAME}</td>
 			<td><fmt:formatNumber>${i.S_CHARGE * i.SEAT_SU}</fmt:formatNumber></td>
 			<td>${i.SEAT}</td>
-			<td><fmt:formatNumber>${i.SEAT_SU}</fmt:formatNumber></td>
+			<%-- <td><fmt:formatNumber>${i.SEAT_SU}</fmt:formatNumber></td> --%>
 		</tr>
 		</c:forEach>
 	</table>
+	</div>
+	</div>
 </body>
-</html>

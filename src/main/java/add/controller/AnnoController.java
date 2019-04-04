@@ -31,6 +31,7 @@ public class AnnoController {
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public String homePage(ModelMap m) {
 		m.addAttribute("message", String.format("%s", testMappable.selectTest()));
+		
 		return "home";
 	}
 
