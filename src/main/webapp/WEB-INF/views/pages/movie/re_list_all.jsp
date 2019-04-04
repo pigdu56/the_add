@@ -8,11 +8,6 @@
 </style>
 
 <div class="container">
-	<c:if test="${'admin' eq LoginUser}">
-		<h3>Id : ${m_list.m_id}</h3>
-		<h3>Name : ${m_list.m_name}</h3>
-	</c:if>
-
 	<h2>예약 리스트</h2>
 
 	<table class="table">

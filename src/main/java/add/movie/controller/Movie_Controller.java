@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import add.maps.TestMappable;
 import add.movie.Mongo;
 import add.movie.MovieJSONMain;
 import add.movie.NaverApi;
@@ -46,6 +47,9 @@ public class Movie_Controller {
 	
 	@Autowired
 	Mongo mo;
+	
+	@Autowired
+	TestMappable tm;
 	
 	// 메인
 	@RequestMapping(value= {"/main"}, method=RequestMethod.GET)
@@ -80,7 +84,7 @@ public class Movie_Controller {
 		return mv;
 	}
 	
-	// 관리자 예약 내역
+	// 관리자 전체 예약 내역
 	@RequestMapping(value= {"/rev_l_all/{pnum}"}, method=RequestMethod.GET)
 	public ModelAndView re_list_all(@PathVariable(value="pnum") Integer pnum, HttpServletRequest rq) {
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
@@ -93,6 +97,41 @@ public class Movie_Controller {
 			list = mm.rev_l_all(pnum);
 		}
 		
+		mv.addObject("rev_l", list);
+		mv.setViewName("re_list_all");
+		
+		return mv;
+	}
+	
+	// 회원 리스트
+	@RequestMapping(value = {"/m_list/{pnum}"}, method=RequestMethod.GET)
+	public ModelAndView m_list(@PathVariable(value="pnum") Integer pnum) {
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+		ModelAndView mv = new ModelAndView();
+		
+		
+		list = tm.selectTest();
+		
+		mv.addObject("m_list", list);
+		mv.setViewName("mv_list");
+		
+		return mv;
+	}
+	
+	
+	// 예약 내역
+	@RequestMapping(value= {"/rev_l_s/{pnum}"}, method=RequestMethod.GET)
+	public ModelAndView re_list_s(@PathVariable(value="pnum") Integer pnum,@RequestParam HashMap<String, String> map, HttpServletRequest rq) {
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+		ModelAndView mv = new ModelAndView();
+		HttpSession s = rq.getSession();
+		String user = map.get("m_id");
+		String m_num = mm.userId(user);
+		
+		p.rePaging(m_num, pnum, rq);
+		list = mm.rev_l(user, pnum);
+		
+		mv.addObject("m_list", map);
 		mv.addObject("rev_l", list);
 		mv.setViewName("re_list");
 		
@@ -107,10 +146,10 @@ public class Movie_Controller {
 		HttpSession s = rq.getSession();
 		String user = (String) s.getAttribute("LoginUser");
 		String m_num = mm.userId(user);
-
+		
 		p.rePaging(m_num, pnum, rq);
 		list = mm.rev_l(user, pnum);
-
+		
 		mv.addObject("rev_l", list);
 		mv.setViewName("re_list");
 		

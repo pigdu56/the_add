@@ -44,26 +44,15 @@
 			<ul class="nav" style="color: white; font-size: 14px;">
 				<li class="nav-item">
 					<c:url var="home" value="/home" />				
-					<a class="nav-link" id="top_link"
-					href="${home}"><i
-						class="glyphicon glyphicon-home">HOME</i></a></li>
-				<c:choose>
-					<c:when test="${empty LoginUser}">
-						<li class="nav-item"><a class="nav-link" id="top_link"
-							href=""><i
-								class="glyphicon glyphicon-user">LOGIN</i></a></li>
-						<li class="nav-item"><a class="nav-link" id="top_link"
-							href=""><i
-								class="glyphicon glyphicon-link">JOIN</i></a></li>
-					</c:when>
-					<c:otherwise>
-						<li class="nav-item"><a class="nav-link" id="top_link" href="/the_add/movie/rev_l/1"><i
-								class="glyphicon glyphicon-user">${LoginUser}님</i></a></li>
-						<li class="nav-item"><a class="nav-link"  id="top_link"
-							style="cursor:pointer;" onclick="logout()"><i
-								class="glyphicon glyphicon-link">LOGOUT</i></a></li>
-					</c:otherwise>
-				</c:choose>
+					<a class="nav-link" id="top_link" href="${home}">
+					<i class="glyphicon glyphicon-home">HOME</i></a></li>
+
+				<li class="nav-item"><a class="nav-link" id="top_link" href="/the_add/movie/rev_l/1"><i
+						class="glyphicon glyphicon-user">${LoginUser}님</i></a></li>
+				<li class="nav-item"><a class="nav-link"  id="top_link"
+					style="cursor:pointer;" onclick="logout()">
+					<i class="glyphicon glyphicon-link">LOGOUT</i></a></li>
+
 			</ul>
 		</div>
 	</nav>

@@ -8,12 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
+import add.movie.Paging;
 import add.movie.maps.MovieMappable;
 //restful
 @RestController
@@ -25,6 +28,9 @@ public class RestMovie_Controller {
 	
 	@Autowired
 	ServletContext context;
+	
+	@Autowired
+	Paging p;
 	
 	//ajax 영화정보가져오기
 	@ResponseBody

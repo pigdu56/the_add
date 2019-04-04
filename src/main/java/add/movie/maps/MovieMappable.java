@@ -109,6 +109,10 @@ public interface MovieMappable {
 	@Select("SELECT COUNT(*) ct, CEIL(COUNT(*)/15) CC FROM MV_RESERVE WHERE M_NUM = #{m_num, jdbcType = INTEGER}")
 	public HashMap<String, Integer> re_page(@Param("m_num") String m_num);
 	
+	// 회원리스트 페이징
+	@Select("")
+	public HashMap<String, Integer> m_page();
+	
 	// 회원 번호 찾기
 	@Select("SELECT M_NUM FROM MEMBER WHERE M_ID = #{user}")
 	public String userId(@Param("user") String user);
@@ -120,4 +124,6 @@ public interface MovieMappable {
 	// 관리자 전체 예약 내역 
 	@Select("SELECT * FROM MV_V_SG_ALL WHERE F_PAGIN(R, #{pnum}, 15) = 1")
 	public ArrayList<HashMap<String, String>> rev_l_all(int pnum);
+
+	
 }	

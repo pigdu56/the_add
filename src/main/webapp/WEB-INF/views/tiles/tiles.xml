@@ -57,10 +57,21 @@
 		<put-attribute name="body" value="/WEB-INF/views/pages/movie/main.jsp" />
 	</definition>
 	
+	<!-- 회원 리스트 -->
+	<definition name="m_list" extends="movies">
+		<put-attribute name="body" value="/WEB-INF/views/pages/movie/m_list.jsp" />
+	</definition>
+	
 	<!-- 예약 내역 -->
 	<definition name="re_list" extends="movies">
 		<put-attribute name="body" value="/WEB-INF/views/pages/movie/re_list.jsp" />
 	</definition>
+	
+	<!--  전체 예약 내역 -->
+	<definition name="re_list_all" extends="movies">
+		<put-attribute name="body" value="/WEB-INF/views/pages/movie/re_list_all.jsp" />
+	</definition>
+	
 	
 	<!-- detail_view -->
 	<definition name="detail_view" extends="movies">
@@ -96,6 +107,7 @@
 	<definition name="ticket" extends="movies">
 		<put-attribute name="body" value="/WEB-INF/views/pages/movie/ticket.jsp" />
 	</definition>
+	
 	<!-- 버스 홈페이지 -->
 	<definition name="bus"
 		template="/WEB-INF/views/tiles/template/bus/defaultLayout.jsp">
