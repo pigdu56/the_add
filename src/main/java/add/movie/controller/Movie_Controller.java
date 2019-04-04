@@ -493,19 +493,8 @@ public class Movie_Controller {
    
    // 예약 취소
    @RequestMapping(value= {"/del"}, method = RequestMethod.POST)
-   public String r_del(@RequestParam HashMap<String, String> map) {
-	   System.out.println(map);
-	   String r_code = map.get("r_code");
-	   String seat = map.get("seat");
-	   if(seat.contains(",")) {
-		   String[] seats = seat.split(",");
-		   for(String s : seats) {
-			   mm.r_del(r_code, s);
-		   }
-	   } else {
-		   mm.r_del(r_code, seat);
-	   }
-	   
+   public String r_del(@RequestParam String r_code) {
+	   mm.r_del(r_code);
 	   return "redirect:/movie/rev_l/1";
    }
    

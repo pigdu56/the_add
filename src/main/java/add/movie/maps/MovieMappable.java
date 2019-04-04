@@ -130,7 +130,8 @@ public interface MovieMappable {
 	@Select("SELECT * FROM MV_V_SG_ALL WHERE F_PAGIN(R, #{pnum}, 15) = 1")
 	public ArrayList<HashMap<String, String>> rev_l_all(int pnum);
 
-	@Delete("DELETE FROM MV_SEAT WHERE R_CODE = #{r_code, jdbcType=INTEGER} AND S_NAME = ${seat, jdbcType=VARCHAR}")
-	public void r_del(String r_code, String seat);
+	@Insert(value = "{ CALL MV_P_C(#{r_code, jdbcType = INTEGER})}")
+	@Options(statementType = StatementType.CALLABLE)
+	public void r_del(@Param("r_code") String r_code);
 	
 }	
