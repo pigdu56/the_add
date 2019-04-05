@@ -123,6 +123,9 @@ width:30%;
 </div>
 </body>
 <script>
+$(document).ready(function(){
+	alert("예매가 완료되었습니다.");
+})
 function noEvent() {
 	if (event.keyCode == 116) {
 		event.keyCode= 2;

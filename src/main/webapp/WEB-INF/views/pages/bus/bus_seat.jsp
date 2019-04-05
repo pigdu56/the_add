@@ -181,7 +181,7 @@
                   <tr>
                      <td colspan="3">
                         <input type="submit" id="submit" value="예매하기"
-                        class="btn btn-block btsky" disabled="disabled" style="font-size: 15px;" onclick="buy_alert()">
+                        class="btn btn-block btsky" disabled="disabled" style="font-size: 15px;">
                      </td>
                   </tr>
                </table>
@@ -239,11 +239,6 @@ function noEvent() {
 	}
 	document.onkeydown = noEvent;
 	
-	
-	function buy_alert(){
-		 alert("예매가 완료되었습니다.");
-	}
-   
     // 체크박스 개수를 가져와 가격에 * 하기
    function check(frm){
       // 체크된 체크박스개수 가져오기
