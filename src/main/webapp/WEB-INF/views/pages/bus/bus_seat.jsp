@@ -206,6 +206,29 @@
    </form>
 </body>
 <script>
+function leadingZeros(n, digits) {
+    var zero = '';
+    n = n.toString();
+
+    if (n.length < digits) {
+      for (i = 0; i < digits - n.length; i++)
+        zero += '0';
+    }
+    return zero + n;
+  }
+
+     // 오늘 날짜 일 경우 
+     var d = new Date();
+     var todayY = d.getFullYear();
+     var todayMT = leadingZeros(d.getMonth() + 1, 2);
+     var todayD = leadingZeros(d.getDate(), 2);
+     
+     var todayYMD =  String(todayY) + String(todayMT) + String(todayD);
+     
+     var todayH = leadingZeros(d.getHours(), 2);
+     var todayM = leadingZeros(d.getMinutes(), 2);
+     var todayHM = "1" + String(todayH) + String(todayM);	
+	
 	
 function noEvent() {
 	if (event.keyCode == 116) {
@@ -224,6 +247,8 @@ function noEvent() {
    
     // 체크박스 개수를 가져와 가격에 * 하기
    function check(frm){
+      	
+      
       // 체크된 체크박스개수 가져오기
       var check = $("input:checkbox[class=nochecked]:checked").length;
       // 운임비용 가져와 뒷자리 " 원" 자르기

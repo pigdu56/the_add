@@ -166,6 +166,11 @@
 		<put-attribute name="body" value="/WEB-INF/views/pages/bus/member_buylist.jsp" />
 	</definition>
 	
+	<!-- alert -->
+	<definition name="alert_cancle" extends="bus">
+		<put-attribute name="body" value="/WEB-INF/views/pages/bus/alert_cancle.jsp" />
+	</definition>
+	
 	<!-- trip -->
 	<!-- tripApi -->
 	<definition name="timg" extends="bdefinition">

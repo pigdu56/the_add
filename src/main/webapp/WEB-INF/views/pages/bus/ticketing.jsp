@@ -235,7 +235,7 @@
        var d = new Date();
        var todayY = d.getFullYear();
        var todayMT = leadingZeros(d.getMonth() + 1, 2);
-       var todayD = d.getDate();
+       var todayD = leadingZeros(d.getDate(), 2);
        
        var todayYMD =  String(todayY) + String(todayMT) + String(todayD);
        
@@ -337,7 +337,7 @@
                   },
                    
                   success : function(data) {
-                     console.log(data);
+                     
                      /* 출발 터미널 -> 도착 터미널 */
                       if(data[0] == null){
                          alert("조회된 버스가 없습니다.");
@@ -408,12 +408,11 @@
                             // 도착 시간
                             arrival = data[i].ARR_TIME;
                             arrival_hour = arrival.substring(0,2) + "시 ";
-                           arrival_minute = arrival.substring(2,4) + "분"
+                            arrival_minute = arrival.substring(2,4) + "분"
                      
-                           Number(todayHM)
-                           
+                            Number(todayHM)
                            // 컴퓨터에 시간을 받아와 시간이 지난 것들이 안나오게 하기
-                           if(todayHM < start ){
+                           if(todayHM + 10 < start){
                               $("#result").append(
                                   "<tr><td style='display:none;'>" + data[i].SCHE_CODE + "</td>"
                                      + "<td>" + start_hour + start_minute 
@@ -454,7 +453,7 @@
                           var grade = td.eq(4).text();
                           var charge = td.eq(5).text();
                           var seat_nam = td.eq(6).text();
-                                            
+                          
                           $("#reservation").append(
                              "<tr>"
                              + "<td><label class='label_margin text-center'>출발</label></td>"

@@ -52,7 +52,7 @@ text-align:center;
 width:30%;
 }
 </style>
-<body>
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
 <div class="container">
 
 
@@ -132,5 +132,8 @@ function noEvent() {
 	}
 	}
 	document.onkeydown = noEvent;
+	
+	window.history.forward();
+	function noBack(){window.history.forward();}
 </script>
 

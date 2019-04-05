@@ -68,7 +68,7 @@ public class BusController {
 				amap.seatInsert(String.valueOf(seq), ss.get(i));
 			}
 			// 버스 스케쥴에 대한 예약 목록 가죠오기
-			m.addAttribute("buy_list", amap.buy_list(map.get("member_num"), map.get("bus_seq")));
+			m.addAttribute("buy_list", amap.buy_list(seq));
 		}
 		return "seat_ticket";
 	}
@@ -83,6 +83,7 @@ public class BusController {
 	// 클릭시 그 정보에 대한 표 나오게 하기
 	@RequestMapping(value= {"/buy_view"})
 	public String buy_view(ModelMap m, @RequestParam("b_code") String b_code) {
+		m.addAttribute("b_code", b_code);
 		m.addAttribute("member_buy_impormation" ,amap.member_buy_list(b_code));
 		return "buy_view";
 	}
@@ -93,5 +94,11 @@ public class BusController {
 		String m_num = (String) s.getAttribute("LoginNum");
 		m.addAttribute("user_list", amap.user_buy_list(m_num));
 		return "member_buylist";
+	}
+	
+	@RequestMapping(value= {"/buy_cancle"}, method=RequestMethod.POST)
+	public String buy_cancle(@RequestParam("b_code") String b_code) {
+		amap.buy_cancle(b_code);
+		return "alert_cancle";
 	}
 }
