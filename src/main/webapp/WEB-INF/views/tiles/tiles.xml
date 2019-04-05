@@ -171,6 +171,11 @@
 		<put-attribute name="body" value="/WEB-INF/views/pages/bus/alert_cancle.jsp" />
 	</definition>
 	
+	<!-- 동시 예약 체크 -->
+	<definition name="alert_check" extends="bus">
+		<put-attribute name="body" value="/WEB-INF/views/pages/bus/alert_check.jsp" />
+	</definition>
+	
 	<!-- trip -->
 	<!-- tripApi -->
 	<definition name="timg" extends="bdefinition">

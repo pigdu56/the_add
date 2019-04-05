@@ -84,4 +84,8 @@ public interface AnnoMaps {
 	@Insert("{ CALL BUY_CANCLE(#{b_code, mode=IN, jdbcType=VARCHAR})}")
 	@Options(statementType = StatementType.CALLABLE)
 	public void buy_cancle(@Param("b_code") String b_code);
+	
+	// 동시 접속 체크
+	@Select("SELECT COUNT(*) S FROM SEAT_CHECK WHERE S_CODE=#{bus_seq} AND B_SEATNUM = #{seat_num}")
+	public int check_seat(@Param("bus_seq") String bus_seq, @Param("b_seatnum") String seat_num);
 }

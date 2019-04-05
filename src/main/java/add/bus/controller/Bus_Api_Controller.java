@@ -48,7 +48,7 @@ public class Bus_Api_Controller {
                   
          // 경로코드와 날짜를 버스스케쥴에서 검색후 값이 없을 경우
          if(amap.dbCheck(day, routecode) <= 0) {
-            System.out.println("db에 값이 없음");
+            // System.out.println("db에 값이 없음");
             // 반복하면서 검색한 내용을 스케쥴에 인서트
             for(int i=0; i<list.size(); i++) {
                HashMap<String, String> insertmap = new HashMap<String, String>();
@@ -65,7 +65,7 @@ public class Bus_Api_Controller {
             return amap.getScheduel(day, routecode);
             
          }else {
-            System.out.println("db에 값이 있음");
+            // System.out.println("db에 값이 있음");
             return amap.getScheduel(day, routecode);
          }
       // 검색한 버스 조회가 없을 경우

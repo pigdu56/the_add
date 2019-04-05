@@ -217,8 +217,6 @@
        </div>
  <script>
  
- 
- 
 //포맷 함수
  function leadingZeros(n, digits) {
       var zero = '';
@@ -242,9 +240,7 @@
        var todayH = leadingZeros(d.getHours(), 2);
        var todayM = leadingZeros(d.getMinutes(), 2);
        var todayHM = "1" + String(todayH) + String(todayM);
-       
-       
-       
+              
     /*************************** 출발 ajax ***************************/
     $("#do").bind(
           "change",
@@ -400,8 +396,6 @@
                                                 
                            // 출발 시간 
                            start = "1" + data[i].DEP_TIME; // 오전일 경우 앞자리인 0 이 지워져서 1을 더함
-                           start = Number(start);
-                           start=String(start);
                            start_hour = start.substring(1,3) + "시 ";
                            start_minute = start.substring(3,5) + "분"
                                                 
@@ -412,7 +406,7 @@
                      
                             Number(todayHM)
                            // 컴퓨터에 시간을 받아와 시간이 지난 것들이 안나오게 하기
-                           if(todayHM + 10 < start){
+                           if(Number(todayHM) < Number(start)){
                               $("#result").append(
                                   "<tr><td style='display:none;'>" + data[i].SCHE_CODE + "</td>"
                                      + "<td>" + start_hour + start_minute 
@@ -457,7 +451,7 @@
                           $("#reservation").append(
                              "<tr>"
                              + "<td><label class='label_margin text-center'>출발</label></td>"
-                             + "<td><input type='text' size='10px' class='btn text-center yap' name='dep' value='"+ dep +"' readonly='readonly'></td>"
+                             + "<td><input type='text' id='dep' size='10px' class='btn text-center yap' name='dep' value='"+ dep +"' readonly='readonly'></td>"
                              + "</tr><tr>"
                              + "<td><input type='hidden' name='bus_seq' value='"+ bus_seq +"'></td>"
                              + "<td class='text-center'> ↓ </td>"
@@ -492,6 +486,7 @@
                   }
                })
             });
+    
  /*************************** 달력 ajax ***************************/
    $(function() {
       $("#datepicker").datepicker(

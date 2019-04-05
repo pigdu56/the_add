@@ -66,8 +66,7 @@
 
 </head>
 
-<body oncontextmenu="return false"> 
-   
+<body> 
    <c:url value="/bus/seat_ticket" var="seat_ticket"/>
    <form action="${seat_ticket}" method="post">
       <div class="container-fluid" style="font-size:12px;">
@@ -247,8 +246,6 @@ function noEvent() {
    
     // 체크박스 개수를 가져와 가격에 * 하기
    function check(frm){
-      	
-      
       // 체크된 체크박스개수 가져오기
       var check = $("input:checkbox[class=nochecked]:checked").length;
       // 운임비용 가져와 뒷자리 " 원" 자르기
@@ -295,6 +292,17 @@ function noEvent() {
           },
           success : function(data){
              
+        	  var over_time_check = '${bus_ticket.get("dep")}';
+              over_time_check = "1"+over_time_check.substring(0,2) + over_time_check.substring(4, 6)
+              todayHM = "1" + String(todayH) + String(todayM);
+              
+              // 다시한번 막기
+              if(Number(todayHM) >= Number(over_time_check)){
+            	  alert("이미 출발한 버스입니다.");
+            	  window.history.back();
+            	  return;
+              }
+        	  
              // 등급을 받아와서 등급별로 다른 checkbox를 뿌림
              // 일반 고속 등급 뿌리기
              if(${bus_ticket.get("grade") eq "고속"} || ${bus_ticket.get("grade") eq "심야고속"}){
