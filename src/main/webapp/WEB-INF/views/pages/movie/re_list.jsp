@@ -18,13 +18,14 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th style="width: 8%">No</th>
-				<th style="width: 22%">Title</th>
+				<th style="width: 5%">No</th>
+				<th style="width: 20%">Title</th>
 				<th style="width: 10%">Day</th>
 				<th style="width: 10%">Time</th>
 				<th style="width: 20%">Seat</th>
 				<th style="width: 10%">Price</th>
 				<th style="width: 10%">Id</th>
+				<th style="width: 5%">Cancel</th>
 			</tr>
 		</thead>
 		<tbody id="t_list">
@@ -43,13 +44,30 @@
 					<td>${re.S}</td>
 					<td><fmt:formatNumber pattern="###,###,###" value="${re.R_PRICE}" />원</td>
 					<td>${re.M_ID}</td>
+					<td>
+						<jsp:useBean id="now" class="java.util.Date" />
+						<fmt:parseDate value="${re.SD_DAY}${re.T_TIME}" var="str_t" pattern="yyyyMMddHHmm" />
+						<c:if test="${now < str_t }">
+							<c:url value="/movie/del" var="del" />
+							<form action="${del}" method="post">
+								<input type="hidden" name="r_code" value="${re.R_CODE}"/>
+								<input type="hidden" name="seat" value="${re.S}"/> 
+								<button style="border:0; background-color: transparent;">
+									<img src="${pageContext.request.contextPath}/static/img/movie/cancel.png" style="width:20px;"/>
+								</button>
+							</form>
+						</c:if>
+						
+						
+						
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 		<tfoot style="text-align: center;">
 			<!-- 페이지 표시영역 -->
 			<tr id="paging">
-				<td colspan="7" class="lst">
+				<td colspan="8" class="lst">
 					<ul class="pagination">
 						<!-- 페이징 -->
 						<li class="page-item" id="p_first">

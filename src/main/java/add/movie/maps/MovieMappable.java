@@ -3,6 +3,7 @@ package add.movie.maps;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
@@ -129,5 +130,12 @@ public interface MovieMappable {
 	@Select("SELECT * FROM MV_V_SG_ALL WHERE F_PAGIN(R, #{pnum}, 15) = 1")
 	public ArrayList<HashMap<String, String>> rev_l_all(int pnum);
 
+	// 예약 취소
+	@Insert(value = "{ CALL MV_P_C(#{r_code, jdbcType = INTEGER})}")
+	@Options(statementType = StatementType.CALLABLE)
+	public void r_del(@Param("r_code") String r_code);
 	
+	// 나이
+	@Select("SELECT M_BIRTH FROM MEMBER WHERE M_ID = #{user}")
+	public String age(String user);
 }	

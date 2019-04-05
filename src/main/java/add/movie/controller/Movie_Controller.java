@@ -119,8 +119,8 @@ public class Movie_Controller {
 	}
 	
 	
-	// 예약 내역
-	@RequestMapping(value= {"/rev_l_s/{pnum}"}, method=RequestMethod.GET)
+	// 관리자용 예약 내역
+	@RequestMapping(value= {"/rev_l_s/{pnum}"}, method=RequestMethod.POST)
 	public ModelAndView re_list_s(@PathVariable(value="pnum") Integer pnum,@RequestParam HashMap<String, String> map, HttpServletRequest rq) {
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 		ModelAndView mv = new ModelAndView();
@@ -155,7 +155,6 @@ public class Movie_Controller {
 		
 		return mv;
 	}
-	
 	
 	//예약 페이지
 	@RequestMapping(value= {"/reservation"}, method=RequestMethod.GET)
@@ -465,30 +464,55 @@ public class Movie_Controller {
 	   for(HashMap<String, String> m : alhm ) {
 		   mm.re(m);
 	   }
+	   
 	   HashMap<String, String> mv_s = mm.sd(map.get("sd_code"));
 	   String m_num = (String) s.getAttribute("LoginNum");
 	   String gender = (String) s.getAttribute("LoginGender");
+	   
 	   if(gender == null) {
 		   gender="0";
-	   }	  
+	   }	
+	   
 	   mv_s.put("M_GENDER", gender);
 	   mv_s.put("m_num", m_num);
 	   mo.insertCinema(mv_s);
 	   String genre = mv_s.get("G_NAME");
+	   
 	   if(genre.contains(",")) {
 		   String[] genres = genre.split(",");
 		   for(String g : genres) {					
 			   mo.insertGenre(mv_s, g);
 		   }				
-	   }else {
-		mo.insertGenre(mv_s, genre);
-		
+	   } else {
+		   mo.insertGenre(mv_s, genre);
 	   }
+	   
+	   // 나이 계산
+	   Calendar cal = Calendar.getInstance();
+	   String birth = mm.age(user);
+	   
+	   // 현재 년도
+	   int to_year = cal.get(cal.YEAR);
+	   
+	   int year = Integer.parseInt(birth.substring(0, 4));
+	   int age = (to_year - year);
+	   
+	   int ag = (int) Math.floor(age/10);
+	   String mv_title_kr = mv_s.get("MV_TITLE_KR");
+	   
+	   mo.insertAge(mv_title_kr, ag);
 	   mo.insertRating(mv_s);
 	   mv.addObject("seat_num", alhm);
 	   mv.addObject("mv_info", mv_s);
 	   mv.addObject("r_list", map); 
 	   mv.setViewName("ticket");
 	   return mv;
+   }
+   
+   // 예약 취소
+   @RequestMapping(value= {"/del"}, method = RequestMethod.POST)
+   public String r_del(@RequestParam String r_code) {
+	   mm.r_del(r_code);
+	   return "redirect:/movie/rev_l/1";
    }
 }

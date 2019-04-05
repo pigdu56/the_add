@@ -37,12 +37,12 @@
 					<td>${i.M_PHONE}</td>
 					<td>${i.M_EMAIL}</td>
 					<td>
-						<c:url value="/movie/m_list/1" var="m" />
+						<c:url value="/movie/rev_l_s/1" var="m" />
 						<form action="${m}" method="post">
 							<input type="hidden" name="m_id" value="${i.M_ID}" />
 							<input type="hidden" name="m_name" value="${i.M_NAME}" />
 							<button style="border : 0; background-color: transparent;">
-							<img src="${pageContext.request.contextPath}/static/img/movie/이동.png" style="width: 20px;"></button>
+							<img src="${pageContext.request.contextPath}/static/img/movie/move.png" style="width: 20px;"></button>
 						</form>
 					</td>
 				</tr>
