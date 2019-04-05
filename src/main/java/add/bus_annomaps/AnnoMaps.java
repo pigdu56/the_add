@@ -57,8 +57,8 @@ public interface AnnoMaps {
 		public int buySeq(@Param("m_num") String m_num, @Param("s_code") String s_code);
 
 	// 시트 인서트
-	@Insert("INSERT INTO BUS_SEAT VALUES (#{seq}, #{seat_num})")
-	public void seatInsert(@Param("seq") String seq, @Param("seat_num") String seat_num);
+	@Insert("INSERT INTO BUS_SEAT VALUES (#{seq}, #{b_seatnum})")
+	public void seatInsert(@Param("seq") String seq, @Param("b_seatnum") String b_seatnum);
 
 	// 회원 번호 가져오기
 	@Select("SELECT M_NUM FROM MEMBER WHERE M_ID = #{id}")
@@ -86,6 +86,6 @@ public interface AnnoMaps {
 	public void buy_cancle(@Param("b_code") String b_code);
 	
 	// 동시 접속 체크
-	@Select("SELECT COUNT(*) S FROM SEAT_CHECK WHERE S_CODE=#{bus_seq} AND B_SEATNUM = #{seat_num}")
-	public int check_seat(@Param("bus_seq") String bus_seq, @Param("b_seatnum") String seat_num);
+	@Select("SELECT COUNT(*) S FROM SEAT_CHECK WHERE S_CODE=#{bus_seq} AND B_SEATNUM = #{b_seatnum}")
+	public int check_seat(@Param("bus_seq") String bus_seq, @Param("b_seatnum") String b_seatnum);
 }

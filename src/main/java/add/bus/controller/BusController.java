@@ -60,7 +60,7 @@ public class BusController {
 		for(int i=0; i<ss.size(); i++) {
 			int check = amap.check_seat(map.get("bus_seq"), ss.get(i));
 			if(check != 0) {
-				return "alert_check" ;
+				return "alert_check";
 			}
 		}
 		
