@@ -55,13 +55,13 @@ public class Movie_Controller {
 	@RequestMapping(value= {"/main"}, method=RequestMethod.GET)
 	public ModelAndView Movie_main() {
 		ModelAndView mv = new ModelAndView();
-		
+		mv.addObject("momo", mo.getlike(4, "샤잠!"));
 		mv.addObject("rating", mo.getRating());
 		mv.addObject("cinema", mo.getCinema());
 		mv.addObject("genre", mo.getGenre());
 		mv.addObject("movie", mm.boxList());
 		mv.setViewName("movie_main");
-		
+
 		return mv;
 	}
 	
@@ -526,4 +526,7 @@ public class Movie_Controller {
 	   mm.r_del(r_code);
 	   return "redirect:/movie/rev_l/1";
    }
+   
+   // 좋아요 검색
+   
 }

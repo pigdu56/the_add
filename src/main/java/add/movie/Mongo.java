@@ -1,6 +1,7 @@
 package add.movie;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,9 +10,13 @@ import java.util.List;
 import org.bson.Document;
 import org.springframework.context.annotation.Configuration;
 
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.AggregateIterable;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
 @Configuration
@@ -141,7 +146,6 @@ public class Mongo {
 	public void insertGenderMV(String mv_title_kr, int gd) {
 		MongoCollection<Document> coll = mdb.getCollection("gender");
 		Document doc = new Document();
-		System.out.println(mv_title_kr);
 		doc.append("gender", gd);
 		doc.append("mv_title_kr", mv_title_kr);
 		coll.insertOne(doc);
@@ -160,4 +164,40 @@ public class Mongo {
 		Iterator<Document> it = aggs.iterator();
 		return it;
 	}
+	
+	// 좋아요	Insert
+	public void insertlike(int m_num) {
+		MongoCollection<Document> coll = mdb.getCollection("mv");
+		Document doc = new Document();
+		doc.append("like", 0);
+		doc.append("m_num", m_num);
+		coll.insertOne(doc);
+	}
+	
+	// 좋아요 find
+	public ArrayList<Document> getlike(int m_num, String mv_title_kr){
+		ArrayList<Document> list = new ArrayList<Document>();
+		MongoCollection<Document> coll = mdb.getCollection("mv");
+		BasicDBObject num = new BasicDBObject("m_num", m_num);
+		BasicDBObject title = new BasicDBObject("mv_title_kr", mv_title_kr);
+		
+		BasicDBList mv = new BasicDBList();
+		mv.add(num);
+		mv.add(title);
+		
+		FindIterable<Document> fi = coll.find( new Document("$and", mv ));
+        MongoCursor<Document> mongoCursor = fi.iterator();
+        while (mongoCursor.hasNext()) {
+        	Document doc = mongoCursor.next();
+            list.add(doc);
+        }
+		
+		return list;
+	}
+	
+	// 좋아요 Update
+	public void updatelike(int mv_num, String mv_title_kr, int like) {
+		getlike(mv_num, mv_title_kr);
+	}
+
 }

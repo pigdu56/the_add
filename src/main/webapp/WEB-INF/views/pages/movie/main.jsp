@@ -143,6 +143,8 @@ body{
         chart.draw(data, options);
       }
  </script>
+ 
+
 <div class="container">
 	<div id="black">
 		<h2 class="box_title"><b>BOXOFFICE</b></h2>
@@ -207,6 +209,7 @@ body{
 			</tbody>
 		</table>		
 	</div>
+	
 	<div class="row">
 		<div class="col"><h2 class="box_title"><b>선호도</b></h2></div>
 	</div>
