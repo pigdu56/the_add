@@ -4,8 +4,8 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <style>
-	.box-image {margin-right: 30px; width: 213px; height: 305px; float: left;}
-	.box-contents {float: left; width: 737px; height: 305px; }
+	.box-image {margin-right: 30px; width: 213px; height: 305px;}
+	.box-contents {width: 737px; height: 305px; }
 	#title{font-size: 25px; vertical-align: middle; float: left; width: 737px; }
 	#title > p { font-size: 12px; font-family: Verdana, Geneva, sans-serif;}
 	.score { margin-top: 25px; padding-bottom: 10px; border-bottom: 1px solid #d9d6c8; font-size: 14px;}
@@ -18,11 +18,11 @@
 	<h2>영화 상세</h2>
 	<hr style="border: 3px solid #252424;">
 	<br/><br/><br/>
-	<div class="box-image">
+	<div class="box-image col-sm-3">
 		<img src="${movie['MV_IMG']}" id="poster">
 	</div>
 	
-	<div class="box-contents row">
+	<div class="box-contents col-sm-9">
 		<div id="title">
 			<img src="${pageContext.request.contextPath}/static/img/movie/${movie['RT_IMG']}" style="width: 40px;">
 			<strong> ${movie['MV_TITLE_KR']}</strong>
@@ -83,7 +83,16 @@
 				</c:when>
 			</c:choose>
 		</c:forEach>
-
+		<c:forEach var="i" items="${gender}">
+			<c:choose>
+				<c:when test="${i._id == 0}">
+					<input type="hidden" id="female" value="${i.count}">
+				</c:when>
+				<c:otherwise>
+					<input type="hidden" id="male" value="${i.count}">
+				</c:otherwise>
+			</c:choose>	
+		</c:forEach>
 		
 		<div class="col-sm-4" id="genderChart" style="width: 100%; height: 400px;"></div>
 		<div class="col-sm-4" id="ageChart" style="width: 100%; height: 300px;"></div>
@@ -99,6 +108,8 @@ $(document).ready(function(){
 	var age30 = 0;
 	var age40 = 0;
 	var age50 = 0;
+	var male = 0;
+	var female = 0;
 	
 	if($("#10").length > 0){
         age10 = $("#10").val();
@@ -114,6 +125,13 @@ $(document).ready(function(){
     }
 	if($("#50").length > 0){
         age50 = $("#50").val();
+    }
+	
+	if($("#male").length > 0){
+		male = $("#male").val();
+    }
+	if($("#female").length > 0){
+		female = $("#female").val();
     }
 	
 	google.charts.load("current", {packages:["corechart"]});
@@ -140,27 +158,21 @@ $(document).ready(function(){
     google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
-      var data = google.visualization.arrayToDataTable([
-        ['Task', 'Hours per Day'],
-        <c:forEach var="i" items="${gender}" varStatus="status">
-			<c:choose>
-				<c:when test="${i._id == 0}">
-				['여성', ${i.count}]
-				</c:when>
-				<c:otherwise>
-				['남성', ${i.count}],
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-      ]);
+		var data = google.visualization.arrayToDataTable([
+			['Task', 'Hours per Day'],
+			['남성', 1],
+			['여성', 1]
+    	]);
 
-      var options = {
-        title: '성별 선호도',
-        pieHole: 0.4,
-      };
+		var options = {
+        	title: '성별 선호도',
+			pieHole: 0.4,
+			width: 400,
+		  	height: 280
+		};
 
-      var chart = new google.visualization.PieChart(document.getElementById('genderChart'));
-      chart.draw(data, options);
+      	var chart = new google.visualization.PieChart(document.getElementById('genderChart'));
+      	chart.draw(data, options);
     };
 });	
 </script>

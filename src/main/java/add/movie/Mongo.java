@@ -155,7 +155,7 @@ public class Mongo {
 		Document genderGroup = new Document("$group", new Document(
 				"_id", "$gender").append("count", new Document("$sum", 1)));
 		
-		List<Document> pipeline = Arrays.asList(genderGroup);
+		List<Document> pipeline = Arrays.asList(match, genderGroup);
 		AggregateIterable<Document> aggs = coll.aggregate(pipeline);
 		Iterator<Document> it = aggs.iterator();
 		return it;
