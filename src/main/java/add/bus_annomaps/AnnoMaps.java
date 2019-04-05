@@ -69,7 +69,7 @@ public interface AnnoMaps {
 	public ArrayList<HashMap<String, String>> buy_list(@Param("seq") int seq);
 
 	// 전체 좌석 한 컬럼으로 합쳐서 나오게 하기(admin)
-	@Select("SELECT * FROM MEMBER_BUY_LIST ORDER BY S_DAY ASC, S_CODE ASC")
+	@Select("SELECT * FROM MEMBER_BUY_LIST ORDER BY S_DAY DESC, S_CODE ASC")
 	public ArrayList<HashMap<String, String>> admin_buy_list();
 
 	// 선택시 그 사람 정보 티켓 뿌리기(admin)

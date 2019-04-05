@@ -166,5 +166,8 @@ function leadingZeros(n, digits) {
 		alert("당일 예약 취소는 불가능합니다.");
 		$("#submit").attr("disabled", "disabled");
 	}
+	if(${LoginUser == 'admin'}){
+		$("#submit").attr("disabled", "disabled");
+	}
 	
 </script>
