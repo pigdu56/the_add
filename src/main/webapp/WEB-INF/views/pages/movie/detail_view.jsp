@@ -83,6 +83,9 @@
 				</c:when>
 			</c:choose>
 		</c:forEach>
+
+		
+		<div class="col-sm-4" id="genderChart" style="width: 100%; height: 400px;"></div>
 		<div class="col-sm-4" id="ageChart" style="width: 100%; height: 300px;"></div>
 	</div>
 </div>
@@ -133,5 +136,31 @@ $(document).ready(function(){
 		var chart = new google.visualization.ColumnChart(document.getElementById('ageChart'));
 		chart.draw(data, options);
     }
+    
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        <c:forEach var="i" items="${gender}" varStatus="status">
+			<c:choose>
+				<c:when test="${i._id == 0}">
+				['여성', ${i.count}]
+				</c:when>
+				<c:otherwise>
+				['남성', ${i.count}],
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+      ]);
+
+      var options = {
+        title: '성별 선호도',
+        pieHole: 0.4,
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('genderChart'));
+      chart.draw(data, options);
+    };
 });	
 </script>
