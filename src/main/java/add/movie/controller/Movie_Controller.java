@@ -66,7 +66,10 @@ public class Movie_Controller {
 	@RequestMapping(value= {"/detail_view"}, method=RequestMethod.GET)
 	public ModelAndView detail_view(@RequestParam HashMap<String, String> m){
 		ModelAndView mv = new ModelAndView();
-		
+		String title = mm.mv_dt_sel(m).get("MV_TITLE_KR");
+
+		mv.addObject("age", mo.getAge(title));
+		mv.addObject("gender", mo.getGenderMV(title));
 		mv.addObject("movie", mm.mv_dt_sel(m));
 		mv.setViewName("detail_view");
 		System.out.println(mv);
@@ -253,8 +256,10 @@ public class Movie_Controller {
          
          // 포스터
          tokens = new StringTokenizer(hm.get("posters"));
+         
          String poster = tokens.nextToken("|");
          dtm.put("poster", poster);
+         
          //System.out.println("포스터 : " + poster);
          
          // 줄거리
@@ -323,7 +328,7 @@ public class Movie_Controller {
          ArrayList<HashMap<String, String>> actor = (ArrayList<HashMap<String, String>>) m.get("actors");
     	 if(actor.isEmpty()) {
     		 String ac = na.NaverApi(title_kr).get("actor");
-    		 //System.out.println(ac);
+    		 System.out.println(ac);
     		 String date[] = ac.split("\\|");
     	        
 	        for(int i=0 ; i<date.length ; i++) {
@@ -500,6 +505,9 @@ public class Movie_Controller {
 	   int ag = (int) Math.floor(age/10);
 	   String mv_title_kr = mv_s.get("MV_TITLE_KR");
 	   
+	   int gd = Integer.parseInt(gender);
+	   
+	   mo.insertGenderMV(mv_title_kr, gd);
 	   mo.insertAge(mv_title_kr, ag);
 	   mo.insertRating(mv_s);
 	   mv.addObject("seat_num", alhm);

@@ -99,7 +99,7 @@ public class Mongo {
 		return it;
 	}
 	
-	//연령별선호
+	// 연령별선호
 	public Iterator<Document> getRating() {
 		MongoCollection<Document> coll = mdb.getCollection("rating");
 		//장르 group
@@ -112,7 +112,7 @@ public class Mongo {
 		return it;
 	}
 	
-	// 나이대 저장
+	// 연령별 예매 선호도 저장
 	public void insertAge(String mv_title_kr, int ag) {
 		MongoCollection<Document> coll = mdb.getCollection("age");
 		Document doc = new Document();
@@ -120,5 +120,44 @@ public class Mongo {
 		doc.append("age", ag);
 		doc.append("mv_title_kr", mv_title_kr);
 		coll.insertOne(doc);
+	}
+	
+	// 연령별 예매 선호도	
+	public Iterator<Document> getAge(String title){
+		MongoCollection<Document> coll = mdb.getCollection("age");
+		// 나이 age
+		Document match = new Document("$match", new Document("mv_title_kr", title));
+		Document ageGroup = new Document("$group", new Document(
+				"_id", "$age").append("count", new Document("$sum", 1)));
+		
+		
+		List<Document> pipeline = Arrays.asList(match, ageGroup);
+		AggregateIterable<Document> aggs = coll.aggregate(pipeline);
+		Iterator<Document> it = aggs.iterator();
+		return it;
+	}
+	
+	// 성별 영화 선호도 저장
+	public void insertGenderMV(String mv_title_kr, int gd) {
+		MongoCollection<Document> coll = mdb.getCollection("gender");
+		Document doc = new Document();
+		System.out.println(mv_title_kr);
+		doc.append("gender", gd);
+		doc.append("mv_title_kr", mv_title_kr);
+		coll.insertOne(doc);
+	}
+	
+	// 성별 영화 선호도 	
+	public Iterator<Document> getGenderMV(String title){
+		MongoCollection<Document> coll = mdb.getCollection("gender");
+		// 성별
+		Document match = new Document("$match", new Document("mv_title_kr", title));
+		Document genderGroup = new Document("$group", new Document(
+				"_id", "$gender").append("count", new Document("$sum", 1)));
+		
+		List<Document> pipeline = Arrays.asList(genderGroup);
+		AggregateIterable<Document> aggs = coll.aggregate(pipeline);
+		Iterator<Document> it = aggs.iterator();
+		return it;
 	}
 }

@@ -27,13 +27,13 @@ public class MovieJSONMain {
 		
 	}
 	
-	// 박스오피스 주간 정보
+	// 박스오피스 일일 정보
 	private static String readUrl() throws Exception {
 		BufferedInputStream reader = null;
 		// 하루 전 날짜
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
-		cal.add(cal.DATE, -1);
+		cal.add(cal.DATE, -2);
 		String yesterday = date.format(cal.getTime());
 		
 		try {
@@ -74,7 +74,7 @@ public class MovieJSONMain {
 		}
 	}
 	
-	// 주간정보 호출 메서드
+	// 일일정보 호출 메서드
 	public ArrayList<HashMap<String, String>> Mm() throws Exception {
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>(); 
 		JSONParser jsonparser = new JSONParser();

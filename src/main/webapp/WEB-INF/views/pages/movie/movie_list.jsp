@@ -7,6 +7,11 @@
 	table{ margin-left: 6%; text-align: left;}
 	th, td { border-bottom : 1px dashed gray; padding: 15px; }
 	.lst {border : none;}
+	#title_a{ text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: block; color : black;}
+	a:hover {
+	color : black;
+	text-decoration:none;
+}
 </style>
 <div class="container">
 	<strong style="text-align: center; font-size : 30px;">Movie</strong>
@@ -15,11 +20,12 @@
 		<tbody>
 			<c:forEach var="ml" items="${list}" varStatus="status">
 				<tr <c:if test="${status.last}">class="lst"</c:if>>
-					<td style="width: 20%;" <c:if test="${status.last}">class="lst"</c:if>><img src="${ml.MV_IMG}" style="width: 165px; height: 203px;" /></td>
+					<td style="width: 20%;" <c:if test="${status.last}">class="lst"</c:if>><a href="${pageContext.request.contextPath}/movie/detail_view?mv_code=${ml.MV_CODE}" id="title_a"><img src="${ml.MV_IMG}" style="width: 165px; height: 203px;" /></a></td>
 					<td <c:if test="${status.last}">class="lst"</c:if>>
 						<dl>
-							<dt><h3><img src="${pageContext.request.contextPath}/static/img/movie/${ml.RT_IMG}" style="width: 35px;" />
-								<b>${ml.MV_TITLE_KR}</b></h3></dt>
+							<dt><h3><a href="${pageContext.request.contextPath}/movie/detail_view?mv_code=${ml.MV_CODE}" id="title_a">
+							<img src="${pageContext.request.contextPath}/static/img/movie/${ml.RT_IMG}" style="width: 35px;" />
+								<b >${ml.MV_TITLE_KR}</b></a></h3></dt>
 							<dd><h5 style="color : gray;">${ml.MV_TITLE_EN}</h5>
 							<dd>감독 : ${ml.DT_NAME}</dd>
 							<dd>출현 : ${ml.A_NAME}</dd>

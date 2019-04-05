@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <style>
 	.box-image {margin-right: 30px; width: 213px; height: 305px; float: left;}
 	.box-contents {float: left; width: 737px; height: 305px; }
@@ -21,7 +22,7 @@
 		<img src="${movie['MV_IMG']}" id="poster">
 	</div>
 	
-	<div class="box-contents">
+	<div class="box-contents row">
 		<div id="title">
 			<img src="${pageContext.request.contextPath}/static/img/movie/${movie['RT_IMG']}" style="width: 40px;">
 			<strong> ${movie['MV_TITLE_KR']}</strong>
@@ -57,8 +58,80 @@
 				<dd>
 					${movie['MV_STORY']}
 				</dd>
-				
 			</dl>
 		</div>
 	</div>
+	
+	
+	<div class="row" style="clear: both; padding-top: 50px;">
+		<c:forEach var="age" items="${age}">
+			<c:choose>
+				<c:when test="${age._id == 1}">
+					<input type="hidden" id="10" value="${age.count}" />
+				</c:when>
+				<c:when test="${age._id == 2}">
+					<input type="hidden" id="20" value="${age.count}" />
+				</c:when>
+				<c:when test="${age._id == 3}">
+					<input type="hidden" id="30" value="${age.count}" />
+				</c:when>
+				<c:when test="${age._id == 4}">
+					<input type="hidden" id="40" value="${age.count}" />
+				</c:when>
+				<c:when test="${age._id == 5}">
+					<input type="hidden" id="50" value="${age.count}" />
+				</c:when>
+			</c:choose>
+		</c:forEach>
+		<div class="col-sm-4" id="ageChart" style="width: 100%; height: 300px;"></div>
+	</div>
 </div>
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+	var age10 = 0;
+	var age20 = 0;
+	var age30 = 0;
+	var age40 = 0;
+	var age50 = 0;
+	
+	if($("#10").length > 0){
+        age10 = $("#10").val();
+    }
+	if($("#20").length > 0){
+        age20 = $("#20").val();
+    }
+	if($("#30").length > 0){
+        age30 = $("#30").val();
+    }
+	if($("#40").length > 0){
+        age40 = $("#40").val();
+    }
+	if($("#50").length > 0){
+        age50 = $("#50").val();
+    }
+	
+	google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(cinemaChart);
+    function cinemaChart() {
+		var data = google.visualization.arrayToDataTable([
+			['Element', '선호도', { role: 'style' }],
+			['10대', Number(age10), 'gold' ],
+			['20대', Number(age20), 'color: #e5e4e2' ],
+			['30대', Number(age30), '#b87333'],
+			['40대', Number(age40), 'color: #e5e4e2' ],
+			['50대', Number(age50), '#b87333']
+      	]);
+
+      	var options = {
+      		title: '연령별 선호도',
+        	is3D: true,
+     	};
+
+		var chart = new google.visualization.ColumnChart(document.getElementById('ageChart'));
+		chart.draw(data, options);
+    }
+});	
+</script>
