@@ -56,6 +56,9 @@ public class Movie_Controller {
 	public ModelAndView Movie_main() {
 		ModelAndView mv = new ModelAndView();
 		
+		mv.addObject("rating", mo.getRating());
+		mv.addObject("cinema", mo.getCinema());
+		mv.addObject("genre", mo.getGenre());
 		mv.addObject("movie", mm.boxList());
 		mv.setViewName("movie_main");
 		
