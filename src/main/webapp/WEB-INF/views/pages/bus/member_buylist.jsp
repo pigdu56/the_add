@@ -26,7 +26,10 @@
 <style>
 
 .buy th{
-background-color:skyblue;
+background-color:#92D050;
+}
+.footer{
+position:absolute;
 }
 </style>
 
@@ -34,7 +37,14 @@ background-color:skyblue;
 
 <body>
 <div class="container">
-<p style="font-size:40px; text-align:center;">예매 목록</p>
+<div class="col-sm-4"></div>
+<div class="col-sm-4">
+<img src="${pageContext.request.contextPath}/static/img/bus/buy_list.png" style="width:100%;">
+</div>
+<div class="col-sm-4"></div>
+
+<br><br>
+
 <div class="col-sm-12">
 	<table class="table text-center table-hover buy" style="font-size:15px;">
 	<tr>
@@ -43,9 +53,9 @@ background-color:skyblue;
 		<th>이름</th>
 		<th>출발</th>
 		<th>도착</th>
-		<th>출발 시각</th>
+	<!-- 	<th>출발 시각</th>
 		<th>도착 시각</th>
-		<th>버스 회사</th>
+	 -->	<th>버스 회사</th>
 		<th>등급</th>
 		<th>가격</th>
 		<th>예약한 좌석</th>
@@ -58,10 +68,10 @@ background-color:skyblue;
 <%-- 			<td>${i.B_CODE}</td> --%>
 			<td>${i.M_NAME}</td>
 			<td>${i.DEP_TER}</td>
-			<td>${i.ARR_TER}</td>
-			<td>${i.S_DEP}</td>
+			<td>${i.ARR_TER}</td> 
+			<%-- <td>${i.S_DEP}</td>
 			<td>${i.S_ARR}</td>
-			<td>${i.C_NAME}</td>
+			 --%><td>${i.C_NAME}</td>
 			<td>${i.G_NAME}</td>
 			<td><fmt:formatNumber>${i.S_CHARGE * i.SEAT_SU}</fmt:formatNumber></td>
 			<td>${i.SEAT}</td>
