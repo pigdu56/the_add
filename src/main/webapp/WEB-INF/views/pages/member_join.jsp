@@ -178,10 +178,10 @@ body {
 						<div class="w3-rest">
 							&nbsp;Gender <br>
 							<div id="gender">
-								<input type="radio" name="female" value="0"
+								<input type="radio" name="female" value="1"
 									style="font-color: #FFD966;">&nbsp;&nbsp;MALE
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio"
-									name="female" value="1" checked="checked"
+									name="female" value="0" checked="checked"
 									style="color: #FFD966;">&nbsp;&nbsp;FEMALE
 							</div>
 						</div>
