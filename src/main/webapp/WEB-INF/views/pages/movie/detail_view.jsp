@@ -160,15 +160,16 @@ $(document).ready(function(){
     function drawChart() {
 		var data = google.visualization.arrayToDataTable([
 			['Task', 'Hours per Day'],
-			['남성', 1],
-			['여성', 1]
+			['남성', male],
+			['여성', female]
     	]);
 
 		var options = {
         	title: '성별 선호도',
 			pieHole: 0.4,
 			width: 400,
-		  	height: 280
+		  	height: 280,
+		  	sliceVisibilityThreshold :0
 		};
 
       	var chart = new google.visualization.PieChart(document.getElementById('genderChart'));
