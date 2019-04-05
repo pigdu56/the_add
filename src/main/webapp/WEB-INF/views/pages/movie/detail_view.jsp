@@ -133,7 +133,7 @@ $(document).ready(function(){
 	if($("#female").length > 0){
 		female = $("#female").val();
     }
-	
+
 	google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(cinemaChart);
     function cinemaChart() {
@@ -160,8 +160,8 @@ $(document).ready(function(){
     function drawChart() {
 		var data = google.visualization.arrayToDataTable([
 			['Task', 'Hours per Day'],
-			['남성', male],
-			['여성', female]
+			['남성', Number(male)],
+			['여성', Number(female)]
     	]);
 
 		var options = {
