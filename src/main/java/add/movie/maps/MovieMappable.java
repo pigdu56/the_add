@@ -74,7 +74,7 @@ public interface MovieMappable {
 	public ArrayList<HashMap<String, String>> mv_c_sel(HashMap<String, String> map);
 	
 	// 영화, 영화관, 날짜 선택 시
-	@Select("SELECT MV_CODE, MV_TITLE_KR, TT_NAME, SD_DAY, T_TIME FROM MV_V_S WHERE MV_TITLE_KR = #{mv_title_kr} AND C_NAME=#{c_name} AND SD_DAY = #{sd_day} GROUP BY MV_CODE, MV_TITLE_KR, TT_NAME, SD_DAY, T_TIME ORDER BY TT_NAME ASC")
+	@Select("SELECT MV_CODE, MV_TITLE_KR, TT_NAME, SD_DAY, T_TIME, TT_SEAT, CS FROM MV_V_SC_ALL WHERE MV_TITLE_KR = #{mv_title_kr} AND C_NAME=#{c_name} AND SD_DAY = #{sd_day} GROUP BY MV_CODE, MV_TITLE_KR, TT_NAME, SD_DAY, T_TIME, CS, TT_SEAT ORDER BY TT_NAME ASC")
 	public ArrayList<HashMap<String, String>> time(HashMap<String, String> map);
 	
 	// 영화 스케쥴 코드 조회

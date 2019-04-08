@@ -160,7 +160,6 @@ $(function() {
 									<option value="1350">22:30</option>
 									<option value="1380">23:00</option>
 									<option value="1410">23:30</option>
-									<option value="1440">24:00</option>
 								</select>
 							</td>
 						</tr>

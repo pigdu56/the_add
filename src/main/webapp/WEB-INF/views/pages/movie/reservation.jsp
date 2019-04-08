@@ -432,7 +432,7 @@ $( document ).ready(function() {
 	            		
 	            		$("#sel_tt").empty();
 	    				$("#sel_tt").append("<li><h5>"+sd_dates+"</h5></li>");
-	            		$("#time_choice").append("<h4 style='text-align:left;'>"+data[0].TT_NAME+"</h4>");
+	            		$("#time_choice").append("<h4 style='text-align:left;'>"+data[0].TT_NAME+" ("+data[0].TT_SEAT+"석)</h4>");
 		            	var tt = data[0].TT_NAME;
 	            		$(data).each(function(index, item){
 	            			var hhh = (item.T_TIME).substring(0,2);
@@ -442,26 +442,26 @@ $( document ).ready(function() {
 	            			if(item.TT_NAME != tt){
 	     						if(item.SD_DAY == todate){
 	     							if(current_time > item.T_TIME){
-	     								$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
-	     								$("#time_choice").append("<b class='no_click' style='text-decoration:line-through; border:3px solid gray'>"+hhmm);
+	     								$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+" ("+item.TT_SEAT+"석)</h4>");
+	     								$("#time_choice").append("<b class='no_click' style='text-decoration:line-through; border:3px solid gray'>"+hhmm+"</b>");
 	     								if(index == 2 || index == 5 || index == 8 || index == 12 || index == 14 || index== 17){
     	            						$("#time_choice").append("<br><br>")
     	            					}
 	     							}else{
 	     								if(item.T_TIME <1100 || item.T_TIME > 2200){
-			            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+			            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+" ("+item.TT_SEAT+"석)</h4>");
 				            				$("#time_choice").append("<b class='ts' id='ts_red' style='border:3px solid red'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
 			            				}else{
-			            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+			            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+" ("+item.TT_SEAT+"석)</h4>");
 				            				$("#time_choice").append("<b class='ts' style='border:3px solid black'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
 			            				}	
 	     							}
 	     						}else{
 	     							if(item.T_TIME <1100 || item.T_TIME > 2200){
-		            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+		            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+" ("+item.TT_SEAT+"석)</h4>");
 			            				$("#time_choice").append("<b class='ts' id='ts_red' style='border:3px solid red'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
 		            				}else{
-		            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+		            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+" ("+item.TT_SEAT+"석)</h4>");
 			            				$("#time_choice").append("<b class='ts' style='border:3px solid black'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
 		            				}	
 	     						}
@@ -680,7 +680,7 @@ $( document ).ready(function() {
 	    				});
 	            		$("#sel_tt").empty();
 	    				$("#sel_tt").append("<li><h5>"+sd_dates+"</h5></li>");
-	            		$("#time_choice").append("<h4 style='text-align:left;'>"+data[0].TT_NAME+"</h4>");
+	            		$("#time_choice").append("<h4 style='text-align:left;'>"+data[0].TT_NAME+" ("+data[0].TT_SEAT+"석)</h4>");
 		            	var tt = data[0].TT_NAME;
 	            		$(data).each(function(index, item){
 	            			var hhh = (item.T_TIME).substring(0,2);
@@ -690,26 +690,26 @@ $( document ).ready(function() {
 	            			if(item.TT_NAME != tt){
 	            				if(item.SD_DAY == todate){
 	     							if(current_time > item.T_TIME){
-	     								$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+	     								$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+" ("+item.TT_SEAT+"석)</h4>");
 	     								$("#time_choice").append("<b class='no_click' style='text-decoration:line-through; border:3px solid gray'>"+hhmm);
 	     								if(index == 2 || index == 5 || index == 8 || index == 12 || index == 14 || index== 17){
     	            						$("#time_choice").append("<br><br>")
     	            					}
 	     							}else{
 	     								if(item.T_TIME <1100 || item.T_TIME > 2200){
-			            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+			            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+" ("+item.TT_SEAT+"석)</h4>");
 				            				$("#time_choice").append("<b class='ts' id='ts_red' style='border:3px solid red'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
 			            				}else{
-			            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+			            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+" ("+item.TT_SEAT+"석)</h4>");
 				            				$("#time_choice").append("<b class='ts' style='border:3px solid black'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
 			            				}	
 	     							}
 	     						}else{
 	     							if(item.T_TIME <1100 || item.T_TIME > 2200){
-		            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+		            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+" ("+item.TT_SEAT+"석)</h4>");
 			            				$("#time_choice").append("<b class='ts' id='ts_red' style='border:3px solid red'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
 		            				}else{
-		            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+		            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+" ("+item.TT_SEAT+"석)</h4>");
 			            				$("#time_choice").append("<b class='ts' style='border:3px solid black'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
 		            				}	
 	     						}
@@ -868,7 +868,7 @@ $( document ).ready(function() {
 	            	}else{
 	            		$("#sel_tt").empty();
 	    				$("#sel_tt").append("<li><h5>"+sd_dates+"</h5></li>");
-	            		$("#time_choice").append("<h4 style='text-align:left;'>"+data[0].TT_NAME+"</h4>");
+	            		$("#time_choice").append("<h4 style='text-align:left;'>"+data[0].TT_NAME+" ("+data[0].TT_SEAT+"석)</h4>");
 		            	var tt = data[0].TT_NAME;
 	            		$(data).each(function(index, item){
 	            			var hhh = (item.T_TIME).substring(0,2);
@@ -878,26 +878,26 @@ $( document ).ready(function() {
 	            			if(item.TT_NAME != tt){
 	            				if(item.SD_DAY == todate){
 	     							if(current_time > item.T_TIME){
-	     								$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+	     								$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+" ("+item.TT_SEAT+"석)</h4>");
 	     								$("#time_choice").append("<b class='no_click' style='text-decoration:line-through; border:3px solid gray'>"+hhmm);
 	     								if(index == 2 || index == 5 || index == 8 || index == 12 || index == 14 || index== 17){
     	            						$("#time_choice").append("<br><br>")
     	            					}
 	     							}else{
 	     								if(item.T_TIME <1100 || item.T_TIME > 2200){
-			            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+			            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+" ("+item.TT_SEAT+"석)</h4>");
 				            				$("#time_choice").append("<b class='ts' id='ts_red' style='border:3px solid red'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
 			            				}else{
-			            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+			            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+" ("+item.TT_SEAT+"석)</h4>");
 				            				$("#time_choice").append("<b class='ts' style='border:3px solid black'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
 			            				}	
 	     							}
 	     						}else{
 	     							if(item.T_TIME <1100 || item.T_TIME > 2200){
-		            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+		            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+" ("+item.TT_SEAT+"석)</h4>");
 			            				$("#time_choice").append("<b class='ts' id='ts_red' style='border:3px solid red'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
 		            				}else{
-		            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+"</h4>");
+		            					$("#time_choice").append("<h4 style='text-align:left;'>"+item.TT_NAME+" ("+item.TT_SEAT+"석)</h4>");
 			            				$("#time_choice").append("<b class='ts' style='border:3px solid black'>"+hhmm+"<input type='hidden' id='time_name' name ='time_name' value='"+item.T_TIME+"'><input type='hidden' name ='tt_name' id='tt_name' value='"+item.TT_NAME+"'></b>");
 		            				}	
 	     						}

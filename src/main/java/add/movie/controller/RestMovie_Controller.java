@@ -74,6 +74,7 @@ public class RestMovie_Controller {
 	@ResponseBody
 	@RequestMapping(value= {"/time"}, method = RequestMethod.POST)
 	public ArrayList<HashMap<String, String>> time(@RequestParam HashMap<String, String> map){
+		
 		return mm.time(map);
 	}
 	

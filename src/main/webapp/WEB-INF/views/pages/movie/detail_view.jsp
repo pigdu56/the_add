@@ -1,68 +1,107 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
 <style>
-	.box-image {margin-right: 30px; width: 213px; height: 305px;}
-	.box-contents {width: 737px; height: 305px; }
-	#title{font-size: 25px; vertical-align: middle; float: left; width: 737px; }
-	#title > p { font-size: 12px; font-family: Verdana, Geneva, sans-serif;}
-	.score { margin-top: 25px; padding-bottom: 10px; border-bottom: 1px solid #d9d6c8; font-size: 14px;}
-	.content{ padding-top: 18px; }
-	dt, dd { float: left; }
-	.on {float: none;}
+.box-image {
+	margin-right: 30px;
+	width: 213px;
+	height: 305px;
+}
+
+.box-contents {
+	width: 737px;
+	height: 305px;
+}
+
+#title {
+	font-size: 25px;
+	vertical-align: middle;
+	float: left;
+	width: 737px;
+}
+
+#title>p {
+	font-size: 12px;
+	font-family: Verdana, Geneva, sans-serif;
+}
+
+.score {
+	margin-top: 25px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #d9d6c8;
+	font-size: 14px;
+}
+
+.content {
+	padding-top: 18px;
+}
+
+dt, dd {
+	float: left;
+}
+
+.on {
+	float: none;
+}
 </style>
-<div class="container" style="width: 80%; height : 400px; margin-left: 10%;">
-	<br/><br/>
+<div class="container"
+	style="width: 80%; height: 400px; margin-left: 10%;">
 	<h2>영화 상세</h2>
 	<hr style="border: 3px solid #252424;">
-	<br/><br/><br/>
+	<br />
 	<div class="box-image col-sm-3">
 		<img src="${movie['MV_IMG']}" id="poster">
 	</div>
-	
+
 	<div class="box-contents col-sm-9">
 		<div id="title">
-			<img src="${pageContext.request.contextPath}/static/img/movie/${movie['RT_IMG']}" style="width: 40px;">
-			<strong> ${movie['MV_TITLE_KR']}</strong>
-			<p/>${movie['MV_TITLE_EN']}
+			<img
+				src="${pageContext.request.contextPath}/static/img/movie/${movie['RT_IMG']}"
+				style="width: 40px;"> <strong>
+				${movie['MV_TITLE_KR']}</strong>
+			<p />${movie['MV_TITLE_EN']}
 		</div>
 		<div class="score">
-			<strong>평점 &nbsp;</strong>
-			<span>${movie['MV_UR']}</span>
+			<strong>평점 &nbsp;</strong> <span>${movie['MV_UR']}</span>
 		</div>
 		<div class="content">
 			<dl>
-				<dt><strong>감독 :&nbsp;</strong></dt>
+				<dt>
+					<strong>감독 :&nbsp;</strong>
+				</dt>
 				<dd>${movie['DT_NAME']}&nbsp;/&nbsp;</dd>
-				
-				<dt><strong>배우 :&nbsp;</strong></dt>
+
+				<dt>
+					<strong>배우 :&nbsp;</strong>
+				</dt>
 				<dd class="on">${movie['A_NAME']}</dd>
-				
-				<dt><strong>장르 :&nbsp;</strong></dt>
-				<dd>${movie['G_NAME']} &nbsp;</dd>
-				
-				<dt><strong>기본 :&nbsp;</strong>
-				<dd class="on">
-					${movie['RT_RATING']}, &nbsp;
-					${movie['MV_ST']}분, &nbsp;
-					${movie['CT_NAME']}
-				</dd>
-				
-				<dt><strong>개봉일 :&nbsp;</strong></dt>
-				<dd class="on">
-					${movie['MV_OD']}
-				</dd>
-				<dt class="on"><strong style="font-size: 18px;"> 줄거리 </strong></dt>
-				<dd>
-					${movie['MV_STORY']}
-				</dd>
+
+				<dt>
+					<strong>장르 :&nbsp;</strong>
+				</dt>
+				<dd>${movie['G_NAME']}&nbsp;</dd>
+
+				<dt>
+					<strong>기본 :&nbsp;</strong>
+				<dd class="on">${movie['RT_RATING']}, &nbsp;
+					${movie['MV_ST']}분, &nbsp; ${movie['CT_NAME']}</dd>
+
+				<dt>
+					<strong>개봉일 :&nbsp;</strong>
+				</dt>
+				<dd class="on">${movie['MV_OD']}</dd>
+				<dt class="on">
+					<strong style="font-size: 18px;"> 줄거리 </strong>
+				</dt>
+				<dd>${movie['MV_STORY']}</dd>
 			</dl>
 		</div>
 	</div>
-	
-	
+
+
 	<div class="row" style="clear: both; padding-top: 50px;">
 		<c:forEach var="age" items="${age}">
 			<c:choose>
@@ -83,19 +122,20 @@
 				</c:when>
 			</c:choose>
 		</c:forEach>
-		<c:forEach var="i" items="${gender}">
-			<c:choose>
-				<c:when test="${i._id == 0}">
-					<input type="hidden" id="female" value="${i.count}">
-				</c:when>
-				<c:otherwise>
-					<input type="hidden" id="male" value="${i.count}">
-				</c:otherwise>
-			</c:choose>	
-		</c:forEach>
-		
-		<div class="col-sm-4" id="genderChart" style="width: 100%; height: 400px;"></div>
-		<div class="col-sm-4" id="ageChart" style="width: 100%; height: 300px;"></div>
+		<table class="table">
+			<tr class="row" style="text-align:center;">
+				<td class="col-sm-4">현재상영극장</td>
+				<td class="col-sm-4">성별 예매 분포</td>
+				<td class="col-sm-4">연령별 예매 분포</td>
+			</tr>
+			<tr class="row" id="pyo">
+				<td class="col-sm-4"></td>
+				<td class="col-sm-4" id="genderChart"
+					style="width: 100%; height: 400px;"></td>
+				<td class="col-sm-4" id="ageChart"
+					style="width: 100%; height: 300px;"></td>
+			</tr>
+		</table>
 	</div>
 </div>
 
@@ -108,8 +148,6 @@ $(document).ready(function(){
 	var age30 = 0;
 	var age40 = 0;
 	var age50 = 0;
-	var male = 0;
-	var female = 0;
 	
 	if($("#10").length > 0){
         age10 = $("#10").val();
@@ -126,13 +164,6 @@ $(document).ready(function(){
 	if($("#50").length > 0){
         age50 = $("#50").val();
     }
-	
-	if($("#male").length > 0){
-		male = $("#male").val();
-    }
-	if($("#female").length > 0){
-		female = $("#female").val();
-    }
 
 	google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(cinemaChart);
@@ -147,7 +178,6 @@ $(document).ready(function(){
       	]);
 
       	var options = {
-      		title: '연령별 선호도',
         	is3D: true,
      	};
 
@@ -160,16 +190,36 @@ $(document).ready(function(){
     function drawChart() {
 		var data = google.visualization.arrayToDataTable([
 			['Task', 'Hours per Day'],
-			['남성', Number(male)],
-			['여성', Number(female)]
+			 <c:forEach var="i" items="${gender}" varStatus="status">
+			<c:choose>
+				<c:when test="${status.last}">
+					<c:choose>
+						<c:when test="${i._id eq '0'}">
+							['여', ${i.count}]
+						</c:when>
+						<c:otherwise>
+							['남', ${i.count}]
+						</c:otherwise>
+					</c:choose>
+				</c:when>
+				<c:otherwise>
+					<c:choose>
+						<c:when test="${i._id eq '0'}">
+							['여', ${i.count}],
+						</c:when>
+						<c:otherwise>
+							['남', ${i.count}],
+						</c:otherwise>
+					</c:choose>
+				</c:otherwise>
+			</c:choose>
+			</c:forEach>
     	]);
 
 		var options = {
-        	title: '성별 선호도',
 			pieHole: 0.4,
 			width: 400,
-		  	height: 280,
-		  	sliceVisibilityThreshold :0
+		  	height: 280
 		};
 
       	var chart = new google.visualization.PieChart(document.getElementById('genderChart'));
