@@ -287,25 +287,10 @@ function noEvent() {
           },
           success : function(data){
              
-        	  var over_time_check = '${bus_ticket.get("dep")}';
-              over_time_check = "1"+over_time_check.substring(0,2) + over_time_check.substring(4, 6)
-              todayHM = "1" + String(todayH) + String(todayM);
-              
-              // 다시한번 막기
-              if(Number(todayHM) >= Number(over_time_check)){
-            	  alert("이미 출발한 버스입니다.");
-            	  window.history.back();
-            	  return;
-              }
-        	  
              // 등급을 받아와서 등급별로 다른 checkbox를 뿌림
              // 일반 고속 등급 뿌리기
              if(${bus_ticket.get("grade") eq "고속"} || ${bus_ticket.get("grade") eq "심야고속"}){
-                // 남은 좌석 가져오기
-            	$("#seat_nam").empty();
-                $("#seat_nam").append(
-                		"<p>남은 좌석 수 / " + (45 - data.length) + "</p>"	
-                		);                
+                            
                 for(var i=1; i<=45; i++){
                    // 체크 여부를 알기위한 boolean
                    var check = false;
@@ -317,14 +302,12 @@ function noEvent() {
                    // true = 예약된 좌석이 있을 경우
                    if(check){
                      if(i < 10){
-                          $("#seat").append(
-                                  "<td>&nbsp;<input type='checkbox' class='che' name='b_seatnum' id='box" + i + "' value='" + i 
+                          $("#seat").append("<td>&nbsp;<input type='checkbox' class='che' name='b_seatnum' id='box" + i + "' value='" + i 
                                     + "'disabled='disabled'>&nbsp;&nbsp;[" + i +"]<label for='box" + i
                                     + "'>&nbsp;&nbsp;</label><div class='div_checked'></td>"
                                     );
                       }else{
-                            $("#seat").append(
-                             "<td>&nbsp;<input type='checkbox' class='che' name='b_seatnum' id='box" + i + "' value='" + i 
+                            $("#seat").append("<td>&nbsp;<input type='checkbox' class='che' name='b_seatnum' id='box" + i + "' value='" + i 
                                + "'disabled='disabled'>[" + i +"]<label for='box" + i
                                + "'>&nbsp;&nbsp;</label><div class='div_checked'></td>"
                                );
@@ -332,20 +315,18 @@ function noEvent() {
                    // false = 예약된 좌석이 없을 경우
                    }else{
                       if(i < 10){
-                      $("#seat").append(
-                               "<td>&nbsp;<input type='checkbox' class='nochecked' name='b_seatnum' id='box" + i + "' value='" + i 
+                      $("#seat").append("<td>&nbsp;<input type='checkbox' class='nochecked'"
+                      			 + " name='b_seatnum' id='box" + i + "' value='" + i 
                                  + "' onclick='check(this.form)'>[" + i +"]<label for='box" + i
                                  + "'>&nbsp;&nbsp;</label><div class='div_nocheck'></td>"
                                  );
                          }else{
-                          $("#seat").append(
-                                 "<td>&nbsp;<input type='checkbox' class='nochecked' name='b_seatnum' id='box" + i + "' value='" + i 
+                          $("#seat").append("<td>&nbsp;<input type='checkbox' class='nochecked' name='b_seatnum' id='box" + i + "' value='" + i 
                                    + "' onclick='check(this.form)'>[" + i +"]<label for='box" + i
                                    + "'>&nbsp;&nbsp;</label><div class='div_nocheck'></td>"
                                    );
                          }
-                   }
-                   
+                   }                   
                    if(i < 41){
                           if(i%4 == 0){ // 자리 띄우기
                              $("#seat").append("<tr></tr>");
@@ -357,13 +338,10 @@ function noEvent() {
                 
              // 우등 좌석 뿌리기
              }else if(${bus_ticket.get("grade") eq "우등"} || ${bus_ticket.get("grade") eq "심야우등"}){
-            	
-            	 console.log(data.length);
+            	//console.log(data.length);
             	// 남은 좌석 가져오기
              	$("#seat_nam").empty();
-                $("#seat_nam").append(
-                 		"<p>남은 좌석 수 / " + (28 - data.length) + "</p>"
-                 		);
+                $("#seat_nam").append("<p>남은 좌석 수 / " + (28 - data.length) + "</p>");
             	 
                 for(var i=1; i<=28; i++){
                    // 체크 여부를 알기위한 boolean type 변수  true-예약 좌석
@@ -417,9 +395,7 @@ function noEvent() {
                 
             	// 남은 좌석 가져오기
               	$("#seat_nam").empty();
-                $("#seat_nam").append(
-                		"<p>남은 좌석 수 / " + (21 - data.length) + "</p>"
-                  		);
+                $("#seat_nam").append("<p>남은 좌석 수 / " + (21 - data.length) + "</p>");
             	 
                 for(var i=1; i<=21; i++){
                    // 체크 여부를 알기위한 boolean

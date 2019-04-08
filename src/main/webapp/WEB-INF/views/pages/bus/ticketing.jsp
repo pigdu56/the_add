@@ -242,9 +242,7 @@
        var todayHM = "1" + String(todayH) + String(todayM);
               
     /*************************** 출발 ajax ***************************/
-    $("#do").bind(
-          "change",
-          function() {
+    $("#do").bind("change", function() {
              $("#start_terminal").empty();
              $.ajax({
                 url : "${pageContext.request.contextPath}/api_ajax",
@@ -257,18 +255,14 @@
                    var dovalue = $("#do").val();
                    if (dovalue == 0) {
                       $("#start_terminal").append(
-                            "<option value='0'>시/도를 다시 선택해주세요</option>")
+                            "<option value='0'>시/도를 다시 선택해주세요</option>");
                    }
 
                    for (var i = 0; i < data.length; i++) {
                       $("#start_terminal").append(
                             "<option value="+ data[i].T_ID +">"
-                                  + data[i].T_NAME + "</option>")
+                                  + data[i].T_NAME + "</option>");
                    }
-                },
-                error : function(jqXHR, textStatus, errorThrown, error) {
-                   alert("에러 발생~~ \n" + textStatus + " : " + errorThrown
-                         + error);
                 }
              })
           });
@@ -304,9 +298,7 @@
              })
           });
     /*************************** api ajax ***************************/
-    $("#search").bind(
-            "click",
-            function() {
+    $("#search").bind("click", function() {
                $("#main_list").show();
                // 아무선택이 없을 경우
                if ($("#do").val() == "0") {
@@ -316,7 +308,7 @@
                   alert("도착 터미널을 설정해주세요.");
                   return;
                }else if($("#start_terminal").val() == $("#arrival_terminal").val()){
-                  alert("그럴거면 걸어서 가세요.");
+                  alert("출발과 도착지가 같습니다.");
                   return;
                }
                $("#listname").empty();    // 출발 -> 도착 div
@@ -327,9 +319,9 @@
                   url : "${pageContext.request.contextPath}/api_search",
                   type : "get",
                   data : {
-                     "date" : $("#datepicker").val(),
-                     "start_terminal" : $("#start_terminal").val(),
-                     "arrival_terminal" : $("#arrival_terminal").val(),
+                     "date" : $("#datepicker").val(),                     // 날짜 
+                     "start_terminal" : $("#start_terminal").val(),      // 출발 터미널
+                     "arrival_terminal" : $("#arrival_terminal").val(),  // 도착 터미널
                   },
                    
                   success : function(data) {
@@ -384,25 +376,16 @@
                      // 컴퓨터로 받아온 날짜와 검색 날짜가 같을 경우         
                      if(todayYMD == data[0].SCHE_DAY){
                         for (var i = 0; i < data.length; i++) {
-
-                            // 자르기 
-                            var start;           // 시간 자르기
-                            var start_hour;      // 시만 자르기
-                            var start_minute;    // 분만 자르기
-                           
-                            var arrival;
-                            var arrival_hour;
-                            var arrival_minute;  
-                                                
-                           // 출발 시간 
-                           start = "1" + data[i].DEP_TIME; // 오전일 경우 앞자리인 0 이 지워져서 1을 더함
-                           start_hour = start.substring(1,3) + "시 ";
-                           start_minute = start.substring(3,5) + "분"
+                          
+                            // 출발 시간 
+                            var start = "1" + data[i].DEP_TIME; // 오전일 경우 앞자리인 0 이 지워져서 1을 더함
+                            var start_hour = start.substring(1,3) + "시 ";
+                            var start_minute = start.substring(3,5) + "분"
                                                 
                             // 도착 시간
-                            arrival = data[i].ARR_TIME;
-                            arrival_hour = arrival.substring(0,2) + "시 ";
-                            arrival_minute = arrival.substring(2,4) + "분"
+                            var arrival = data[i].ARR_TIME;
+                            var arrival_hour = arrival.substring(0,2) + "시 ";
+                            var arrival_minute = arrival.substring(2,4) + "분"
                      
                             Number(todayHM)
                            // 컴퓨터에 시간을 받아와 시간이 지난 것들이 안나오게 하기
@@ -418,6 +401,7 @@
                                      + " 석</td></tr>");
                            }
                         }
+                        
                         // 날짜가 오늘 날짜가 아닌 경우
                          }else{
                             for (var i = 0; i < data.length; i++) {

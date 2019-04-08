@@ -41,7 +41,7 @@
       <th>가격</th>
       <th>예매 좌석</th>
    </tr>
-       <c:forEach var="i" items="${user_list}">
+      <c:forEach var="i" items="${user_list}">
       <tr onclick="location.href='${buy_view}?b_code=${i.B_CODE}'"  style="cursor:pointer">
          <td>${fn:substring(i.S_DAY, 0, 4)}/${fn:substring(i.S_DAY, 4, 6)}/${fn:substring(i.S_DAY, 6, 8)}</td>
          <td>${i.M_ID}</td>

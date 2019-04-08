@@ -28,7 +28,8 @@ public interface AnnoMaps {
 	// 스케쥴 인서트
 	@Insert("{ CALL BUS_INSERT(#{grade, mode=IN, jdbcType=VARCHAR}, #{company},"
 			+ " #{routecode}, #{day}, #{depPlandTime, mode=IN, jdbcType=VARCHAR},"
-			+ " #{arrPlandTime, mode=IN, jdbcType=VARCHAR}, #{charge, mode=IN, jdbcType=VARCHAR})}")
+			+ " #{arrPlandTime, mode=IN, jdbcType=VARCHAR},"
+			+ " #{charge, mode=IN, jdbcType=VARCHAR})}")
 	@Options(statementType = StatementType.CALLABLE)
 	public void insertSchedule(@RequestParam HashMap<String, String> m);
 
@@ -45,7 +46,8 @@ public interface AnnoMaps {
 	// 버스 스케쥴 번호에 대한 좌석 넘버 array에 담음
 	@Select("SELECT S.B_SEATNUM FROM BUS_BUY B, BUS_SEAT S \r\n"
 			+ "WHERE B.B_CODE = S.B_CODE AND B.S_CODE = #{bus_seq}")
-	public ArrayList<HashMap<String, String>> getSeatNumber(@Param("bus_seq") String bus_seq);
+	public ArrayList<HashMap<String, String>> getSeatNumber
+	(@Param("bus_seq") String bus_seq);
 
 	// 예약 인서트
 	@Insert("INSERT INTO BUS_BUY VALUES (BUS_BUY_SEQ.NEXTVAL, #{member_num}, #{bus_seq})")
@@ -53,7 +55,8 @@ public interface AnnoMaps {
 
 	// 예약 시퀀스 가져오기
 	@Select("SELECT BB.B_CODE FROM(SELECT ROWNUM R,B.B_CODE FROM\r\n" + 
-				"(SELECT B_CODE FROM BUS_BUY WHERE M_NUM = #{m_num} AND S_CODE = #{s_code} ORDER BY B_CODE DESC)B)BB WHERE R=1")
+				"(SELECT B_CODE FROM BUS_BUY WHERE M_NUM = #{m_num} AND S_CODE ="
+				+ " #{s_code} ORDER BY B_CODE DESC)B)BB WHERE R=1")
 		public int buySeq(@Param("m_num") String m_num, @Param("s_code") String s_code);
 
 	// 시트 인서트
@@ -85,7 +88,7 @@ public interface AnnoMaps {
 	@Options(statementType = StatementType.CALLABLE)
 	public void buy_cancle(@Param("b_code") String b_code);
 	
-	// 동시 접속 체크
+	// 좌석 예매 체크
 	@Select("SELECT COUNT(*) S FROM SEAT_CHECK WHERE S_CODE=#{bus_seq} AND B_SEATNUM = #{b_seatnum}")
 	public int check_seat(@Param("bus_seq") String bus_seq, @Param("b_seatnum") String b_seatnum);
 }

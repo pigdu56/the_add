@@ -49,7 +49,8 @@ public class BusController {
 	@RequestMapping(value= {"/bus_seat"}, method = RequestMethod.POST)
 	public String ajaxSeat(ModelMap m, @RequestParam HashMap<String, String> map) {
 		m.addAttribute("bus_ticket", map);
-		m.addAttribute("member_num", String.valueOf(amap.memberNum(String.valueOf(((HashMap)m.get("bus_ticket")).get("id")))));
+		m.addAttribute("member_num", String.valueOf(
+		  amap.memberNum(String.valueOf(((HashMap)m.get("bus_ticket")).get("id")))));
 		return "bus_seat";
 	}
 	
@@ -57,6 +58,7 @@ public class BusController {
 	@RequestMapping(value= {"/seat_ticket"}, method = RequestMethod.POST)
 	public String seat_ticket(ModelMap m, @RequestParam("b_seatnum") ArrayList<String> ss,@RequestParam HashMap<String, String> map) {
 		
+		// 좌석이 예매가 됬는 지 체크
 		for(int i=0; i<ss.size(); i++) {
 			int check = amap.check_seat(map.get("bus_seq"), ss.get(i));
 			if(check != 0) {
@@ -69,8 +71,7 @@ public class BusController {
 		
 		// 예약 (회원 번호, 스케쥴 코드를 받아와 가장 마지막 예약번호 가져오기)
 		int seq = amap.buySeq(map.get("member_num"), map.get("bus_seq"));
-		
-		// 선택한 좌석이 있을 경우
+
 		if(!ss.isEmpty()) {
 			for(int i=0; i<ss.size(); i++) {
 				amap.seatInsert(String.valueOf(seq), ss.get(i));
@@ -104,6 +105,7 @@ public class BusController {
 		return "member_buylist";
 	}
 	
+	// 예약 취소
 	@RequestMapping(value= {"/buy_cancle"}, method=RequestMethod.POST)
 	public String buy_cancle(@RequestParam("b_code") String b_code) {
 		amap.buy_cancle(b_code);

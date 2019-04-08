@@ -164,7 +164,7 @@ function leadingZeros(n, digits) {
 	
 	if(${LoginUser == 'admin'}){
 	      $("#submit").hide();
-	   }else{
+	   }else {
 	      if(todayYMD == ${member_buy_impormation.get(0).get('S_DAY')}){
 	         alert("당일 예약 취소는 불가능합니다.");
 	         $("#submit").attr("disabled", "disabled");
