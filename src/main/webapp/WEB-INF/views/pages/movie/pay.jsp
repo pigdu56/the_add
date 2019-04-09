@@ -192,6 +192,7 @@
 </div>
 </form>
 <script>
+//결제 금액 입력 시
 $(function(){
     $("#price-success").hide();
     $("#price-danger").hide();
@@ -201,10 +202,12 @@ $(function(){
         var insert_pay=$("#pay_text").val();
         if(insert_pay != ""){
             if(all_pay == insert_pay){
+            	//결제 금액과 입력금액이 같을 때
                 $("#price-success").show();
                 $("#price-danger").hide();
                 $("#submit").removeAttr("disabled");
             }else{
+            	//결제 금액과 입력금액이 다를 때
                 $("#price-success").hide();
                 $("#price-danger").show();
                 $("#submit").attr("disabled", "disabled");                 

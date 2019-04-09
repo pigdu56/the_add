@@ -63,7 +63,7 @@
 								<h2>${mv_info.MV_TITLE_KR} (${mv_info.MV_TITLE_EN})</h2>
 								<h4>${mv_info.C_NAME} (${mv_info.TT_NAME})</h4>
 								<h4>${r_list.sd_day} ${r_list.week} ${r_list.t_time} ~ ${r_list.end_time}</h4>
-								<h4>인원 :  || 좌석 : 
+								<h4>좌석 : 
 									<c:forEach var="i" items="${seat_num}" varStatus="status">
 										<c:choose>
 											<c:when test="${status.last}">

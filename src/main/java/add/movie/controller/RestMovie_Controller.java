@@ -81,8 +81,7 @@ public class RestMovie_Controller {
 	//영화, 영화관 선택 후 체크
 	@ResponseBody
 	@RequestMapping(value= {"/mv_c_check"}, method = RequestMethod.POST)
-	public ArrayList<HashMap<String, String>> mv_c_check(@RequestParam HashMap<String, String> map){
-		
+	public ArrayList<HashMap<String, String>> mv_c_check(@RequestParam HashMap<String, String> map){		
 		return mm.mv_c_sel(map);
 	}
 	

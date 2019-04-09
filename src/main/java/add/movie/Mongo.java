@@ -65,7 +65,7 @@ public class Mongo {
 		coll.insertOne(doc);	
 	}
 	
-	//이용가 저장
+	//예매완료 후 이용가 저장
 	public void insertRating(HashMap<String, String> map) {
 		MongoCollection<Document> coll = mdb.getCollection("rating");
 		Document doc = new Document();
@@ -100,7 +100,6 @@ public class Mongo {
 		List<Document> pipeline = Arrays.asList(genreGroup);
 		AggregateIterable<Document> aggs = coll.aggregate(pipeline);
 		Iterator<Document> it = aggs.iterator();
-		System.out.println(it);
 		return it;
 	}
 	
@@ -120,8 +119,7 @@ public class Mongo {
 	// 연령별 예매 선호도 저장
 	public void insertAge(String mv_title_kr, int ag) {
 		MongoCollection<Document> coll = mdb.getCollection("age");
-		Document doc = new Document();
-		System.out.println(mv_title_kr);
+		Document doc = new Document();	
 		doc.append("age", ag);
 		doc.append("mv_title_kr", mv_title_kr);
 		coll.insertOne(doc);

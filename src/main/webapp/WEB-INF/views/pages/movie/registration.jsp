@@ -89,7 +89,7 @@ $(function() {
 		<div class="row">
 			<div class="col-sm-1"></div>
 			<div class="col-sm-10">
-				<h1>관리자 등록</h1>
+				<h1>영화 등록</h1>
 				<c:url var="po_regi" value="/movie/regi_ok" />
 				<form action="${po_regi}" method="post">
 					<table class="table" id="admin_table">

@@ -55,7 +55,6 @@ public class Movie_Controller {
 	@RequestMapping(value= {"/main"}, method=RequestMethod.GET)
 	public ModelAndView Movie_main() {
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("momo", mo.getlike(4, "샤잠!"));
 		mv.addObject("rating", mo.getRating());
 		mv.addObject("cinema", mo.getCinema());
 		mv.addObject("genre", mo.getGenre());
@@ -70,12 +69,18 @@ public class Movie_Controller {
 	public ModelAndView detail_view(@RequestParam HashMap<String, String> m){
 		ModelAndView mv = new ModelAndView();
 		String title = mm.mv_dt_sel(m).get("MV_TITLE_KR");
-
+		//오늘날짜 구하기
+		Calendar c = Calendar.getInstance();
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+		String today = fmt.format(c.getTime());
+		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put("mv_title_kr", title);
+		hm.put("today", today);		
+		mv.addObject("c_list", mm.tc(hm));
 		mv.addObject("age", mo.getAge(title));
 		mv.addObject("gender", mo.getGenderMV(title));
 		mv.addObject("movie", mm.mv_dt_sel(m));
-		mv.setViewName("detail_view");
-		System.out.println(mv);
+		mv.setViewName("detail_view");		
 		return mv;
 	}
 	
@@ -252,118 +257,89 @@ public class Movie_Controller {
       mm.mv_update();
       for(HashMap<String,String> hm : list) {
          dtm = new HashMap<String, String>();
-         	         
          // 순위
          String rnum = hm.get("rnum");
          dtm.put("rnum", rnum);
-         
          // 포스터
          tokens = new StringTokenizer(hm.get("posters"));
-         
          String poster = tokens.nextToken("|");
          dtm.put("poster", poster);
-         
-         //System.out.println("포스터 : " + poster);
-         
          // 줄거리
          String story = hm.get("plot");
          dtm.put("story", story);
-         //System.out.println("줄거리 : " + story);
-         
          /* 영화 상세 정보 */
          m = (HashMap<String, Object>) mj.MV(hm.get("movieCd")).get("movie_view");
-         //System.out.println(m);
-         
          // 제목(한)
          String title_kr = (String) m.get("movieNm");
          dtm.put("title_kr", title_kr);
-         //System.out.println("title_kr : " + title_kr);
-         
          // 제목(영)
          String title_en = (String) m.get("movieNmEn");
          if(title_en.equals("")) {
         	 title_en = " ";   	 
          } 
     	 dtm.put("title_en", title_en);
-         //System.out.println("title_en : " + title_en);
-
-                 
          // 국가
-         ArrayList<HashMap<String, String>> country = (ArrayList<HashMap<String, String>>) m.get("nations");
+         ArrayList<HashMap<String, String>> country = 
+        		 (ArrayList<HashMap<String, String>>) m.get("nations");
          for(HashMap<String, String> c : country) {
             String ct = c.get("nationNm");
             dtm.put("ct", ct);
-            //System.out.println("국가 : " + ct);
          }
-         
          // 개봉일
          String odt = (String) m.get("openDt");
          dtm.put("odt", odt);
-         //System.out.println("개봉일 : " + odt);
-         
          // 상영 시간
          String st = (String) m.get("showTm");
          dtm.put("st", st);
-         //System.out.println("상영 시간 : " + st);
-         
          // 상영 등급
-         ArrayList<HashMap<String, String>> audit = (ArrayList<HashMap<String, String>>) m.get("audits");
+         ArrayList<HashMap<String, String>> audit = 
+        		 (ArrayList<HashMap<String, String>>) m.get("audits");
          String sg = audit.get(0).get("watchGradeNm");
          dtm.put("sg", sg);
-         //System.out.println("상영 등급 : " + sg);
-         
          // 평점
          String rating = na.NaverApi(title_kr).get("userRating");
          dtm.put("rating", rating);
-         //System.out.println(rating);
-         
+         //영화 코드
          int mv_c = Integer.parseInt(mm.mv_insert(dtm));
-         
          // 감독
-         ArrayList<HashMap<String, String>> director = (ArrayList<HashMap<String, String>>) m.get("directors");
+         ArrayList<HashMap<String, String>> director = 
+        		 (ArrayList<HashMap<String, String>>) m.get("directors");
          for(HashMap<String, String> d : director) {
             String dt = d.get("peopleNm");
             mm.dt_insert(mv_c, dt);
-            //System.out.println("감독 : " + dt);
          }
-         
          // 배우
-         ArrayList<HashMap<String, String>> actor = (ArrayList<HashMap<String, String>>) m.get("actors");
+         ArrayList<HashMap<String, String>> actor = 
+        		 (ArrayList<HashMap<String, String>>) m.get("actors");
     	 if(actor.isEmpty()) {
     		 String ac = na.NaverApi(title_kr).get("actor");
     		 System.out.println(ac);
-    		 String date[] = ac.split("\\|");
-    	        
+    		 String date[] = ac.split("\\|");    	        
 	        for(int i=0 ; i<date.length ; i++) {
 	        	String at = date[i];
 	        	mm.at_insert(mv_c, at);
-	            //System.out.println("배우 : " + at);
 	        }
-
     	 } else {
 	         for(HashMap<String, String> a : actor) {
 	            String at = a.get("peopleNm");
-	            mm.at_insert(mv_c, at);
-	            //System.out.println("배우 : " + at);
+	            mm.at_insert(mv_c, at);	         
 	    	 }
     	 }
-
-         // 장르
-         ArrayList<HashMap<String, String>> genre = (ArrayList<HashMap<String, String>>) m.get("genres");
+    	 //장르
+         ArrayList<HashMap<String, String>> genre = 
+        		 (ArrayList<HashMap<String, String>>) m.get("genres");
          for(HashMap<String, String> g : genre) {
             String gr = g.get("genreNm");
             mm.gr_insert(mv_c, gr);
             //System.out.println("장르 : " + gr);
          }
       }
-      
-      return "redirect:/movie/main";
+      	return "redirect:/movie/main";
    }
    
    // 상영 영화 등록
    @RequestMapping(value = {"/regi_ok"}, method = RequestMethod.POST)
    public String mv_in(@RequestParam HashMap<String, String> map) {
-	   //System.out.println(map);
 	   //두 날짜 사이 값 구하기
 	   String d1 = map.get("odt");
 	   String d2 = map.get("cdt");      
@@ -382,19 +358,16 @@ public class Movie_Controller {
  			   c.setTime(startDate);
  			   c.add(Calendar.DAY_OF_MONTH, 1);
  			   startDate = c.getTime();
- 		   }
- 		   System.out.println(dates);
+ 		   } 		  
  		   for(String s2 : dates) {  	
- 			   map.put("sd_day", s2);
- 			   
+ 			   map.put("sd_day", s2); 			   
  			   String run = map.get("in_time");
  		 	   String start = map.get("f_time");
- 		 	   String end = map.get("e_time");
- 		       
+ 		 	   String end = map.get("e_time"); 		       
+ 		 	   //상영시작시간부터 끝시간까지 상영간격에 따라 INSERT
  		 	   int runtime = Integer.parseInt(run);
  		 	   int st_time = Integer.parseInt(start);
  		 	   int en_time = Integer.parseInt(end);
- 			   
  			   for(int i = st_time; i <= en_time;i+=runtime) {
  				   int hour =i/60;
 	      		   int min = ((i*60)%3600)/60;
@@ -454,6 +427,7 @@ public class Movie_Controller {
 	   ArrayList<HashMap<String, String>> alhm = new ArrayList<HashMap<String, String>>();
 	   HashMap<String, String> hm = null;
 	   String user = (String) s.getAttribute("LoginUser");
+	   //예매 좌석 비교 후 좌석 값 ArrayList<HashMap<String, String>>에 저장
 	   for(char ch = 'A';ch < 'G'; ch++) {
 		   for(int i=1; i < 10; i++) {
 			   String a = Integer.toString(i);
@@ -468,7 +442,7 @@ public class Movie_Controller {
 			   }
 		   }
 	   }
-
+	   //예매된 좌석 정보 DB에 저장
 	   for(HashMap<String, String> m : alhm ) {
 		   mm.re(m);
 	   }

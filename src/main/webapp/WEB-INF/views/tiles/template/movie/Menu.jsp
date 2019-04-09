@@ -62,17 +62,7 @@
        			<a class="dropdown-item minis" href="${pageContext.request.contextPath}/movie/reservation">영화예매</a>
         		<a class="dropdown-item minis" href="/the_add/movie/movie_list/1">영화정보</a>
      		</div>
-			</li>
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle se_li" href="" id="navbardrop" data-toggle="dropdown">
-					<b>차트</b>
-				</a>
-				<div class="dropdown-menu d_menu">
-       				<a class="dropdown-item minis" href="">박스오피스</a>
-       				<c:url value="/movie/preference" var="pre"/>
-        			<a class="dropdown-item minis" href="${pre}">선호도</a>
-     			</div>
-			</li>
+			</li>			
 			<c:if test="${'admin' eq LoginUser}">
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle se_li" href="" id="navbardrop" data-toggle="dropdown">

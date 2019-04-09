@@ -46,6 +46,16 @@ dt, dd {
 .on {
 	float: none;
 }
+
+#c_ul {
+	margin: 0;
+	padding: 0;
+}
+
+#c_ul>li {
+	list-style: none;
+	text-align:center;
+}
 </style>
 <div class="container"
 	style="width: 80%; height: 400px; margin-left: 10%;">
@@ -86,8 +96,8 @@ dt, dd {
 
 				<dt>
 					<strong>기본 :&nbsp;</strong>
-				<dd class="on">${movie['RT_RATING']}, &nbsp;
-					${movie['MV_ST']}분, &nbsp; ${movie['CT_NAME']}</dd>
+				<dd class="on">${movie['RT_RATING']},&nbsp; ${movie['MV_ST']}분,
+					&nbsp; ${movie['CT_NAME']}</dd>
 
 				<dt>
 					<strong>개봉일 :&nbsp;</strong>
@@ -123,13 +133,26 @@ dt, dd {
 			</c:choose>
 		</c:forEach>
 		<table class="table">
-			<tr class="row" style="text-align:center;">
+			<tr class="row" style="text-align: center;">
 				<td class="col-sm-4">현재상영극장</td>
 				<td class="col-sm-4">성별 예매 분포</td>
 				<td class="col-sm-4">연령별 예매 분포</td>
 			</tr>
 			<tr class="row" id="pyo">
-				<td class="col-sm-4"></td>
+				<td class="col-sm-4">					
+					<ul id="c_ul">
+						<c:choose>
+							<c:when test="${empty c_list}">
+								<li><h4>현재 상영중인 영화관이 없습니다.</h4></li>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="i" items="${c_list}">
+									<li><h4>${i.C_NAME}</h4></li>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</ul>
+				</td>
 				<td class="col-sm-4" id="genderChart"
 					style="width: 100%; height: 400px;"></td>
 				<td class="col-sm-4" id="ageChart"
