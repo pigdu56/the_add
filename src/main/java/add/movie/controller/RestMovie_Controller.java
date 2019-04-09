@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import add.movie.Paging;
 import add.movie.maps.MovieMappable;
+import javafx.application.Application;
 //restful
 @RestController
 @RequestMapping("/movie")
@@ -81,7 +82,8 @@ public class RestMovie_Controller {
 	//영화, 영화관 선택 후 체크
 	@ResponseBody
 	@RequestMapping(value= {"/mv_c_check"}, method = RequestMethod.POST)
-	public ArrayList<HashMap<String, String>> mv_c_check(@RequestParam HashMap<String, String> map){		
+	public ArrayList<HashMap<String, String>> mv_c_check(@RequestParam HashMap<String, String> map){
+		
 		return mm.mv_c_sel(map);
 	}
 	
@@ -107,11 +109,14 @@ public class RestMovie_Controller {
 		int result = 0;
 		int rs = 0;
 		
+		// Application에 값이 있을 경우
 		if(s_list != null) {
 			for(HashMap<String, String> m : s_list) {
 				if(m.get("sd_code").equals(sd_code) && m.get("s_name").equals(s_name) && !m.get("user").equals(user)) {
+					// 스케쥴 코드와 좌석은 같으나 아이디가 다른 경우
 					result = 1;
-				} else if(m.get("sd_code").equals(sd_code) && m.get("s_name").equals(s_name) && m.get("user").equals(user)){					
+				} else if(m.get("sd_code").equals(sd_code) && m.get("s_name").equals(s_name) && m.get("user").equals(user)){
+					// 아이디, 스케쥴 코드, 좌석이 같을 경우
 					rs = 2;
 				} else {
 					list.add(m);
@@ -120,6 +125,7 @@ public class RestMovie_Controller {
 		} 
 		
 		if(result == 0 && s_list != null && rs == 0) {
+			// Application에 값이 있으나 일치하는게 없는경우
 			map.put("user", user);
 			map.put("sd_code", sd_code);
 			map.put("s_name", s_name);
@@ -127,6 +133,7 @@ public class RestMovie_Controller {
 			
 			context.setAttribute("VS", list);
 		} else if(result == 0 && s_list == null && rs == 0) {
+			// Application에 값이 없을 경우
 			map.put("user", user);
 			map.put("sd_code", sd_code);
 			map.put("s_name", s_name);
@@ -134,6 +141,7 @@ public class RestMovie_Controller {
 			
 			context.setAttribute("VS", list);
 		} else if(rs == 2) {
+			// 중복된 아이디에 값이 있을 경우(취소)
 			result = rs;
 			context.setAttribute("VS", list);
 		}

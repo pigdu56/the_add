@@ -590,7 +590,7 @@ dt, dd {
 													<c:forEach var="seat" items="${seat}">
 														<c:if test="${not doneLoop}">
 															<c:if test="${s_name eq seat.S_NAME}">
-																<c:set var="doneLoop" value="true" />.
+																<c:set var="doneLoop" value="true" />
 													</c:if>
 														</c:if>
 													</c:forEach>
@@ -640,7 +640,7 @@ dt, dd {
 													<c:forEach var="seat" items="${seat}">
 														<c:if test="${not doneLoop}">
 															<c:if test="${s_name eq seat.S_NAME}">
-																<c:set var="doneLoop" value="true" />.
+																<c:set var="doneLoop" value="true" />
 													</c:if>
 														</c:if>
 													</c:forEach>
@@ -848,7 +848,8 @@ dt, dd {
 			// table에 있는 체크된 체크박스 
 			checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
 			// 각 인원 수에 대한 가격
-			price = (Number(adult)* ${sd_list['P_PRICE']}) + (Number(young)* (${sd_list['P_PRICE']}-2000)) + (Number(kids)* (${sd_list['P_PRICE']}-4000));
+			price = (Number(adult)* ${sd_list['P_PRICE']}) + (Number(young)* (${sd_list['P_PRICE']}-2000)) 
+				+ (Number(kids)* (${sd_list['P_PRICE']}-4000));
 			$('input[name="r_price"]').val(price);
 			document.getElementById("no").innerHTML=((Number(adult)* ${sd_list['P_PRICE']}));
 			document.getElementById("r_price").innerHTML=price;
@@ -979,9 +980,7 @@ dt, dd {
 		checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
 		
 		if(s_names.indexOf(s_s) != -1){
-
 			s_names.splice(s_names.indexOf("s_s"),1);
-
 			$.ajax({
     			url : "${pageContext.request.contextPath}/movie/multiUser",
 	            type : "post",
@@ -991,10 +990,9 @@ dt, dd {
 	            },                
 	            success : function(data) {
 					console.log(data);
-					if(data == 2){
-						
+					if(data == 2){		// 좌석 취소
 						alert('좌석이 취소 되었습니다.');	
-						if(checkboxBoxes.length == 0){
+						if(checkboxBoxes.length == 0){	// 좌석 취소 후 선택된 좌석이 0개일 경우
 							$("#c_seat").empty();
 							$("#h_inp").empty();
 							$("#c_seat").append("<h3 class='box_title'>좌석선택</h3>");
