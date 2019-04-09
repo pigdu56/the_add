@@ -43,13 +43,12 @@ public class Bus_Api {
       ArrayList<HashMap<String, String>> al = new ArrayList<HashMap<String, String>>();
 
       Calendar ca = Calendar.getInstance(); // 캘린더 사용을 위해 싱글톤 생성
-      SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd"); // sdf라는 컴퓨터의 날짜를 받아와 포맷
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
       String strToday = sdf.format(ca.getTime()); // 받아온 오늘 날짜
       
-      
       // 날짜를 선택 안할 시 에는 컴퓨터에 날짜를 받아오게 만듬
-      depPlandTime = Objects.isNull(depPlandTime) || depPlandTime == "" ? strToday : depPlandTime;
-      String day = depPlandTime; // 편집할 년도+월+일
+      String day = Objects.isNull(depPlandTime) || depPlandTime == "" ? strToday : depPlandTime;
+      
       
       StringBuilder urlBuilder = new StringBuilder(
             "http://openapi.tago.go.kr/openapi/service/ExpBusInfoService/getStrtpntAlocFndExpbusInfo"); /* URL */
@@ -64,8 +63,7 @@ public class Bus_Api {
       urlBuilder.append("&" + URLEncoder.encode("arrTerminalId", "UTF-8") + "="
             + URLEncoder.encode(arrTerminalId, "UTF-8")); /* 도착터미널 */
       urlBuilder.append("&" + URLEncoder.encode("depPlandTime", "UTF-8") + "="
-            + URLEncoder.encode(depPlandTime, "UTF-8")); /* 날짜 */
-      // 버스등급 0일 경우 모든 등급이 나오고, 아닐 경우 그 등급만 나오게 설정
+            + URLEncoder.encode(day, "UTF-8")); /* 날짜 */
 
       URL url;
       url = new URL(urlBuilder.toString());
@@ -96,15 +94,8 @@ public class Bus_Api {
          Document doc = dBuilder.parse(urls);
 
          doc.getDocumentElement().normalize();
-         // System.out.println("Root element : " +
-         // doc.getDocumentElement().getNodeName());
-
          NodeList nlist = doc.getElementsByTagName("item");
          // System.out.println("파싱할 리스트 수:" + nlist.getLength()); //받아온 리스트의 length
-         
-         String searchdephm = null; // 편집할 출발시간 
-         String searcharrhm = null; // 편집할 도착시간
-         
          Node ndoe = null;
          
          for (int i = 0; i < nlist.getLength(); i++) {
@@ -112,8 +103,8 @@ public class Bus_Api {
             if (ndoe.getNodeType() == Node.ELEMENT_NODE) {
                HashMap<String, String> hm = new HashMap<String, String>();
                Element eElement = (Element) ndoe;
-                  searchdephm = (getTagValue("depPlandTime", eElement)).substring(8,12);
-                  searcharrhm = (getTagValue("arrPlandTime", eElement)).substring(8,12);
+                  String searchdephm = (getTagValue("depPlandTime", eElement)).substring(8,12); // 편집할 출발시간
+                  String searcharrhm = (getTagValue("arrPlandTime", eElement)).substring(8,12); // 편집할 도착시간
                         
                   hm.put("day", day);
                   hm.put("depPlaceNm", getTagValue("depPlaceNm", eElement));
