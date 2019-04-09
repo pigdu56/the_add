@@ -53,7 +53,7 @@ public interface AnnoMaps {
 	@Insert("INSERT INTO BUS_BUY VALUES (BUS_BUY_SEQ.NEXTVAL, #{member_num}, #{bus_seq})")
 	public void buyInsert(@Param("member_num") String member_num, @Param("bus_seq") String bus_seq);
 
-	// 예약 시퀀스 가져오기
+	// 예약 번호 가져오기
 	@Select("SELECT BB.B_CODE FROM(SELECT ROWNUM R,B.B_CODE FROM\r\n" + 
 				"(SELECT B_CODE FROM BUS_BUY WHERE M_NUM = #{m_num} AND S_CODE ="
 				+ " #{s_code} ORDER BY B_CODE DESC)B)BB WHERE R=1")
