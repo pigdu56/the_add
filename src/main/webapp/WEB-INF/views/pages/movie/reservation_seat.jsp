@@ -839,24 +839,28 @@ dt, dd {
 		var saveYoungId = "no";
 		var saveKidsId = "no";
 		
+		// 성인 radio 선택 시
 		$('#adult :radio').change(function () {
-			adult = $(':radio[name="adult"]:checked').val();
-			young = $(':radio[name="young"]:checked').val();
-			kids = $(':radio[name="kids"]:checked').val();
-			sum = Number(adult) + Number(young) + Number(kids);
+			adult = $(':radio[name="adult"]:checked').val();	// 성인 인원 수(value)
+			young = $(':radio[name="young"]:checked').val();	// 청소년 인원 수(value)
+			kids = $(':radio[name="kids"]:checked').val();		// 어린이 인원 수(value)
+			sum = Number(adult) + Number(young) + Number(kids);	// 각 인원 수의 합
+			// table에 있는 체크된 체크박스 
 			checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
+			// 각 인원 수에 대한 가격
 			price = (Number(adult)* ${sd_list['P_PRICE']}) + (Number(young)* (${sd_list['P_PRICE']}-2000)) + (Number(kids)* (${sd_list['P_PRICE']}-4000));
 			$('input[name="r_price"]').val(price);
 			document.getElementById("no").innerHTML=((Number(adult)* ${sd_list['P_PRICE']}));
 			document.getElementById("r_price").innerHTML=price;
 			
-			if(sum == 0){
+			// 인원 수의 상태에 따른 좌석의 클릭 상태
+			if(sum == 0){ // 인원 수가 0일 경우 선택 잠금
 				$(':checkbox[name="seat"]').attr("disabled", "disabled");
-			} else {
+			} else {	// 인원 수가 1명 이상 일 경우 잠금 해제
 				$(':checkbox[name="seat"]').removeAttr("disabled");
 			}
-				
-
+			
+			// 인원 수보다 좌석 선택 수가 초과 방지
 			if(checkboxBoxes.length > sum){			
 				alert('좌석이 초과 되었습니다');
 				console.log($("#adult").find("input").length);
@@ -869,17 +873,14 @@ dt, dd {
 				} 	
 			}
 			
+			// 인원 수와 좌석 선택 수가 같거나 0명이 아닐 경우만 결제창 이동 버튼 잠금 해제
 			if(checkboxBoxes.length == sum && sum != 0){
 				$("#go_pay").attr('disabled', false);
 			} else {
 				$("#go_pay").attr('disabled', true);
 			}
 			
-			price = (Number(adult)* ${sd_list['P_PRICE']}) + (Number(young)* ${sd_list['P_PRICE']}) + (Number(kids)* ${sd_list['P_PRICE']});
-			$('input[name="r_price"]').val(price);
-			
 			saveAdultId = $(this).attr("id");
-
 		});
 		
 		$('#young :radio').change(function(){
@@ -978,8 +979,9 @@ dt, dd {
 		checkboxBoxes = $('table').parent().find(':checkbox[name="seat"]:checked');
 		
 		if(s_names.indexOf(s_s) != -1){
-			
+
 			s_names.splice(s_names.indexOf("s_s"),1);
+
 			$.ajax({
     			url : "${pageContext.request.contextPath}/movie/multiUser",
 	            type : "post",
@@ -990,6 +992,7 @@ dt, dd {
 	            success : function(data) {
 					console.log(data);
 					if(data == 2){
+						
 						alert('좌석이 취소 되었습니다.');	
 						if(checkboxBoxes.length == 0){
 							$("#c_seat").empty();
@@ -999,10 +1002,15 @@ dt, dd {
 							$("#c_seat").empty();
 							$("#h_inp").empty();
 							$("#c_seat").append("<h5 class='pay' style='font-size: 18px; text-align: center;'> 좌 &nbsp; 석 ");
+							for(i = 0; i < s_names.length; i++){
+								alert(s_names[i]);
+								$("#h_inp").append("<input type='hidden' name='s_name"+ s_names[i] +"' value='"+ s_names[i] +"' />");
+							}
+							
 							$("#c_seat").append("<span>"+ s_names + " </span>");
 							$("#c_seat").append("</h5>");
 						}
-						$("#h_inp").removeAttr("<input type='hidden' name='s_name"+ s_s +"' value='"+ s_s +"' />");
+						
 						$("#go_pay").empty();
 						$("#go_pay").attr('disabled', true);
 						$("#go_pay").append("<img class='btn-img' src='${pageContext.request.contextPath}/static/img/movie/right_pay.png'>");
