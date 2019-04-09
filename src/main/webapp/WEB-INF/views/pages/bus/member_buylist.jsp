@@ -24,7 +24,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
+
+<style>
+.footer{
+position:absolute;
+bottom:0%;
+}
+</style>
+
 <body>
+<div class="container">
    <p class="text-center" style="font-size: 40px;">예매 내역</p>
    <br><br>
    <c:url value="/bus/buy_view" var="buy_view"/>
@@ -56,5 +65,5 @@
       </tr>
       </c:forEach>
    </table>
+   </div>
 </body>
-</html>
